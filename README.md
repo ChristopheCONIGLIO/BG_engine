@@ -18,14 +18,23 @@ Caractéristiques
 ----------------
 
 Les caractéristiques du moteur sont les suivantes :
+
 •	Aucune dépendance (basé sur balise canvas), fonctionne directement en local
+
 •	Gestion des scripts du jeu simplifié via deux fonctions « EnterFrame » et « DrawObject », pas d’autres fonction à implémenter
+
 •	Chargement et déchargement d’objet simplifié
+
 •	Disposition de forme basique clé en main
+
 •	Affichage intelligent des formes tracées sur l’écran afin d’optimiser les temps de calcul
+
 •	Gestion des évènement souris
+
 •	Gestion automatique du rendu et rendu graphique (choisir le nombre de FPS)
+
 •	Gestion automatique des couches d’affichage (choisir le nombre de couche)
+
 
 TODO List
 ---------
