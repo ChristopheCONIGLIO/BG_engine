@@ -43,8 +43,9 @@ Les caractéristiques du moteur sont les suivantes :
 TODO List
 ---------
    
-    1a--  Ajout des objes fixes
-    1b --  Les BASIC object :
+    1a--  Ajout des objets fixes
+    1b--  Ajout d'une couleur de fond
+    1c --  Les BASIC object :
         - text
         - line
         ne gèrent pas l'affichage intelligent sur l'écran
