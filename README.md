@@ -8,7 +8,7 @@ Si besoin, contact <christophe.coniglio@gmail.com>
 Description
 -----------
 
-Je propose un moteur de jeu 2d basé uniquement sur du Javascript sans bibliothèque externe inspiré du défunt moteur Flash
+Je propose un moteur de jeu 2D basé uniquement sur du Javascript sans bibliothèque externe. L'architecture est inspiré du "défunt" moteur Flash
 
 L’idée est de proposer un outil facile de prise en main afin d'aboutir rapidement sur un jeu 
 mais puissant dans sa conception et son optimisation
@@ -18,7 +18,7 @@ Pour tester exporter le code sur votre machine et lancer le fichier index.html v
 Caractéristiques
 ----------------
 
-Les caractéristiques du moteur sont les suivantes :
+Les caractéristiques du moteur 2D sont les suivantes :
 
 •	Pensé pour afficher une carte en vue de dessus, gere le zoom et le drag and drop automatiquement
 
