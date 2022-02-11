@@ -20,6 +20,8 @@ Caractéristiques
 
 Les caractéristiques du moteur sont les suivantes :
 
+•	Pensé pour afficher une carte en vue de dessus, gere le zoom et le drag and drop automatiquement
+
 •	Aucune dépendance (basé sur balise canvas), fonctionne directement en local
 
 •	Gestion des scripts du jeu simplifié via deux fonctions « EnterFrame » et « DrawObject », pas d’autres fonction à implémenter
@@ -41,7 +43,8 @@ Les caractéristiques du moteur sont les suivantes :
 TODO List
 ---------
    
-    1 --  Les BASIC object :
+    1a--  Ajout des objes fixes
+    1b --  Les BASIC object :
         - text
         - line
         ne gèrent pas l'affichage intelligent sur l'écran
