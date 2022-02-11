@@ -24,9 +24,9 @@ Les caractéristiques du moteur sont les suivantes :
 
 •	Gestion des scripts du jeu simplifié via deux fonctions « EnterFrame » et « DrawObject », pas d’autres fonction à implémenter
 
-•	Chargement et déchargement d’objet simplifié
+•	Chargement et déchargement d’objet simplifiés
 
-•	Disposition de forme basique clé en main
+•	Disposition de formes basiques (rond rectangle,...) et de formats d'image (png,jpeg,...) clé en main
 
 •	Affichage intelligent des formes tracées sur l’écran afin d’optimiser les temps de calcul
 
