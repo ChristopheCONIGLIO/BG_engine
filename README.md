@@ -3,7 +3,7 @@ Auteur
 Christophe CONIGLIO
 (License creative common, projet pour le fun, aucun retour attendu)
 
-Si besoin, contact <christophe.coniglio@gmail.com>
+Si besoin ou des bug à remonter, contact <christophe.coniglio@gmail.com> 
 
 Description
 -----------
