@@ -45,6 +45,7 @@ TODO List
    
     0a -- URGENT: Ajouter la fonction "setDim" dans la classe object de base
     0b -- URGENT: Ajouter la fonction "setRotation" dans la classe "drawImage"
+    0c -- URGENT: Ajouter la fonction "getDim" pour la classe "drawText"
     1a--  Ajout des objets fixes
     1b--  Ajout d'une couleur de fond
     1c --  Les BASIC object :
