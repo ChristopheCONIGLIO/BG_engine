@@ -34,9 +34,9 @@ Les caractéristiques du moteur sont les suivantes :
 
 •	Gestion des évènement souris
 
-•	Gestion automatique du rendu et rendu graphique (choisir le nombre de FPS)
+•	Gestion automatique et rendu graphique et des temps morts (choisir uniquement le taux de rafraichissement <FPS> le moteur s'occupe du reste)
 
-•	Gestion automatique des couches d’affichage (choisir le nombre de couche)
+•	Gestion automatique des couches d’affichage (choisir le nombre de couche le moteur so'ccupe du reste)
 
 
 
