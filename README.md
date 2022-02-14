@@ -1,6 +1,8 @@
+v1.001
+
 Projet
 ------
-Le projet constitue une solution pour développer rapidement des solutions graphiques nécessitant de gérer le zoom et le drag and drop sur des images. Par exemple la gestion d’une carte comme google map ou la réalisation d’un Dashboard. Le moteur interne propose aussi la gestion simplifier d’animation d’objet graphique
+[B]ack[G]ground_engine constitue une solution pour développer rapidement des solutions graphiques nécessitant de gérer le zoom et le drag and drop sur des images. Par exemple la gestion d’une carte comme google map ou la réalisation d’un Dashboard. Le moteur interne propose aussi la gestion simplifier d’animation d’objet graphique
 
 Auteur
 ------
