@@ -7,10 +7,10 @@ BackGround engine (nommé [B]ack[G]ground_engine - BG_engine),
 constitue une application pour développer rapidement des solutions graphiques nécessitant de gérer le zoom et le drag and drop sur des images. 
 Par exemple la gestion d’une carte comme google map ou la réalisation d’un Dashboard. Le moteur interne propose aussi la gestion simplifié d’animation d’objet graphique.
 
-Auteur
-------
+Auteur et License
+-----------------
 Christophe CONIGLIO
-(License creative common, le code est libre d'accès copie , modif sans aucun retour attendu)
+(License BSD, le code est libre d'accès copie, modif,... sans aucun retour attendu)
 
 Si questions ou bugs à remonter, contact <christophe.coniglio@gmail.com> 
 
