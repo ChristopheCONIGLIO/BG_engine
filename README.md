@@ -3,6 +3,7 @@ v1.001
 Projet
 ------
 BackGround engine (nommé [B]ack[G]ground_engine - BG_engine),
+
 constitue une application pour développer rapidement des solutions graphiques nécessitant de gérer le zoom et le drag and drop sur des images. 
 Par exemple la gestion d’une carte comme google map ou la réalisation d’un Dashboard. Le moteur interne propose aussi la gestion simplifié d’animation d’objet graphique.
 
