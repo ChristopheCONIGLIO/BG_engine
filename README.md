@@ -1,7 +1,11 @@
+Projet
+------
+Le projet constitue une solution pour développer rapidement des solutions graphiques nécessitant de gérer le zoom et le drag and drop sur des images. Par exemple la gestion d’une carte comme google map ou la réalisation d’un Dashboard. Le moteur interne propose aussi la gestion simplifier d’animation d’objet graphique
+
 Auteur
 ------
 Christophe CONIGLIO
-(License creative common, projet pour le fun, aucun retour attendu)
+(License creative common, le code est libre d'accès copie , modif sans aucun retour attendu)
 
 Si questions ou bugs à remonter, contact <christophe.coniglio@gmail.com> 
 
