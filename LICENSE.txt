@@ -1,3 +1,6 @@
+BSD 3-Clause "New" or "Revised" License
+A permissive license similar to the BSD 2-Clause License, but with a 3rd clause that prohibits others from using the name of the project or its contributors to promote derived products without written consent.
+
 Copyright (c) 2009-Present, University of Manchester and HITS gGmbH
 All rights reserved.
 
