@@ -10,7 +10,7 @@ class BG_text extends BG_coreObjectBasic{
 	drawObj(decX,decY,zoom){
 		// !!!  pas de gestion de présence ou pas sur l'écran à faire //
 		
-		this.p_ctx.globalAlpha = this.p_ctx.globalAlpha = this.alpha;
+		this.p_ctx.globalAlpha = this.alpha;
 		this.p_ctx.beginPath();
 		this.p_ctx.font = (zoom*this.p_size) +"px "+this.font;
 		this.p_ctx.fillStyle = this.p_color;
