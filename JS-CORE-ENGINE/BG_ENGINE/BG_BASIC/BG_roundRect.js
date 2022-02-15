@@ -35,7 +35,7 @@ class BG_roundRect extends BG_coreObjectBasic{
 		  radius[side] = radius[side] || defaultRadius[side];
 		}
 		}
-		this.p_ctx.globalAlpha = this.p_ctx.globalAlpha = this.alpha;
+		this.p_ctx.globalAlpha = this.alpha;
 		this.p_ctx.fillStyle = color;
 		this.p_ctx.beginPath();
 		this.p_ctx.moveTo(x + radius.tl, y);
