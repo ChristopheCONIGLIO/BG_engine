@@ -15,7 +15,7 @@ class BG_line extends BG_coreObjectBasic{
 	}
 	
 	drawLine(p1X,p1Y,p2X,p2Y,color) {
-		this.p_ctx.globalAlpha = this.p_ctx.globalAlpha = this.alpha;
+		this.p_ctx.globalAlpha = this.alpha;
 		this.p_ctx.beginPath();
 		this.p_ctx.moveTo(p1X,p1Y);
 		this.p_ctx.lineTo(p2X,p2Y);
