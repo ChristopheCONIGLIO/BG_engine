@@ -21,4 +21,11 @@ class BG_coreObjectBasic {
 		this.p_pX = pX;
 		this.p_pY = pY;
 	}
+
+	setAlpha(value){
+		this.alpha = value;
+		if( value < 0) value = 0;
+		if( value > 1) value = 1;
+	}
+
 }

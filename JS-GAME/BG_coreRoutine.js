@@ -23,7 +23,7 @@ class BG_coreRoutine {
 
 
 		// ajoute 10000 objet mouvant
-		for(var j = 0;j < 10000;j++){
+		for(var j = 0;j < 2000;j++){
 			var obj = new BG_DEMO_charMouvant(this.bg_g_stat,this.bg_g_context,this.bg_g_listObj,this.bg_g_listObjUnload);
 			this.bg_g_listObj[1].push( obj );
 		}
@@ -58,7 +58,7 @@ class BG_coreRoutine {
 
 		// si les objet mouvant ne sot plus la on en rajoute d'un coup
 		if( this.bg_g_listObj[1].length < 10 && Math.random()>0.95){
-			for(var j = 0;j < 10000;j++){
+			for(var j = 0;j < 2000;j++){
 				var obj = new BG_DEMO_charMouvant(this.bg_g_stat,this.bg_g_context,this.bg_g_listObj,this.bg_g_listObjUnload);
 				this.bg_g_listObj[1].push( obj );
 			}

@@ -17,8 +17,10 @@ class BG_drawImage extends BG_coreObjectBasic{
 		if( px + pSX < 0)		return;
 		if( py + pSY < 0)		return;
 
+		this.p_ctx.globalAlpha = this.alpha;
 		this.p_ctx.drawImage(this.img, decX+this.p_pX*zoom,decY+this.p_pY*zoom,this.p_sX*zoom,this.p_sY*zoom);
 		this.stat.setRenderEngineObject( this.stat.getRenderEngineObject() + 1 );
+		this.p_ctx.globalAlpha = 1;
 	}
 
 }

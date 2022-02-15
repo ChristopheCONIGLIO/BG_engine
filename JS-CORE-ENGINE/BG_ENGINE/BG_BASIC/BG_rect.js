@@ -14,15 +14,17 @@ class BG_rect extends BG_coreObjectBasic{
 		if( px + pSX < 0)		return;
 		if( py + pSY < 0)		return;
 		
-		this.drawRect(this.p_ctx,decX+this.p_pX*zoom,decY+this.p_pY*zoom,this.p_sX*zoom,this.p_sY*zoom,this.p_color);
+		this.drawRect(decX+this.p_pX*zoom,decY+this.p_pY*zoom,this.p_sX*zoom,this.p_sY*zoom,this.p_color);
 		this.stat.setRenderEngineObject( this.stat.getRenderEngineObject() + 1 );
 	}
 	
-	drawRect(context, x, y, width, height ,color) {
-		context.beginPath();
-		context.rect(x,y ,width,height);
-		context.fillStyle = color;
-		context.fill(); 
+	drawRect(x, y, width, height ,color) {
+		this.p_ctx.globalAlpha = this.p_ctx.globalAlpha = this.alpha;
+		this.p_ctx.beginPath();
+		this.p_ctx.rect(x,y ,width,height);
+		this.p_ctx.fillStyle = color;
+		this.p_ctx.fill(); 
+		this.p_ctx.globalAlpha = 1;
 	}
 	
 		

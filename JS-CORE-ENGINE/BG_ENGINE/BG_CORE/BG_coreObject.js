@@ -3,7 +3,10 @@ class BG_coreObject {
 		this.listObj 		= listObj;
 		this.listObjUnload 	= listObjUnload;
 		this.stat 			= stat;
-		this.context 		= context;		
+		this.context 		= context;
+		
+		//attribut local spécifique
+		this.alpha			= 1;
 	}
 	
 	
@@ -12,4 +15,5 @@ class BG_coreObject {
 	
 	enterFrame(){
 	}
+
 }

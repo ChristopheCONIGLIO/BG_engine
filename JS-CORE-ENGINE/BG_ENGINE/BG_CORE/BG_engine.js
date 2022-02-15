@@ -1,26 +1,27 @@
 class BG_engine{
 	//----------------------------------
 
-	constructor() {
+	constructor(elmentHTML,nombreDeLayer,nombreDeFPS) {
+		
 		//-----------------------------------------------------------------------------------//
 		//-----------------------------------------------------------------------------------//
 		// basic variable scene
 		//-----------------------------------------------------------------------------------//
 		//-----------------------------------------------------------------------------------//
-		this.g_canvasDoc = document.getElementById("mon_canvas");    
+		this.g_canvasDoc = document.getElementById(elmentHTML);    
 		this.bg_g_context = this.g_canvasDoc.getContext("2d");
 		this.bg_g_context.canvas.width  = window.innerWidth;
 		this.bg_g_context.canvas.height = window.innerHeight;
 		this.bg_g_width = this.g_canvasDoc.width;
 		this.bg_g_height = this.g_canvasDoc.height;
-		this.bg_g_nbLayer = 10;
+		this.bg_g_nbLayer = nombreDeLayer;
 		this.bg_g_listObj = new Array(this.bg_g_nbLayer);
 		for(var k = 0 ; k < this.bg_g_nbLayer ; k++){
 			this.bg_g_listObj[k] = new Array();
 		}
 		this.bg_g_listObjUnload = new Array();
 		this.bg_g_stat = new BG_coreStatistique();
-		this.bg_g_targetFps = 35;
+		this.bg_g_targetFps = nombreDeFPS;
 
 		//-----------------------------------------------------------------------------------//
 		//-----------------------------------------------------------------------------------//

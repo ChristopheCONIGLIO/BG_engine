@@ -10,17 +10,19 @@ class BG_line extends BG_coreObjectBasic{
 	drawObj(decX,decY,zoom){
 		// !!!  pas de gestion de présence ou pas sur l'écran à faire //
 		
-		this.drawLine(this.p_ctx,decX+this.p1X*zoom,decY+this.p1Y*zoom,decX+this.p2X*zoom,decY+this.p2Y*zoom,this.p_color);
+		this.drawLine(decX+this.p1X*zoom,decY+this.p1Y*zoom,decX+this.p2X*zoom,decY+this.p2Y*zoom,this.p_color);
 		this.stat.setRenderEngineObject( this.stat.getRenderEngineObject() + 1 );
 	}
 	
-	drawLine(context, p1X,p1Y,p2X,p2Y,color) {
-		context.beginPath();
-		context.moveTo(p1X,p1Y);
-		context.lineTo(p2X,p2Y);
-		context.lineWidth = 1;
-     	context.strokeStyle = color;
-		context.stroke();
+	drawLine(p1X,p1Y,p2X,p2Y,color) {
+		this.p_ctx.globalAlpha = this.p_ctx.globalAlpha = this.alpha;
+		this.p_ctx.beginPath();
+		this.p_ctx.moveTo(p1X,p1Y);
+		this.p_ctx.lineTo(p2X,p2Y);
+		this.p_ctx.lineWidth = 1;
+		this.p_ctx.strokeStyle = color;
+		this.p_ctx.stroke();
+		this.p_ctx.globalAlpha = 1;
 	}
 	
 		

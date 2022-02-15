@@ -21,7 +21,7 @@ class BG_DEMO_charMouvant extends BG_coreObject{
 				this.imageChar = new BG_circle(stat,context,0,0,50,colorHandler.rgb(Math.random()*255,Math.random()*255,Math.random()*255)); 
 			}
 		}	
-			         
+		this.imageChar.setAlpha(Math.random());      
 		
 	}
 	
