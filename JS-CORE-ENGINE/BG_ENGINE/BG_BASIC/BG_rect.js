@@ -19,7 +19,7 @@ class BG_rect extends BG_coreObjectBasic{
 	}
 	
 	drawRect(x, y, width, height ,color) {
-		this.p_ctx.globalAlpha = this.p_ctx.globalAlpha = this.alpha;
+		this.p_ctx.globalAlpha = this.alpha;
 		this.p_ctx.beginPath();
 		this.p_ctx.rect(x,y ,width,height);
 		this.p_ctx.fillStyle = color;
