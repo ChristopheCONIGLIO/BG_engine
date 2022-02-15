@@ -56,6 +56,7 @@ TODO List
     0b -- Ajouter la fonction "setRotation" dans la classe "drawImage"
     0c -- Ajouter la fonction "getDim" pour la classe "drawText"
     0d -- Ajouter des limites de déplacement max sur la partie drag and drop   
+    0e -- Ajouter setAlpah sur la classe drawImage
     1a--  Ajout des objets fixes
     1b--  Ajout d'une couleur de fond
     1c --  Les BASIC object :
