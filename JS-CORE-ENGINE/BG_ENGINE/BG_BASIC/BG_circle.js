@@ -18,7 +18,7 @@ class BG_circle extends BG_coreObjectBasic{
 	}
 	
 	drawCircle(x, y, size ,color) {
-		this.p_ctx.globalAlpha = this.p_ctx.globalAlpha = this.alpha;
+		this.p_ctx.globalAlpha = this.alpha;
 		this.p_ctx.beginPath();
 		this.p_ctx.arc(x, y, size/2, 0, 2*Math.PI, 0);
 		this.p_ctx.fillStyle = color;
