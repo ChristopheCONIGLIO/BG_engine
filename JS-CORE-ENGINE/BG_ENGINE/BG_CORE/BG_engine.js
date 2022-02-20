@@ -86,7 +86,7 @@ class BG_engine{
 					}
 				}
 			}
-			if( index != 1 && layer != -1){
+			if( index != -1 && layer != -1){
 				this.bg_g_listObj[layer].splice(index, 1);
 
 			}
