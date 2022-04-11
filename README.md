@@ -1,4 +1,4 @@
-v1.002
+v1.003
 
 Projet
 ------
@@ -50,18 +50,25 @@ Les caractéristiques du moteur 2D sont les suivantes :
 
 Nouvelles fonctionnalités
 -------------------------
-    
+
+    11/04/2022 - v1.003
+    -------------------
+    11/04/2022 -- Ajout de setDim sur tous les objets
+    11/04/2022 -- Ajout de setVisible sur tous les objets
+    11/04/2022 -- Ajout de setRotation sur tous les objets
+    11/04/2022 -- Ajout d'une fonction permettant de récupérer la taille d'un texte avec l'bjet text 
+   
+    15/02/2022 - v1.002
+    -------------------
     15/02/2022 -- Ajout de la transparence sur les objet BASIC avec la fonction setAlpha
-    15/02/2022 -- Ajout des paramètre elementHTML, nombre de couche et nombre de FPs dans l'appel principal du moteur
+    15/02/2022 -- Ajout des paramètre elementHTML, nombre de couche et nombre de FPS dans l'appel principal du moteur
+   
 
 
 TODO List
 ---------
    
-    0a -- Ajouter la fonction "setDim" dans la classe object de base
-    0b -- Ajouter la fonction "setRotation" dans la classe "drawImage"
-    0c -- Ajouter la fonction "getDim" pour la classe "drawText"
-    0d -- Ajouter des limites de déplacement max sur la partie drag and drop
+    0d -- Ajouter des limites de déplacement max sur la partie drag and drop et zoom
     1a--  Ajout des objets fixes
     1b--  Ajout d'une couleur de fond
     1c --  Les BASIC object :
@@ -70,5 +77,5 @@ TODO List
         ne gèrent pas l'affichage intelligent sur l'écran
     2 --  Les évènements souris et leurs variables ne sont pas encore supporté en langage objet
     3 -- Doc à créer
-    4 -- qualité code à réaliser
+    4 -- Qualité code à réaliser commentaire et passer sur les import 
 

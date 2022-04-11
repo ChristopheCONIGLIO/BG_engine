@@ -4,9 +4,6 @@ class BG_coreObject {
 		this.listObjUnload 	= listObjUnload;
 		this.stat 			= stat;
 		this.context 		= context;
-		
-		//attribut local spécifique
-		this.alpha			= 1;
 	}
 	
 	

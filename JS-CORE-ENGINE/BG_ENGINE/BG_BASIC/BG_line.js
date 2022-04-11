@@ -1,10 +1,16 @@
+/*
+	=BG_engine=
+	Author Christophe CONIGLIO Mars/2022
+*/
+
 class BG_line extends BG_coreObjectBasic{
-	constructor(stat,context,p1X,p1Y,p2X,p2Y,color) {
+	constructor(stat,context,p1X,p1Y,p2X,p2Y,thickness,color) {
 		super(stat,context,p1X,p1Y,p2X,p2Y,color);
 		this.p1X		= p1X;
 		this.p1Y		= p1Y;
 		this.p2X		= p2X;
 		this.p2Y		= p2Y;
+		this.thickness	= thickness;
 	}
 	
 	drawObj(decX,decY,zoom){
@@ -14,6 +20,18 @@ class BG_line extends BG_coreObjectBasic{
 		this.stat.setRenderEngineObject( this.stat.getRenderEngineObject() + 1 );
 	}
 	
+
+
+	setThickness(arg){
+		this.thickness = arg;
+	}
+
+	/* 
+		
+		local function
+
+	*/
+
 	drawLine(p1X,p1Y,p2X,p2Y,color) {
 		this.p_ctx.globalAlpha = this.alpha;
 		this.p_ctx.beginPath();
