@@ -30,21 +30,13 @@ Caractéristiques
 Les caractéristiques du moteur 2D sont les suivantes :
 
 •	Pensé pour afficher une carte en vue de dessus, gere le zoom et le drag and drop automatiquement
-
 •	Aucune dépendance (basé sur balise canvas), fonctionne directement en local
-
 •	Gestion des scripts du jeu simplifié via deux fonctions « EnterFrame » et « DrawObject », pas d’autres fonction à implémenter
-
 •	Chargement et déchargement d’objet simplifiés
-
 •	Disposition de formes basiques (rond rectangle,...) et de formats d'image (png,jpeg,...) clé en main
-
 •	Affichage intelligent des formes tracées sur l’écran afin d’optimiser les temps de calcul
-
 •	Gestion des évènement souris
-
 •	Gestion automatique et rendu graphique et des temps morts (choisir uniquement le taux de rafraichissement <FPS> le moteur s'occupe du reste)
-
 •	Gestion automatique des couches d’affichage (choisir le nombre de couche le moteur so'ccupe du reste)
 
 
@@ -60,7 +52,7 @@ Nouvelles fonctionnalités
    
     15/02/2022 - v1.002
     -------------------
-    15/02/2022 -- Ajout de la transparence sur les objet BASIC avec la fonction setAlpha
+    15/02/2022 -- Ajout de la transparence sur les objets avec la fonction setAlpha
     15/02/2022 -- Ajout des paramètre elementHTML, nombre de couche et nombre de FPS dans l'appel principal du moteur
    
 
