@@ -4,8 +4,8 @@
 */
 
 class BG_drawImage extends BG_coreObjectBasic{
-	constructor(stat,context,pX,pY,sX,sY,urlImage) {
-		super(stat,context,pX,pY,sX,sY,0);
+	constructor(bg,onBoard,pX,pY,sX,sY,urlImage) {
+		super(bg,onBoard,pX,pY,sX,sY,0);
 
 		this.img = document.createElement("img");
 		this.img.src = urlImage;
@@ -14,37 +14,69 @@ class BG_drawImage extends BG_coreObjectBasic{
 	drawObj(decX,decY,zoom){
 		if( this.visible == true){
 			
-			
-			let px = decX+this.p_pX*zoom;
-			let py = decY+this.p_pY*zoom;
-			let pSX = this.p_sX*zoom;
-			let pSY = this.p_sY*zoom;
-			if( px-pSX > this.stat.getScreenWidth())	return;
-			if( py-pSY > this.stat.getScreenHeight())	return;
-			if( px + pSX < 0)		return;
-			if( py + pSY < 0)		return;
+			if( this.p_onBoard == true){
+				let px = decX+this.p_pX*zoom;
+				let py = decY+this.p_pY*zoom;
+				let pSX = this.p_sX*zoom;
+				let pSY = this.p_sY*zoom;
+				if( px-pSX > this.stat.getScreenWidth())	return;
+				if( py-pSY > this.stat.getScreenHeight())	return;
+				if( px + pSX < 0)		return;
+				if( py + pSY < 0)		return;
 
+				this.drawImage(px,py,pSX,pSY);
 
-			var x = decX+this.p_pX*zoom;
-			var y = decY+this.p_pY*zoom;
-			var width = this.p_sX*zoom;
-			var height = this.p_sY*zoom;
+			} else{
+				let px = this.p_pX;
+				let py = this.p_pY;
+				let pSX = this.p_sX;
+				let pSY = this.p_sY;
+				if( px-pSX > this.stat.getScreenWidth())	return;
+				if( py-pSY > this.stat.getScreenHeight())	return;
+				if( px + pSX < 0)		return;
+				if( py + pSY < 0)		return;
 
-			if( this.rotation != 0){
-				this.p_ctx.translate(x+width/2,y+height/2);
-				this.p_ctx.rotate(this.rotation * Math.PI / 180);
-				this.p_ctx.translate(-x-width/2,-y-height/2);
-			}
-
-			this.p_ctx.globalAlpha = this.alpha;
-			this.p_ctx.drawImage(this.img, x,y,width,height);
-			this.stat.setRenderEngineObject( this.stat.getRenderEngineObject() + 1 );
-			this.p_ctx.globalAlpha = 1;
-			
-			if( this.rotation != 0){
-				this.p_ctx.setTransform(1, 0, 0, 1, 0, 0);
+				this.drawImage(px,py,pSX,pSY);
 			}
 		}
 	}
+
+
+	/* 
+
+		public function
+
+	*/
+	setPos(pX,pY){
+		this.p_pX = pX;
+		this.p_pY = pY;
+	}
+	setDim(sX,sY){
+		this.p_sX = sX;
+		this.p_sY = sY;
+	}
+	
+	/* 
+		
+		local function
+
+	*/
+	drawImage(x,y,width,height){
+		if( this.rotation != 0){
+			this.p_ctx.translate(x+width/2,y+height/2);
+			this.p_ctx.rotate(this.rotation * Math.PI / 180);
+			this.p_ctx.translate(-x-width/2,-y-height/2);
+		}
+
+		this.p_ctx.globalAlpha = this.alpha;
+		this.p_ctx.drawImage(this.img, x,y,width,height);
+		this.stat.setRenderEngineObject( this.stat.getRenderEngineObject() + 1 );
+		this.p_ctx.globalAlpha = 1;
+		
+		if( this.rotation != 0){
+			this.p_ctx.setTransform(1, 0, 0, 1, 0, 0);
+		}
+	}
+
 
 }

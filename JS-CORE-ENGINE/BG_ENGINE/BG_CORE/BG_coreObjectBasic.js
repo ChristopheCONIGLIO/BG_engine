@@ -1,7 +1,8 @@
 class BG_coreObjectBasic {
-	constructor(stat,context,pX,pY,sX,sY,color) {
-		this.stat		= stat;
-		this.p_ctx		= context;
+	constructor(bg,onBoard,pX,pY,sX,sY,color) {
+		this.stat		= bg.bg_g_stat;
+		this.p_ctx		= bg.bg_g_context;
+		this.p_onBoard	= onBoard;
 		this.p_sX 		= sX;
 		this.p_sY		= sY;
 		this.p_pX		= pX;
@@ -22,21 +23,9 @@ class BG_coreObjectBasic {
 	}
 	
 	
-	setPos(pX,pY){
-		this.p_pX = pX;
-		this.p_pY = pY;
+	setColor(color){
+		this.p_color 	= color; 
 	}
-	setDim(sX,sY){
-		this.p_sX = sX;
-		this.p_sY = sY;
-	}
-	setDimX(sX){
-		this.p_sX = sX;
-	}
-	setDimY(sY){
-		this.p_sY = sY;
-	}
-
 	setAlpha(value){
 		this.alpha = value;
 		if( value < 0) value = 0;

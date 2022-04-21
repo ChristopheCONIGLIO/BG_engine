@@ -13,6 +13,7 @@ class BG_coreStatistique {
 		this.bg_g_mouseXBoard = 0;				// position souris sur la board (x)
 		this.bg_g_mouseYBoard = 0;				// position souris sur la board (y)
 		this.bg_g_mouseClick = 0;				//permet de savoir si un click et présent 
+		this.bg_g_mouseDown = 0;				//permet de savoir si le bouton est enfoncé ou pas 
 	}
 	
 	
@@ -96,6 +97,12 @@ class BG_coreStatistique {
 	}
 	setMouseClick(value){
 		this.bg_g_mouseClick = value;
+	}
+	getMouseDown(){
+		return this.bg_g_mouseDown;
+	}
+	setMouseDown(value){
+		this.bg_g_mouseDown = value;
 	}
 }
 

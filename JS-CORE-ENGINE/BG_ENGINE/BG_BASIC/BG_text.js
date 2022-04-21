@@ -4,8 +4,8 @@
 */
 
 class BG_text extends BG_coreObjectBasic{
-	constructor(stat,context,pX,pY,size,color) {
-		super(stat,context,pX,pY,0,0,color);
+	constructor(bg,onBoard,pX,pY,size,color) {
+		super(bg,onBoard,pX,pY,0,0,color);
 		
 		this.p_size = size;
 		this.font = "Arial";
@@ -14,38 +14,45 @@ class BG_text extends BG_coreObjectBasic{
 	}
 	
 	drawObj(decX,decY,zoom){
-		// !!!  pas de gestion de présence ou pas sur l'écran à faire //
-		
 		if( this.visible == true){
 
-			var x = decX+this.p_pX*zoom;
-			var y = (zoom*this.p_size) + decY+this.p_pY*zoom;
-			var width = this.getWidthText(zoom);
-			var height = (zoom*this.p_size)*0.0;
+			if( this.p_onBoard == true){
+				var px = decX+this.p_pX*zoom;
+				var py = (zoom*this.p_size) + decY+this.p_pY*zoom;
+				var pSX = this.getWidthText(zoom);
+				var pSY = zoom*this.p_size;
 
-			if( this.rotation != 0){
-				this.p_ctx.translate(x+width/2,y+height/2);
-				this.p_ctx.rotate(this.rotation * Math.PI / 180);
-				this.p_ctx.translate(-x-width/2,-y-height/2);
+				if( px-pSX > this.stat.getScreenWidth())	return;
+				if( py-pSY > this.stat.getScreenHeight())	return;
+				if( px + pSX < 0)		return;
+				if( py + pSY < 0)		return;
+
+				this.drawText(px,py,pSX,pSY,zoom);		
 			}
-
-			this.p_ctx.globalAlpha = this.alpha;
-			this.p_ctx.beginPath();
-			this.p_ctx.font = (zoom*this.p_size) +"px "+this.font;
-			this.p_ctx.fillStyle = this.p_color;
-			this.p_ctx.fillText(this.text,x,y);
-			
-			this.p_ctx.fill(); 
-			this.stat.setRenderEngineObject( this.stat.getRenderEngineObject() + 1 );
-			this.p_ctx.globalAlpha = 1;
-
-			if( this.rotation != 0){
-				this.p_ctx.setTransform(1, 0, 0, 1, 0, 0);
+			else{
+				var px = this.p_pX;
+				var py = this.p_size + this.p_pY;
+				var pSX = this.getWidthText(1.0);
+				var pSY = this.p_size;
+				
+				if( px-pSX > this.stat.getScreenWidth())	return;
+				if( py-pSY > this.stat.getScreenHeight())	return;
+				if( px + pSX < 0)		return;
+				if( py + pSY < 0)		return;
+				
+				this.drawText(px,py,pSX,pSY,1.0);		
 			}
-		
 		}
 	}
 	
+	/* 
+		fonctions public
+	*/
+	setPos(pX,pY){
+		this.p_pX = pX;
+		this.p_pY = pY;
+	}
+
 	setDim(arg){
 		this.p_size = arg;
 	}
@@ -61,5 +68,35 @@ class BG_text extends BG_coreObjectBasic{
 		return this.p_ctx.measureText(this.text).width;
 	}
  	//----------------------------------
+	
+	 
+	/* 
+		locales functions 
+	*/
+	drawText(x,y,width,height,zoom){
+		if( this.rotation != 0){
+			this.p_ctx.translate(x+width/2,y+height/2);
+			this.p_ctx.rotate(this.rotation * Math.PI / 180);
+			this.p_ctx.translate(-x-width/2,-y-height/2);
+		}
+
+		this.p_ctx.globalAlpha = this.alpha;
+		this.p_ctx.beginPath();
+		this.p_ctx.font = (zoom*this.p_size) +"px "+this.font;
+		this.p_ctx.fillStyle = this.p_color;
+		this.p_ctx.fillText(this.text,x,y);
 		
+		this.p_ctx.fill(); 
+		this.stat.setRenderEngineObject( this.stat.getRenderEngineObject() + 1 );
+		this.p_ctx.globalAlpha = 1;
+
+		if( this.rotation != 0){
+			this.p_ctx.setTransform(1, 0, 0, 1, 0, 0);
+		}
+	}
+
+
+
+
+
 }

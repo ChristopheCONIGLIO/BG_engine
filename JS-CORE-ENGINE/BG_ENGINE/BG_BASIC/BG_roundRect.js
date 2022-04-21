@@ -4,32 +4,61 @@
 */
 
 class BG_roundRect extends BG_coreObjectBasic{
-	constructor(stat,context,pX,pY,sX,sY,round,color) {
-		super(stat,context,pX,pY,sX,sY,color);
+	constructor(bg,onBoard,pX,pY,sX,sY,round,color) {
+		super(bg,onBoard,pX,pY,sX,sY,color);
 		this.p_round	= round;
 	}
 	
 	
 	drawObj(decX,decY,zoom){
 		if( this.visible == true){
-			let px = decX+this.p_pX*zoom;
-			let py = decY+this.p_pY*zoom;
-			let pSX = this.p_sX*zoom;
-			let pSY = this.p_sY*zoom;
-			if( px-pSX > this.stat.getScreenWidth())	return;
-			if( py-pSY > this.stat.getScreenHeight())	return;
-			if( px + pSX < 0)		return;
-			if( py + pSY < 0)		return;
-			
-			this.roundRect(decX+this.p_pX*zoom, decY+this.p_pY*zoom, this.p_sX*zoom, this.p_sY*zoom, this.p_round*zoom, true, false,this.p_color);
-			this.stat.setRenderEngineObject( this.stat.getRenderEngineObject() + 1 );
+
+			if( this.p_onBoard == true){
+				let px = decX+this.p_pX*zoom;
+				let py = decY+this.p_pY*zoom;
+				let pSX = this.p_sX*zoom;
+				let pSY = this.p_sY*zoom;
+				if( px-pSX > this.stat.getScreenWidth())	return;
+				if( py-pSY > this.stat.getScreenHeight())	return;
+				if( px + pSX < 0)		return;
+				if( py + pSY < 0)		return;
+				
+				this.roundRect(px,py,pSX,pSY, this.p_round*zoom, true, false,this.p_color);
+				this.stat.setRenderEngineObject( this.stat.getRenderEngineObject() + 1 );
+
+			} else{
+				let px = this.p_pX;
+				let py = this.p_pY;
+				let pSX = this.p_sX;
+				let pSY = this.p_sY;
+				if( px-pSX > this.stat.getScreenWidth())	return;
+				if( py-pSY > this.stat.getScreenHeight())	return;
+				if( px + pSX < 0)		return;
+				if( py + pSY < 0)		return;
+				
+				this.roundRect(px,py,pSX,pSY, this.p_round, true, false,this.p_color);
+				this.stat.setRenderEngineObject( this.stat.getRenderEngineObject() + 1 );
+			}
 		}
 	}
 	
+	/* 
+	
+		public function
 
+	*/
 	setRound(round){
 		this.p_round = round;
 	}
+	setPos(pX,pY){
+		this.p_pX = pX;
+		this.p_pY = pY;
+	}
+	setDim(sX,sY){
+		this.p_sX = sX;
+		this.p_sY = sY;
+	}
+
 	/* 
 	
 		local function

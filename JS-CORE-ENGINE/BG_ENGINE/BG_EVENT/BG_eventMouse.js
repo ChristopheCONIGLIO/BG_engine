@@ -7,11 +7,13 @@ class BG_eventMouse {
 		this.g_canvasDoc.addEventListener("mousedown",function(event){
 			bg_engine.mouseDownX = (-bg_engine.decX*bg_engine.zoomLevel+event.clientX);
 			bg_engine.mouseDownY = (-bg_engine.decY*bg_engine.zoomLevel+event.clientY);
+			bg_engine.bg_g_stat.setMouseDown(1);
 		});
 		this.g_canvasDoc.addEventListener("mouseup",function(event){
 			bg_engine.decX = (-bg_engine.mouseDownX+event.clientX)/bg_engine.zoomLevel;
 			bg_engine.decY = (-bg_engine.mouseDownY+event.clientY)/bg_engine.zoomLevel;
 			bg_engine.mouseDownX = -1;
+			bg_engine.bg_g_stat.setMouseDown(0);
 		});
 		this.g_canvasDoc.addEventListener("click",function(event){
 			bg_engine.bg_g_stat.setMouseClick(1);
@@ -44,7 +46,7 @@ class BG_eventMouse {
 		this.g_canvasDoc.addEventListener('touchend', function(event) {
 			event.preventDefault();
 			if (event.targetTouches.length == 1) {
-				console.log("ENDje touc l'ecran"+Math.random());
+				//console.log("ENDje touc l'ecran"+Math.random());
 				bg_engine.mouseDownX = (-bg_engine.decX*bg_engine.zoomLevel+ event.changedTouches[0].pageX );
 				bg_engine.mouseDownY = (-bg_engine.decY*bg_engine.zoomLevel+ event.changedTouches[0].pageY );
 			}
@@ -53,7 +55,7 @@ class BG_eventMouse {
 			console.log(event.changedTouches[0]);
 			event.preventDefault();
 			if (event.targetTouches.length == 1) {
-				console.log("touchStart "+Math.random());
+				//console.log("touchStart "+Math.random());
 				bg_engine.mouseDownX = (-bg_engine.decX*bg_engine.zoomLevel+ event.changedTouches[0].pageX );
 				bg_engine.mouseDownY = (-bg_engine.decY*bg_engine.zoomLevel+ event.changedTouches[0].pageY );
 			}

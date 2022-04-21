@@ -20,7 +20,11 @@ Description
 Je propose un moteur de jeu 2D basé uniquement sur du Javascript sans bibliothèque externe. L'architecture est inspiré du "défunt" moteur Flash
 
 L’idée est de proposer un outil facile de prise en main afin d'aboutir rapidement sur un jeu 
-mais puissant dans sa conception et son optimisation
+mais efficace dans ses performances et sa robustesse
+
+
+Prise en main
+-------------
 
 Pour tester exporter le code sur votre machine et lancer le fichier index.html via votre navigateur
 
@@ -31,7 +35,7 @@ Les caractéristiques du moteur 2D sont les suivantes :
 
 •	Pensé pour afficher une carte en vue de dessus, gere le zoom et le drag and drop automatiquement
 
-•	Aucune dépendance (basé sur balise canvas), fonctionne directement en local
+•	Aucune dépendance (basé uniquement sur du HTML5), fonctionne directement pas besoin de serveur
 
 •	Gestion des scripts du jeu simplifié via deux fonctions « EnterFrame » et « DrawObject », pas d’autres fonction à implémenter
 
@@ -51,6 +55,18 @@ Les caractéristiques du moteur 2D sont les suivantes :
 Nouvelles fonctionnalités
 -------------------------
 
+    21/04/2022 - v1.100
+    -------------------
+    20/04/2022 -- Ajout optimisation tracé du texte
+    20/04/2022 -- Ajout du tracé des lignes avec élèments thickness
+    20/04/2022 -- Ajout optimisation tracé du ligne
+    20/04/2022 -- Ajout paramètre <rotation> et <vissible> pour la ligne
+    20/04/2022 -- Ajout optimisation tracé des polygones
+    20/04/2022 -- Ajout paramètre <rotation>, <alpha> et <visible> pour le polygone
+    20/04/2022 -- Ajout pour toutes les formes d'etre ou pas sur le plateau <onboard>
+    20/04/2022 -- Ajout variable mouseDown
+    20/04/2022 -- Multiple autres améliorations
+    
     11/04/2022 - v1.003
     -------------------
     11/04/2022 -- Ajout de setDim sur tous les objets
@@ -68,14 +84,10 @@ Nouvelles fonctionnalités
 TODO List
 ---------
    
-    0d -- Ajouter des limites de déplacement max sur la partie drag and drop et zoom
-    1a--  Ajout des objets fixes
-    1b--  Ajout d'une couleur de fond
-    1c --  Les BASIC object :
-        - text
-        - line
-        ne gèrent pas l'affichage intelligent sur l'écran
-    2 --  Les évènements souris et leurs variables ne sont pas encore supporté en langage objet
-    3 -- Doc à créer
-    4 -- Qualité code à réaliser commentaire et passer sur les import 
+    Mineur -- Ajouter des limites de déplacement max sur la partie drag and drop et zoom
+    Mineur -- L'optimisation des tracés ne prend pas totalement en compte les modifications de dimensions à cause de la rotation (commencé pour les lignes)
+    Majeur -- Les évènements souris et leurs variables ne sont pas encore supporté en langage objet
+    Majeur -- Doc à créer
+    Majeur -- Qualité code à réaliser commentaire et passer sur les import 
+    
 

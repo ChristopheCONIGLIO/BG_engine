@@ -1,7 +1,7 @@
 class BG_engine{
 	//----------------------------------
 
-	constructor(elmentHTML,nombreDeLayer,nombreDeFPS) {
+	constructor(elmentHTML,nbLayer,nombreDeFPS) {
 		
 		//-----------------------------------------------------------------------------------//
 		//-----------------------------------------------------------------------------------//
@@ -14,7 +14,7 @@ class BG_engine{
 		this.bg_g_context.canvas.height = window.innerHeight;
 		this.bg_g_width = this.g_canvasDoc.width;
 		this.bg_g_height = this.g_canvasDoc.height;
-		this.bg_g_nbLayer = nombreDeLayer;
+		this.bg_g_nbLayer = nbLayer;
 		this.bg_g_listObj = new Array(this.bg_g_nbLayer);
 		for(var k = 0 ; k < this.bg_g_nbLayer ; k++){
 			this.bg_g_listObj[k] = new Array();
@@ -49,12 +49,18 @@ class BG_engine{
 
 	//----------------------------------
 	initialisation(){
-		this.bg_g_coreRoutine = new BG_coreRoutine(this.bg_g_stat,this.bg_g_context,this.bg_g_listObj,this.bg_g_listObjUnload);
+		this.bg_g_coreRoutine = new BG_coreRoutine(this);
 		this.bg_g_coreRoutine.initialisation();
 	}
  	//----------------------------------
-
-
+	 //future update : créé à la volé les layer mais attention pour cela il faut attendre que l'enterfame a fini comme pour la destruction
+	addObject(obj,layer){
+		this.bg_g_listObj[layer].push( obj );
+	}
+	//----------------------------------
+	deleteObject(obg){
+		this.bg_g_listObjUnload.push(obj);
+	}
 	//----------------------------------
 	enterFrame(){
 		var processingTimeEngine = new Date();
