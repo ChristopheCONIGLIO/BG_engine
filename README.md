@@ -65,7 +65,7 @@ Nouvelles fonctionnalités
     20/04/2022 -- Ajout paramètre <rotation>, <alpha> et <visible> pour le polygone
     20/04/2022 -- Ajout pour toutes les formes d'etre ou pas sur le plateau <onboard>
     20/04/2022 -- Ajout variable mouseDown
-    20/04/2022 -- Multiple autres améliorations
+    20/04/2022 -- Multiples autres améliorations
     
     11/04/2022 - v1.003
     -------------------
