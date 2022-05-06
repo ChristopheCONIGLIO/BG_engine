@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>C.CONIGLIO Project .js BG_engine</title>
+        <style type="text/css">* { margin:0; padding:0; } </style>
+        <META HTTP-EQUIV="Refresh" CONTENT="1000; URL=index.html">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"> <!-- mobile init --> 
+    </head>
+    <body >
+        <button onclick="button()">showRenderEdge</button>
+        <canvas id="mon_canvas" >BG_engine need a browser canvas HTML5 compatible</canvas>
+    </body>
+    
+    <script type="text/javascript" src="./JS-CORE-ENGINE/BG_EngineImport.js"></script>
+    <script type="text/javascript">
+        var bg_engine = new BG_engine("mon_canvas",20,35);
+        bg_engine.initialisation();
+        bg_engine.enterFrame();
+
+        function button() {
+            if( bg_engine.debugContour )    bg_engine.debugContour = false;
+            else                            bg_engine.debugContour = true;
+        }
+
+    </script>
+
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
