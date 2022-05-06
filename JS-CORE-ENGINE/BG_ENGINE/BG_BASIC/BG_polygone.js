@@ -13,36 +13,39 @@ class BG_polygone extends BG_coreObjectBasic{
 
 	drawObj(decX,decY,zoom){
 		if( this.visible == true){
+			let px,py,pSX,pSY,size,ldecX,ldecY;
 			if( this.p_onBoard == true){
 				// calcul if form must be drawed
 				// basé sur les dimensions max du polygone 
-				let px = decX+this.p_pX*zoom;
-				let py = decY+this.p_pY*zoom;
-				let pSX = this.p_sX*zoom;
-				let pSY = this.p_sY*zoom;
-				if( px-pSX > this.stat.getScreenWidth())	return;
-				if( py-pSY > this.stat.getScreenHeight())	return;
-				if( px + pSX < 0)		return;
-				if( py + pSY < 0)		return;
+				px = decX+this.p_pX*zoom;
+				py = decY+this.p_pY*zoom;
+				pSX = this.p_sX*zoom;
+				pSY = this.p_sY*zoom;
+				size = zoom;
+				ldecX = decX;
+				ldecY = decY;
 				
-				this.drawPoly(decX,decY,zoom);			
-				this.stat.setRenderEngineObject( this.stat.getRenderEngineObject() + 1 );
 			}
 			else{
 				// calcul if form must be drawed
 				// basé sur les dimensions max du polygone 
-				let px = this.p_pX;
-				let py = this.p_pY;
-				let pSX = this.p_sX;
-				let pSY = this.p_sY;
-				if( px-pSX > this.stat.getScreenWidth())	return;
-				if( py-pSY > this.stat.getScreenHeight())	return;
-				if( px + pSX < 0)		return;
-				if( py + pSY < 0)		return;
+				px = this.p_pX;
+				py = this.p_pY;
+				pSX = this.p_sX;
+				pSY = this.p_sY;
+				size = 1.0;
+				ldecX = 1;
+				ldecY = 1;
 				
-				this.drawPoly(1,1,1.0);			
-				this.stat.setRenderEngineObject( this.stat.getRenderEngineObject() + 1 );
 			}
+			if( px-pSX > this.stat.getScreenWidth())	return;
+			if( py-pSY > this.stat.getScreenHeight())	return;
+			if( px + pSX < 0)		return;
+			if( py + pSY < 0)		return;
+			if( this.p_bg.debugContour == true) this.drawLimitContour(px,py,pSX,pSY);
+			// draw the form
+			this.drawPoly(ldecX,ldecY,size);		
+			this.stat.setRenderEngineObject( this.stat.getRenderEngineObject() + 1 );
 		}
 	}
 

@@ -67,15 +67,15 @@ class BG_coreRoutine {
 		
 
 		//déclaration image
-		this.image = new BG_drawImage(this.bg,true,800,350,200,200,"./graphics_ressources/DEMO/carte.jpg");
+		this.image = new BG_drawImage(this.bg,true,800,350,200,200,"./JS-CORE-ENGINE/NOT_ESSENTIAL/IMAGE/openImage.jpeg");
 		this.bg.addObject(this.image,8);
-		this.imageOutBoard = new BG_drawImage(this.bg,false,550,10,50,50,"./graphics_ressources/DEMO/carte.jpg");
+		this.imageOutBoard = new BG_drawImage(this.bg,false,550,10,50,50,"./JS-CORE-ENGINE/NOT_ESSENTIAL/IMAGE/openImage.jpeg");
 		this.bg.addObject(this.imageOutBoard,8);
 
 
-		this.image2 = new BG_drawImage(this.bg,true,1100,350,200,200,"./graphics_ressources/DEMO/carte.jpg");
+		this.image2 = new BG_drawImage(this.bg,true,1100,350,200,200,"./JS-CORE-ENGINE/NOT_ESSENTIAL/IMAGE/openImage.jpeg");
 		this.bg.addObject(this.image2,8);
-		this.image3 = new BG_drawImage(this.bg,true,1100,350,200,200,"./graphics_ressources/DEMO/carte.jpg");
+		this.image3 = new BG_drawImage(this.bg,true,1100,350,200,200,"./JS-CORE-ENGINE/NOT_ESSENTIAL/IMAGE/openImage.jpeg");
 		this.bg.addObject(this.image3,8);
 		
 		

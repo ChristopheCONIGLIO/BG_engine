@@ -1,5 +1,6 @@
 class BG_coreObjectBasic {
 	constructor(bg,onBoard,pX,pY,sX,sY,color) {
+		this.p_bg		= bg;
 		this.stat		= bg.bg_g_stat;
 		this.p_ctx		= bg.bg_g_context;
 		this.p_onBoard	= onBoard;
@@ -15,7 +16,11 @@ class BG_coreObjectBasic {
 		this.rotation 		= 0;				
 	}
 	
-	
+	/* 
+
+		local function
+
+	*/
 	drawObj(decX,decY,zoom){
 	}
 	
@@ -41,5 +46,27 @@ class BG_coreObjectBasic {
 		if( arg < 0) this.rotation = 0;
 		if( arg > 360) this.rotation = 0;
 	}
+
+
+
+
+
+	/* 
+
+		** PRIVATE **
+
+		local function
+
+	*/
+	
+	// function for debug DO NOT USE
+	drawLimitContour(x, y, width, height){
+		this.p_ctx.beginPath();
+		this.p_ctx.rect(x,y ,width,height);
+		this.p_ctx.lineWidth = 1;
+		this.p_ctx.strokeStyle = "#FF0000";
+		this.p_ctx.stroke();
+	}
+
 
 }

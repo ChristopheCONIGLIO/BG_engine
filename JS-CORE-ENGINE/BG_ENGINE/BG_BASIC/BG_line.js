@@ -19,35 +19,33 @@ class BG_line extends BG_coreObjectBasic{
 			let minY = this.p_p1Y;
 			if( this.p1X > this.p_p2X) minX =  this.p_p2X;
 			if( this.p1Y > this.p_p2Y) minY =  this.p_p2X;
-			// 2 - On calcul la distanc entre les deux points
+			// 2 - On calcul la distance entre les deux points
 			let dis = Math.sqrt((this.p_p1X - this.p_p2X) * (this.p_p1X - this.p_p2X) + (this.p_p1Y - this.p_p2Y) * (this.p_p1Y - this.p_p2Y));
-			dis += this.p_thickness/2;
-
+			
 			if( this.p_onBoard == true){
-				
-
 				let px = decX + (minX-dis/2) * zoom;
 				let py = decY + (minY-dis/2) * zoom;
-				let pSX = dis * zoom;
-				let pSY = dis * zoom;
+				let pSX = dis*2 * zoom;
+				let pSY = dis*2 * zoom;
 				if( px-pSX > this.stat.getScreenWidth())	return;
 				if( py-pSY > this.stat.getScreenHeight())	return;
 				if( px + pSX < 0)		return;
 				if( py + pSY < 0)		return;
 
-				this.drawLine(decX+this.p_p1X*zoom,decY+this.p_p1Y*zoom,decX+this.p_p2X*zoom,decY+this.p_p2Y*zoom,this.p_color);
+				if( this.p_bg.debugContour == true) this.drawLimitContour(px,py,pSX,pSY);
+				this.drawLine(decX+this.p_p1X*zoom,decY+this.p_p1Y*zoom,decX+this.p_p2X*zoom,decY+this.p_p2Y*zoom,this.p_color,zoom);
 				this.stat.setRenderEngineObject( this.stat.getRenderEngineObject() + 1 );
 			} else {
 				let px = (minX-dis/2);
 				let py = (minY-dis/2);
-				let pSX = dis;
-				let pSY = dis;
+				let pSX = dis*2;
+				let pSY = dis*2;
 				if( px-pSX > this.stat.getScreenWidth())	return;
 				if( py-pSY > this.stat.getScreenHeight())	return;
 				if( px + pSX < 0)		return;
 				if( py + pSY < 0)		return;
-
-				this.drawLine(this.p_p1X,this.p_p1Y,this.p_p2X,this.p_p2Y,this.p_color);
+				if( this.p_bg.debugContour == true) this.drawLimitContour(px,py,pSX,pSY);
+				this.drawLine(this.p_p1X,this.p_p1Y,this.p_p2X,this.p_p2Y,this.p_color,zoom);
 				this.stat.setRenderEngineObject( this.stat.getRenderEngineObject() + 1 );
 			}
 
@@ -72,7 +70,7 @@ class BG_line extends BG_coreObjectBasic{
 
 	*/
 
-	drawLine(p1X,p1Y,p2X,p2Y,color) {
+	drawLine(p1X,p1Y,p2X,p2Y,color,zoom) {
 
 		if( this.rotation != 0){
 			this.p_ctx.translate(p1X+(p2X-p1X)/2,p1Y+(p2Y-p1Y)/2);
@@ -84,7 +82,7 @@ class BG_line extends BG_coreObjectBasic{
 		this.p_ctx.beginPath();
 		this.p_ctx.moveTo(p1X,p1Y);
 		this.p_ctx.lineTo(p2X,p2Y);
-		this.p_ctx.lineWidth = this.p_thickness;
+		this.p_ctx.lineWidth = this.p_thickness*zoom;
 		this.p_ctx.strokeStyle = color;
 		this.p_ctx.stroke();
 		this.p_ctx.globalAlpha = 1;

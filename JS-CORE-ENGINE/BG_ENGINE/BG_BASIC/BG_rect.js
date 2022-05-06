@@ -10,37 +10,30 @@ class BG_rect extends BG_coreObjectBasic{
 	
 	drawObj(decX,decY,zoom){
 		if( this.visible == true){
-
+			let px,py,pSX,pSY;
 			if( this.p_onBoard == true){
-				// calcul if form must be drawed
-				let px = decX+this.p_pX*zoom;
-				let py = decY+this.p_pY*zoom;
-				let pSX = this.p_sX*zoom;
-				let pSY = this.p_sY*zoom;
-				if( px-pSX > this.stat.getScreenWidth())	return;
-				if( py-pSY > this.stat.getScreenHeight())	return;
-				if( px + pSX < 0)		return;
-				if( py + pSY < 0)		return;
-				
-				// draw the form
-				this.drawRect(px,py,pSX,pSY,this.p_color);
-				this.stat.setRenderEngineObject( this.stat.getRenderEngineObject() + 1 );
+				// calcul limit of form
+				px = decX+this.p_pX*zoom;
+				py = decY+this.p_pY*zoom;
+				pSX = this.p_sX*zoom;
+				pSY = this.p_sY*zoom;
 			}
 			else{
-				// calcul if form must be drawed
-				let px = this.p_pX;
-				let py = this.p_pY;
-				let pSX = this.p_sX;
-				let pSY = this.p_sY;
-				if( px-pSX > this.stat.getScreenWidth())	return;
-				if( py-pSY > this.stat.getScreenHeight())	return;
-				if( px + pSX < 0)		return;
-				if( py + pSY < 0)		return;
-				
-				// draw the form
-				this.drawRect(px,py,pSX,pSY,this.p_color);
-				this.stat.setRenderEngineObject( this.stat.getRenderEngineObject() + 1 );
+				// calcul limit of form
+				px = this.p_pX;
+				py = this.p_pY;
+				pSX = this.p_sX;
+				pSY = this.p_sY;
 			}
+			//determine if form must be draw
+			if( px-pSX > this.stat.getScreenWidth())	return;
+			if( py-pSY > this.stat.getScreenHeight())	return;
+			if( px + pSX < 0)		return;
+			if( py + pSY < 0)		return;
+			if( this.p_bg.debugContour == true) this.drawLimitContour(px-pSX*0.20,py-pSY*0.20,pSX+pSX*0.40,pSY+pSX*0.40);
+			// draw the form
+			this.drawRect(px,py,pSX,pSY,this.p_color);
+			this.stat.setRenderEngineObject( this.stat.getRenderEngineObject() + 1 );
 		}
 	}
 	

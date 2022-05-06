@@ -2,48 +2,26 @@
 <html>
     <head>
         <title>C.CONIGLIO Project .js BG_engine</title>
+        <style type="text/css">* { margin:0; padding:0; } </style>
         <META HTTP-EQUIV="Refresh" CONTENT="1000; URL=index.html">
-        <link rel="stylesheet" media="screen" type="text/css" title="style" href="./css/style.css" />
-       
-         
-         <!-- mobile init -->
-         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-         
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"> <!-- mobile init --> 
     </head>
-    <body >    	
+    <body >
+        <button onclick="button()">showRenderEdge</button>
         <canvas id="mon_canvas" >BG_engine need a browser canvas HTML5 compatible</canvas>
     </body>
-
-    <!-- LOAD JS CODE = ESSENTIAL   -->
-    <script type="text/javascript" src="./JS-CORE-ENGINE/ESSENTIAL_FUNCTION/HandleColor.js"></script>
-    <!-- LOAD JS CODE = CORE  -->
-    <script type="text/javascript" src="./JS-CORE-ENGINE/BG_ENGINE/BG_CORE/BG_coreObject.js"></script> 
-    <script type="text/javascript" src="./JS-CORE-ENGINE/BG_ENGINE/BG_CORE/BG_coreObjectBasic.js"></script>  
-    <script type="text/javascript" src="./JS-CORE-ENGINE/BG_ENGINE/BG_CORE/BG_coreStatistique.js"></script>  
-    <!-- LOAD JS CODE = BASIC OBJECT  -->  
-    <script type="text/javascript" src="./JS-CORE-ENGINE/BG_ENGINE/BG_BASIC/BG_circle.js"></script>
-    <script type="text/javascript" src="./JS-CORE-ENGINE/BG_ENGINE/BG_BASIC/BG_text.js"></script>
-    <script type="text/javascript" src="./JS-CORE-ENGINE/BG_engine/BG_BASIC/BG_rect.js"></script>
-    <script type="text/javascript" src="./JS-CORE-ENGINE/BG_engine/BG_BASIC/BG_line.js"></script>
-    <script type="text/javascript" src="./JS-CORE-ENGINE/BG_engine/BG_BASIC/BG_polygone.js"></script>
-    <script type="text/javascript" src="./JS-CORE-ENGINE/BG_engine/BG_BASIC/BG_roundRect.js"></script>
-    <script type="text/javascript" src="./JS-CORE-ENGINE/BG_engine/BG_BASIC/BG_drawImage.js"></script>
-
-    <!-- LOAD JS CODE = EVENT -->
-    <script type="text/javascript" src="./JS-CORE-ENGINE/BG_ENGINE/BG_EVENT/BG_eventMouse.js"></script>
-    <script type="text/javascript" src="./JS-CORE-ENGINE/BG_ENGINE/BG_EVENT/BG_eventWheel.js"></script>
     
-     <!-- LOAD JS CODE = CORE Part2  -->
-    <script type="text/javascript" src="./JS-GAME/BG_coreRoutine.js"></script>  
-    <script type="text/javascript" src="./JS-CORE-ENGINE/BG_engine/BG_CORE/BG_engine.js"></script>
-    
-    
-    
-
+    <script type="text/javascript" src="./JS-CORE-ENGINE/BG_EngineImport.js"></script>
     <script type="text/javascript">
         var bg_engine = new BG_engine("mon_canvas",20,35);
         bg_engine.initialisation();
         bg_engine.enterFrame();
+
+        function button() {
+            if( bg_engine.debugContour )    bg_engine.debugContour = false;
+            else                            bg_engine.debugContour = true;
+        }
+
     </script>
 
 

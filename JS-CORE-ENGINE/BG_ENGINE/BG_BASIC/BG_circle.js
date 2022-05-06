@@ -8,40 +8,31 @@ class BG_circle extends BG_coreObjectBasic{
 		super(bg,onBoard,pX,pY,size,size,color);
 	}
 	
+	//PS : Rotation has not action of thius form so it's not managed :)
 	drawObj(decX,decY,zoom){
-
-		// rotation has not action of thius form so it's not managed
-
 		if( this.visible == true){
-			
+			let px,py,pS;
 			if( this.p_onBoard == true){
-				// calcul if form must be drawed
-				let px = decX+this.p_pX*zoom;
-				let py = decY+this.p_pY*zoom;
-				let pS = this.p_sX*zoom;
-				if( px-pS > this.stat.getScreenWidth())	return;
-				if( py-pS > this.stat.getScreenHeight())	return;
-				if( px + pS < 0)		return;
-				if( py + pS < 0)		return;
-				
-				// draw the form
-				this.drawCircle(px,py,pS,this.p_color);
-				this.stat.setRenderEngineObject( this.stat.getRenderEngineObject() + 1 );
+				// calcul limit of form
+				px = decX+this.p_pX*zoom;
+				py = decY+this.p_pY*zoom;
+				pS = this.p_sX*zoom;
 			}
 			else{
-				// calcul if form must be drawed
-				let px = this.p_pX;
-				let py = this.p_pY;
-				let pS = this.p_sX;
-				if( px-pS > this.stat.getScreenWidth())	return;
-				if( py-pS > this.stat.getScreenHeight())	return;
-				if( px + pS < 0)		return;
-				if( py + pS < 0)		return;
-				
-				// draw the form
-				this.drawCircle(px,py,pS,this.p_color);
-				this.stat.setRenderEngineObject( this.stat.getRenderEngineObject() + 1 );
+				// calcul limit of form
+				px = this.p_pX;
+				py = this.p_pY;
+				pS = this.p_sX;
 			}
+			//determine if form must be draw
+			if( px-pS > this.stat.getScreenWidth())	return;
+			if( py-pS > this.stat.getScreenHeight())	return;
+			if( px + pS < 0)		return;
+			if( py + pS < 0)		return;
+			if( this.p_bg.debugContour == true) this.drawLimitContour(px,py,pS,pS);
+			// draw the form
+			this.drawCircle(px,py,pS,this.p_color);
+			this.stat.setRenderEngineObject( this.stat.getRenderEngineObject() + 1 );
 		}
 	}
 	

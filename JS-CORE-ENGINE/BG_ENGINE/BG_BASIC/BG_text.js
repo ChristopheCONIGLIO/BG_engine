@@ -15,33 +15,38 @@ class BG_text extends BG_coreObjectBasic{
 	
 	drawObj(decX,decY,zoom){
 		if( this.visible == true){
-
+			let px,py,pSX,pSY,size;
 			if( this.p_onBoard == true){
-				var px = decX+this.p_pX*zoom;
-				var py = (zoom*this.p_size) + decY+this.p_pY*zoom;
-				var pSX = this.getWidthText(zoom);
-				var pSY = zoom*this.p_size;
-
+				// calcul limit of form
+				px = decX+this.p_pX*zoom;
+				py = (zoom*this.p_size) + decY+this.p_pY*zoom;
+				pSX = this.getWidthText(zoom);
+				pSY = zoom*this.p_size;
+				size = zoom;	
+				//determine if form must be draw
 				if( px-pSX > this.stat.getScreenWidth())	return;
-				if( py-pSY > this.stat.getScreenHeight())	return;
+				if( py-(zoom*this.p_size)-pSY > this.stat.getScreenHeight())	return;
 				if( px + pSX < 0)		return;
-				if( py + pSY < 0)		return;
-
-				this.drawText(px,py,pSX,pSY,zoom);		
+				if( py-(zoom*this.p_size) + pSY < 0)		return;
+				if( this.p_bg.debugContour == true) this.drawLimitContour(px,py-(zoom*this.p_size),pSX,pSY);
 			}
 			else{
-				var px = this.p_pX;
-				var py = this.p_size + this.p_pY;
-				var pSX = this.getWidthText(1.0);
-				var pSY = this.p_size;
-				
+				// calcul limit of form
+				px = this.p_pX;
+				py = this.p_size + this.p_pY;
+				pSX = this.getWidthText(1.0);
+				pSY = this.p_size;
+				size = 1.0;
+				//determine if form must be draw
 				if( px-pSX > this.stat.getScreenWidth())	return;
-				if( py-pSY > this.stat.getScreenHeight())	return;
+				if( py-this.p_size-pSY > this.stat.getScreenHeight())	return;
 				if( px + pSX < 0)		return;
-				if( py + pSY < 0)		return;
-				
-				this.drawText(px,py,pSX,pSY,1.0);		
+				if( py-this.p_size + pSY < 0)		return;
+				if( this.p_bg.debugContour == true) this.drawLimitContour(px,py-this.p_size,pSX,pSY);
 			}
+			// draw the form
+			this.drawText(px,py,pSX,pSY,size);	
+			this.stat.setRenderEngineObject( this.stat.getRenderEngineObject() + 1 );
 		}
 	}
 	
@@ -75,9 +80,14 @@ class BG_text extends BG_coreObjectBasic{
 	*/
 	drawText(x,y,width,height,zoom){
 		if( this.rotation != 0){
+			this.p_ctx.translate(x+width/2,y-height/2);
+			this.p_ctx.rotate(this.rotation * Math.PI / 180);
+			this.p_ctx.translate(-x-width/2,-y+height/2);
+			/*
 			this.p_ctx.translate(x+width/2,y+height/2);
 			this.p_ctx.rotate(this.rotation * Math.PI / 180);
 			this.p_ctx.translate(-x-width/2,-y-height/2);
+			*/
 		}
 
 		this.p_ctx.globalAlpha = this.alpha;

@@ -52,20 +52,27 @@ Les caractéristiques du moteur 2D sont les suivantes :
 •	Gestion automatique des couches d’affichage (choisir le nombre de couche le moteur so'ccupe du reste)
 
 
-Nouvelles fonctionnalités
--------------------------
+change log
+----------
+
+    06/05/2022 - v1.101
+    -------------------
+    06/05/2022 -- Correction de la bouding box de tracage pour l'objet line 
+    06/05/2022 -- Ajout d'un système de tracage de contour pour le debug
+    06/05/2022 -- Modification système d'import création de BG_engineImport
+    06/05/2022 -- supression du dossier CSS et graphic, passager sous une image libre pour démo
 
     21/04/2022 - v1.100
     -------------------
-    20/04/2022 -- Ajout optimisation tracé du texte
-    20/04/2022 -- Ajout du tracé des lignes avec élèments thickness
-    20/04/2022 -- Ajout optimisation tracé du ligne
-    20/04/2022 -- Ajout paramètre <rotation> et <vissible> pour la ligne
-    20/04/2022 -- Ajout optimisation tracé des polygones
-    20/04/2022 -- Ajout paramètre <rotation>, <alpha> et <visible> pour le polygone
-    20/04/2022 -- Ajout pour toutes les formes d'etre ou pas sur le plateau <onboard>
-    20/04/2022 -- Ajout variable mouseDown
-    20/04/2022 -- Multiples autres améliorations
+    21/04/2022 -- Ajout optimisation tracé du texte
+    21/04/2022 -- Ajout du tracé des lignes avec élèments thickness
+    21/04/2022 -- Ajout optimisation tracé du ligne
+    21/04/2022 -- Ajout paramètre <rotation> et <vissible> pour la ligne
+    21/04/2022 -- Ajout optimisation tracé des polygones
+    21/04/2022 -- Ajout paramètre <rotation>, <alpha> et <visible> pour le polygone
+    21/04/2022 -- Ajout pour toutes les formes d'etre ou pas sur le plateau <onboard>
+    21/04/2022 -- Ajout variable mouseDown
+    21/04/2022 -- Multiples autres améliorations
     
     11/04/2022 - v1.003
     -------------------
