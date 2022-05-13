@@ -57,6 +57,8 @@ change log
 
     13/05/2022 - v1.110
     -------------------
+    13/05/2022 -- Possibilité de récuprer zoom et position plateau 
+    13/05/2022 -- Possibilité de forcer zoom et position plateau
     13/05/2022 -- Gestion de mouseleave et mouseout pour perdre le focus quand on sort du canvas
     13/05/2022 -- Suppression de BG!coreRountine pour plus de simplification et d'uniformisation
     13/05/2022 -- Plus besoin de variable global
