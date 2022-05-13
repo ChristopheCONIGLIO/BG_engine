@@ -13,8 +13,20 @@ class BG_eventMouse {
 			me.g_bg.bg_g_stat.setMouseDown(1);
 		});
 		this.g_canvasDoc.addEventListener("mouseup",function(event){
-			me.g_bg.decX = (-me.g_bg.mouseDownX+event.clientX)/me.g_bg.zoomLevel;
-			me.g_bg.decY = (-me.g_bg.mouseDownY+event.clientY)/me.g_bg.zoomLevel;
+			//me.g_bg.decX = (-me.g_bg.mouseDownX+event.clientX)/me.g_bg.zoomLevel;
+			//me.g_bg.decY = (-me.g_bg.mouseDownY+event.clientY)/me.g_bg.zoomLevel;
+			me.g_bg.mouseDownX = -1;
+			me.g_bg.bg_g_stat.setMouseDown(0);
+		});
+		this.g_canvasDoc.addEventListener("mouseout",function(event){
+			//me.g_bg.decX = (-me.g_bg.mouseDownX+event.clientX)/me.g_bg.zoomLevel;
+			//me.g_bg.decY = (-me.g_bg.mouseDownY+event.clientY)/me.g_bg.zoomLevel;
+			me.g_bg.mouseDownX = -1;
+			me.g_bg.bg_g_stat.setMouseDown(0);
+		});
+		this.g_canvasDoc.addEventListener("mouseleave",function(event){
+			//me.g_bg.decX = (-me.g_bg.mouseDownX+event.clientX)/me.g_bg.zoomLevel;
+			//me.g_bg.decY = (-me.g_bg.mouseDownY+event.clientY)/me.g_bg.zoomLevel;
 			me.g_bg.mouseDownX = -1;
 			me.g_bg.bg_g_stat.setMouseDown(0);
 		});
@@ -30,9 +42,11 @@ class BG_eventMouse {
 			let decYs = (-me.g_bg.decY+me.g_bg.bg_g_height/2) * (1-me.g_bg.zoomLevel);
 			me.g_bg.bg_g_stat.setMouseXBoard	((event.clientX-(me.g_bg.decX+decXs))/me.g_bg.zoomLevel);
 			me.g_bg.bg_g_stat.setMouseYBoard	((event.clientY-(me.g_bg.decY+decYs))/me.g_bg.zoomLevel);
-			if( me.g_bg.mouseDownX != -1){
-				me.g_bg.decX = (-me.g_bg.mouseDownX+event.clientX)/me.g_bg.zoomLevel;
-				me.g_bg.decY = (-me.g_bg.mouseDownY+event.clientY)/me.g_bg.zoomLevel;
+			if( me.g_bg.bg_g_manualControl == true){
+				if( me.g_bg.mouseDownX != -1){
+					me.g_bg.decX = (-me.g_bg.mouseDownX+event.clientX)/me.g_bg.zoomLevel;
+					me.g_bg.decY = (-me.g_bg.mouseDownY+event.clientY)/me.g_bg.zoomLevel;
+				}
 			}
 		});
 		this.g_canvasDoc.addEventListener('touchmove', function(event) {

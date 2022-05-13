@@ -1,6 +1,15 @@
 class BG_coreStatistique {
-	constructor() {	
-	// statistique
+	constructor(bg) {
+		
+		// TODO
+		//
+		// Cette class a pour objetif de fournir des accès bas niveau a l'utilisateur
+		// Il faudrait faire un peu le tri et revoir le wording sur certain élèments
+		//
+		this.g_bg= bg;
+		
+		// variable local
+		// statistique
 		this.bg_g_renderEngineTime = 0;			// Permet d'obtenir la stastistique sur la temps de rendu d'une frame
 		this.bg_g_renderEngineFps = 0;			// Permet d'obtenir la stastistique sur les fps
 		this.bg_g_renderEngineTimeLisse = 0;	// Permet d'obtenir la stastistique sur la temps de rendu d'une frame
@@ -17,6 +26,37 @@ class BG_coreStatistique {
 	}
 	
 	
+	//fonctions attaquant directement les bonne class depuis BG_engine alias g_bg
+
+	setManualControl(value){
+		this.g_bg.bg_g_manualControl = value;
+	}
+
+	setCameraPositionX(value){
+		this.g_bg.decX = value;
+	}
+	setCameraPositionY(){
+		this.g_bg.decY = value;
+	}
+	setCameraPositionZoom(value){
+		this.g_bg.zoomLevel = value;
+	}
+	getCameraPositionX(){
+		return this.g_bg.decX;
+	}
+	getCameraPositionY(){
+		return this.g_bg.decY;
+	}
+	getCameraPositionZoom(value){
+		return this.g_bg.zoomLevel;
+	}
+
+
+
+
+	//foncrtion issu des variables locales
+
+
 	getRenderEngineTime(){
 		return this.bg_g_renderEngineTime;
 	}

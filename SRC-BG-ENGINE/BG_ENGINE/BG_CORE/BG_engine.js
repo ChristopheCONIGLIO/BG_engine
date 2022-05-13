@@ -26,10 +26,10 @@ class BG_engine{
 			this.bg_g_listObj[k] = new Array();
 		}
 		this.bg_g_listObjUnload = new Array();
-		this.bg_g_stat = new BG_coreStatistique();
+		this.bg_g_stat = new BG_coreStatistique(this);
 		this.bg_g_targetFps = nombreDeFPS;
-		this.stopEnterFrame = false;
-		
+		this.bg_g_stopEnterFrame = false;
+		this.bg_g_manualControl = true;
 
 		//-----------------------------------------------------------------------------------//
 		//-----------------------------------------------------------------------------------//
@@ -90,7 +90,7 @@ class BG_engine{
 	}
 	//----------------------------------
 	stopEnterFrame(){
-	
+		this.bg_g_stopEnterFrame = true;
 	}
 	//----------------------------------
 	launchEnterFrame(){
@@ -148,7 +148,7 @@ class BG_engine{
 		this.bg_g_stat.setRenderEngineObject(0);
 		
 		var me = this;
-		if( this.stopEnterFrame == false){
+		if( this.bg_g_stopEnterFrame == false){
 			if( this.bg_g_stat.getRenderEngineTime() < 1000/this.bg_g_targetFps ){
 				this.bg_g_stat.setRenderEngineFps(this.bg_g_targetFps);
 				setTimeout(function () {me.launchEnterFrame()}, (1000/this.bg_g_targetFps)-this.bg_g_stat.getRenderEngineTime() );
