@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>C.CONIGLIO Project .js BG_engine</title>
+        <style>
+            * { margin:0; padding:0; }
+            #canvas1{
+               float: left;
+               width: 50%;
+               height: 100vh;
+               background-color: rgb(197, 197, 226);
+            }
+            #canvas2{
+                float: left;
+               width: 50%;
+               height: 100vh;
+               background-color: rgb(221, 195, 195);
+            }
+        </style>
+        <META HTTP-EQUIV="Refresh" CONTENT="1000; URL=index.html">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"> <!-- mobile init --> 
+        <script type="text/javascript" src="../../SRC-BG-ENGINE/BG_EngineImport.js"></script>
+        <script type="text/javascript"> loadBGengine("../..")</script>
+    </head>
+    <body >
+        <div class="conteneur">
+            <canvas id="canvas1" >BG_engine need a browser canvas HTML5 compatible</canvas>
+            <canvas id="canvas2" >BG_engine need a browser canvas HTML5 compatible</canvas>
+        </div>
+    </body>
+    <script type="text/javascript">
+        var bg_engine1 = new BG_engine("canvas1",20,35);
+        this.cicleTestGreen = new BG_circle(bg_engine1,true,150,150,50,"#FF0000");
+		this.bg_engine1.addObject(this.cicleTestGreen,8);
+        bg_engine1.launchEnterFrame();
+        
+        var bg_engine2 = new BG_engine("canvas2",20,35);
+        this.cicleTestGreen = new BG_circle(bg_engine2,true,150,150,50,"#0000FF");
+		this.bg_engine2.addObject(this.cicleTestGreen,8);
+        bg_engine2.launchEnterFrame();
+    </script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

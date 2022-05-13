@@ -1,4 +1,4 @@
-v1.101
+v1.110
 
 Projet
 ------
@@ -55,12 +55,17 @@ Les caractéristiques du moteur 2D sont les suivantes :
 change log
 ----------
 
-    06/05/2022 - v1.101
+    13/05/2022 - v1.110
     -------------------
-    06/05/2022 -- Correction de la bouding box de tracage pour l'objet line 
-    06/05/2022 -- Ajout d'un système de tracage de contour pour le debug
-    06/05/2022 -- Modification système d'import création de BG_engineImport
-    06/05/2022 -- supression du dossier CSS et graphic, passager sous une image libre pour démo
+    13/05/2022 -- Suppression de BG!coreRountine pour plus de simplification et d'uniformisation
+    13/05/2022 -- Plus besoin de variable global
+    13/05/2022 -- Compatible plusieurs bg_engine sur la meme page
+    13/05/2022 -- Conversion de enterFrame en launchEnterFrame
+    13/05/2022 -- Ajout de stopEnterFrame 
+    13/05/2022 -- Correction de la bouding box de tracage pour l'objet line 
+    13/05/2022 -- Ajout d'un système de tracage de contour pour le debug
+    13/05/2022 -- Modification système d'import création de BG_engineImport
+    13/05/2022 -- supression du dossier CSS et graphic, passager sous une image libre pour démo
 
     21/04/2022 - v1.100
     -------------------
@@ -88,8 +93,8 @@ change log
    
 
 
-TODO List
----------
+IDEAS
+-----
    
     Mineur -- Ajouter des limites de déplacement max sur la partie drag and drop et zoom
     Mineur -- L'optimisation des tracés ne prend pas totalement en compte les modifications de dimensions à cause de la rotation (commencé pour les lignes)
