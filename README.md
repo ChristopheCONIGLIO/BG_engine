@@ -66,7 +66,7 @@ change log
     21/05/2022 -- Comptabilite complete souris et mobile (multi touch) deplacement et zoom
     21/05/2022 -- Revue complete du systeme d'appel et de destruction des objet graphique
     21/05/2022 -- Revue complete des appel général pour simplification
-    21/05/2022 -- **EXPERIMENTAL** Ajout moteur physique sur les objet circle
+    21/05/2022 -- **EXPERIMENTAL** Ajout moteur physique sur les objets BG_circle
 
     13/05/2022 - v1.110
     -------------------
