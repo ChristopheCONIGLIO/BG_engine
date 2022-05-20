@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>C.CONIGLIO Project .js BG_engine</title>
+        <style>
+            * { margin:0; padding:0; }
+            #canvas1{
+               float: left;
+               width: 50%;
+               height: 50vh;
+               background-color: rgb(197, 197, 226);
+            }
+            #canvas2{
+                float: left;
+               width: 50%;
+               height: 50vh;
+               background-color: rgb(221, 195, 195);
+            }
+            #canvas3{
+            float: left;
+               width: 50%;
+               height: 50vh;
+               background-color: rgb(87, 202, 74);
+            }
+            #canvas4{
+            float: left;
+               width: 50%;
+               height: 50vh;
+               background-color: rgb(87, 85, 224);
+            }
+        </style>
+        <!-- import de BG engine -->
+        <script type="text/javascript" src="../../SRC-BG-ENGINE/BG_EngineImport.js"></script>
+        <script type="text/javascript"> loadBGengine("../..")</script>
+    </head>
+    <body >
+        <div class="conteneur">
+            <canvas id="canvas1" >BG_engine need a browser canvas HTML5 compatible</canvas>
+            <canvas id="canvas2" >BG_engine need a browser canvas HTML5 compatible</canvas>
+            <canvas id="canvas3" >BG_engine need a browser canvas HTML5 compatible</canvas>
+            <canvas id="canvas4" >BG_engine need a browser canvas HTML5 compatible</canvas>
+        </div>
+    </body>
+    <script type="text/javascript">
+        var bg_engine1 = new BG_engine("canvas1",20,35);
+        this.cicleTestGreen = new BG_circle(bg_engine1,true,8,150,150,50,"#FF0000");
+        
+        var bg_engine2 = new BG_engine("canvas2",20,35);
+        this.cicleTestGreen = new BG_rect(bg_engine2,true,8,150,150,50,50,"#0000FF");
+
+        var bg_engine3 = new BG_engine("canvas3",20,35);
+        this.cicleTestGreen = new BG_roundRect(bg_engine3,true,8,150,150,100,50,10,"#00FFFF");
+
+        var bg_engine4 = new BG_engine("canvas4",20,35);
+        this.cicleTestGreen = new BG_circle(bg_engine4,true,8,150,150,50,"#FFFF00");
+    </script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

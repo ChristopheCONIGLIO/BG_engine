@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>C.CONIGLIO Project .js BG_engine</title>
+        <style>
+            * { margin:0; padding:0; }
+            #canvas1{
+               float: left;
+               width: 100%;
+               height: 100vh;
+               background-color: rgb(197, 197, 226);
+            }
+        </style>
+        <!-- import de BG engine -->
+        <script type="text/javascript" src="../../SRC-BG-ENGINE/BG_EngineImport.js"></script>
+        <script type="text/javascript"> loadBGengine("../..")</script>
+    </head>
+    <body >
+        <div class="conteneur">
+            <canvas id="canvas1" >BG_engine need a browser canvas HTML5 compatible</canvas>
+        </div>
+    </body>
+    <script type="text/javascript">
+        var bg_engine = new BG_engine("canvas1",20,35);
+
+
+
+
+
+
+        for(var i = 0; i < 14;i++){
+            if( i != 2 && i != 5 && i != 8 && i != 9)  {
+                this.cicleTestGreen = new BG_circle(bg_engine,true,8,20+i*70,600,35,"#00FFFF");
+                this.cicleTestGreen.addToPhysicEngine2();
+            }
+        }
+        for(var i = 0; i < 14;i++){
+            if( i != 2 && i != 5 && i != 8 && i != 9)  {
+                this.cicleTestGreen = new BG_circle(bg_engine,true,8,35+i*70,650,35,"#00FFFF");
+                this.cicleTestGreen.addToPhysicEngine2();
+            }
+        }
+        for(var i = 0; i < 14;i++){
+            if( i != 2 && i != 5 && i != 8 && i != 9)  {
+                this.cicleTestGreen = new BG_circle(bg_engine,true,8,20+i*70,700,35,"#00FFFF");
+                this.cicleTestGreen.addToPhysicEngine2();
+            }
+        }
+        for(var i = 0; i < 14;i++){
+            if( i != 2 && i != 5 && i != 8 && i != 9)  {
+                this.cicleTestGreen = new BG_circle(bg_engine,true,8,35+i*70,750,35,"#00FFFF");
+                this.cicleTestGreen.addToPhysicEngine2();
+            }
+        }
+        for(var i = 0; i < 14;i++){
+            if( i != 2 && i != 5 && i != 8 && i != 9)  {
+                this.cicleTestGreen = new BG_circle(bg_engine,true,8,20+i*70,800,35,"#00FFFF");
+                this.cicleTestGreen.addToPhysicEngine2();
+            }
+        }
+
+
+        var inc = 0;
+        var arr = new Array();
+        setInterval(loop, 100);
+        function loop() {
+            if( inc <400){
+                for(var i = 0; i < 1;i++){
+                    inc++;
+                    this.cicleTestGreen = new BG_circle(bg_engine,true,8,Math.random()*999,10,Math.random()*30,"#FF0000");
+                    this.cicleTestGreen.addToPhysicEngine();
+                    arr.push(this.cicleTestGreen);
+                }
+            }
+            for(var j = 0; j < arr.length ; j++){
+                if( arr[j].p_pY > 920){
+                    arr[j].p_pY = 10;
+                    arr[j].p_pX = Math.random()*999;
+                    arr[j].rstPhysicEngine();
+                }
+            }
+            
+        }
+
+        
+       
+    </script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

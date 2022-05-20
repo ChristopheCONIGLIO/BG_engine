@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>C.CONIGLIO Project .js BG_engine</title>
+        <style>
+            * { margin:0; padding:0; }
+            #canvas1{
+               float: left;
+               width: 50%;
+               height: 100vh;
+               background-color: rgb(197, 197, 226);
+            }
+            #canvas2{
+                float: left;
+               width: 50%;
+               height: 100vh;
+               background-color: rgb(221, 195, 195);
+            }
+        </style>
+        <!-- import de BG engine -->
+        <script type="text/javascript" src="../../SRC-BG-ENGINE/BG_EngineImport.js"></script>
+        <script type="text/javascript"> loadBGengine("../..")</script>
+    </head>
+    <body >
+        <div class="conteneur">
+            <canvas id="canvas1" >BG_engine need a browser canvas HTML5 compatible</canvas>
+            <canvas id="canvas2" >BG_engine need a browser canvas HTML5 compatible</canvas>
+            
+        </div>
+    </body>
+    <script type="text/javascript">
+        
+        
+        //
+        //
+        //
+        class monCode extends BG_script{
+            constructor(bg) {
+                super(bg);
+            }
+            enterFrame(){
+                if( this.p_bg.bg_g_stat.getMouseClick() == 1){
+                    var circle = new BG_circle(this.p_bg,true,8,this.p_bg.bg_g_stat.getMouseXBoard()-25,this.p_bg.bg_g_stat.getMouseYBoard()-25,50,"#FF0000");
+                    circle.setAlpha(0.5);
+                }
+            }
+        }
+        //
+        //
+        //
+        
+        var bg_engine1 = new BG_engine("canvas1",20,35);
+        this.cicleTestGreen = new BG_circle(bg_engine1,true,8,150,150,50,"#FF0000");
+        var code1 = new monCode(bg_engine1);
+
+
+        var bg_engine2 = new BG_engine("canvas2",20,35);
+        this.cicleTestGreen = new BG_circle(bg_engine2,true,8,150,150,50,"#0000FF");
+        var code2 = new monCode(bg_engine2);
+        
+    </script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

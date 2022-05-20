@@ -1,4 +1,4 @@
-v1.110
+v1.20
 
 Projet
 ------
@@ -55,12 +55,25 @@ Les caractéristiques du moteur 2D sont les suivantes :
 change log
 ----------
 
+    13/05/2022 - v1.20
+    -------------------
+    21/05/2022 -- Création des exemples d'utilisatio clé en main
+    21/05/2022 -- Séparation du code du moteur des exemples
+    21/05/2022 -- Création d'un objet BG_script synchronisé avec le moteur pour executer du script a chaque frame (remplace le BG_coreRountine)
+    21/05/2022 -- Revue du système de code des objets BG_engine via un système clé en maisn d'héritage
+    21/05/2022 -- Revue du systeme d'import
+    21/05/2022 -- Gestion complete en class - plusieurs bg_engine sur la meme page fonctionne
+    21/05/2022 -- Comptabilite complete souris et mobile (multi touch) deplacement et zoom
+    21/05/2022 -- Revue complete du systeme d'appel et de destruction des objet graphique
+    21/05/2022 -- Revue complete des appel général pour simplification
+    21/05/2022 -- **EXPERIMENTAL** Ajout moteur physique sur les objet circle
+
     13/05/2022 - v1.110
     -------------------
     13/05/2022 -- Possibilité de récuprer zoom et position plateau 
     13/05/2022 -- Possibilité de forcer zoom et position plateau
     13/05/2022 -- Gestion de mouseleave et mouseout pour perdre le focus quand on sort du canvas
-    13/05/2022 -- Suppression de BG!coreRountine pour plus de simplification et d'uniformisation
+    13/05/2022 -- Suppression de BG_coreRountine pour plus de simplification et d'uniformisation
     13/05/2022 -- Plus besoin de variable global
     13/05/2022 -- Compatible plusieurs bg_engine sur la meme page
     13/05/2022 -- Conversion de enterFrame en launchEnterFrame
@@ -99,10 +112,11 @@ change log
 IDEAS
 -----
    
-    Mineur -- Ajouter des limites de déplacement max sur la partie drag and drop et zoom
-    Mineur -- L'optimisation des tracés ne prend pas totalement en compte les modifications de dimensions à cause de la rotation (commencé pour les lignes)
-    Majeur -- Les évènements souris et leurs variables ne sont pas encore supporté en langage objet
-    Majeur -- Doc à créer
-    Majeur -- Qualité code à réaliser commentaire et passer sur les import 
+    -- Ne gere pas plus de deux doigts pour le mobile
+    -- Ajouter des limites de déplacement max sur la partie drag and drop et zoom
+    -- L'optimisation des tracés ne prend pas totalement en compte les modifications de dimensions à cause de la rotation (commencé pour les lignes)
+    -- Les évènements souris et leurs variables ne sont pas encore supporté en langage objet
+    -- Doc à créer
+    -- Qualité code à réaliser commentaire et passer sur les import 
     
 

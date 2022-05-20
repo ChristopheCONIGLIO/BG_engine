@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>C.CONIGLIO Project .js BG_engine</title>
+        <style>
+            * { margin:0; padding:0; }
+            #canvas1{
+               float: left;
+               width: 100%;
+               height: 100vh;
+               background-color: rgb(197, 197, 226);
+            }
+        </style>
+        <!-- import de BG engine -->
+        <script type="text/javascript" src="../../SRC-BG-ENGINE/BG_EngineImport.js"></script>
+        <script type="text/javascript"> loadBGengine("../..")</script>
+    </head>
+    <body >
+        <div class="conteneur">
+            <canvas id="canvas1" >BG_engine need a browser canvas HTML5 compatible</canvas>
+        </div>
+    </body>
+    <script type="text/javascript">
+        
+        
+        //
+        //
+        //
+        class monCode extends BG_script{
+            constructor(bg) {
+                super(bg);
+                this.sens = 1;
+            }
+            enterFrame(){
+                //permet de récupérer le niveau de zoom (aussi dispo pour décpalement sur le jeu)
+                var currentZoom = this.p_bg.bg_g_stat.getCameraPositionZoom();
+                currentZoom += 0.015 * this.sens;
+                if( currentZoom > 2  ) this.sens = -1;
+                if( currentZoom <0.5 ) this.sens = 1;
+                //permet de forcer un niveau de zoom sur le jeu (aussi dispo pour décpalement sur le jeu)
+                this.p_bg.bg_g_stat.setCameraPositionZoom(currentZoom);
+            }
+        }
+        //
+        //
+        //
+        
+        var bg_engine1 = new BG_engine("canvas1",20,35);
+        for(var i = 0; i < 10;i++){
+            this.cicleTestGreen = new BG_circle(bg_engine1,true,8,300+Math.random()*300,300+Math.random()*300,50,"#FF0000");
+        }
+        //permet de bloquer la control manuel sur le jeu
+        bg_engine1.bg_g_stat.setManualControl(false);
+        var code = new monCode(bg_engine1);
+       
+    </script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
