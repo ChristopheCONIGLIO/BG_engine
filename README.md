@@ -55,7 +55,7 @@ Les caractéristiques du moteur 2D sont les suivantes :
 change log
 ----------
 
-    13/05/2022 - v1.20
+    21/05/2022 - v1.20
     -------------------
     21/05/2022 -- Création des exemples d'utilisatio clé en main
     21/05/2022 -- Séparation du code du moteur des exemples
