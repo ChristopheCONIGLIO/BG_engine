@@ -61,7 +61,7 @@ change log
 
     22/05/2022 - v1.21
     -------------------
-    22/05/2022 -- "Physic engine" sur les cercle completmeent implémenté
+    22/05/2022 -- ajout d'un moteur physique sur les cercles fonctionnel
     22/05/2022 -- Ajout d'exemple avec le nouveau systèmed'écriture de code via l'héritage script et objet 
 
     21/05/2022 - v1.20
