@@ -8,6 +8,8 @@ class BG_script{
 		this.p_bg = bg;
 		this.p_bg.addScript(this);
 	}
+	destructor(){
+	}
 
 	enterFrame(){
         //execute some code

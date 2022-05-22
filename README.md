@@ -1,4 +1,4 @@
-v1.20
+v1.21
 
 Projet
 ------
@@ -51,9 +51,18 @@ Les caractéristiques du moteur 2D sont les suivantes :
 
 •	Gestion automatique des couches d’affichage (choisir le nombre de couche le moteur so'ccupe du reste)
 
+•	Integration d'un moteur physique 2d sur les objets de type cercle simple et rapide d'utilisation
+
+•	Proposition d'exemples d'usage faisant offcice de documentation
+
 
 change log
 ----------
+
+    22/05/2022 - v1.21
+    -------------------
+    22/05/2022 -- "Physic engine" sur les cercle completmeent implémenté
+    22/05/2022 -- Ajout d'exemple avec le nouveau systèmed'écriture de code via l'héritage script et objet 
 
     21/05/2022 - v1.20
     -------------------
@@ -107,7 +116,10 @@ change log
     15/02/2022 -- Ajout de la transparence sur les objets avec la fonction setAlpha
     15/02/2022 -- Ajout des paramètre elementHTML, nombre de couche et nombre de FPS dans l'appel principal du moteur
    
-
+    > /XX/2015 - v0.001
+    -------------------
+    > /XX/2015 -- Originel HTML5 2d engine - Christophe CONIGLIO
+    > /XX/2013 -- Originel flash code 2d pcircle physic engine - Christophe CONIGLIO 
 
 IDEAS
 -----

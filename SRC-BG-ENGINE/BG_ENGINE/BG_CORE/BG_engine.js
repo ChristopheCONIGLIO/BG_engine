@@ -38,20 +38,9 @@ class BG_engine{
 		// gestion des collisions
 		//-----------------------------------------------------------------------------------//
 		//-----------------------------------------------------------------------------------//
-		this.bg_g_collisionEngine = new BG_collision(this,false,10000,10000,10000);
-		/*this.BG_collisionEngCir1 = new BG_collisionEngCir(this.bg_g_collisionEngine);
-		this.BG_collisionEngCir2 = new BG_collisionEngCir(this.bg_g_collisionEngine);
-		this.BG_collisionEngCir3 = new BG_collisionEngCir(this.bg_g_collisionEngine);
-		this.BG_collisionEngCir4 = new BG_collisionEngCir(this.bg_g_collisionEngine);
-		this.BG_collisionEngCir5 = new BG_collisionEngCir(this.bg_g_collisionEngine);
-		this.BG_collisionEngCir6 = new BG_collisionEngCir(this.bg_g_collisionEngine);
-		this.BG_collisionEngCir7 = new BG_collisionEngCir(this.bg_g_collisionEngine);
-		this.BG_collisionEngCir8 = new BG_collisionEngCir(this.bg_g_collisionEngine);
-		this.BG_collisionEngCir9 = new BG_collisionEngCir(this.bg_g_collisionEngine);
-		this.BG_collisionEngCir10 = new BG_collisionEngCir(this.bg_g_collisionEngine);*/
-
-
-
+		this.bg_g_collisionEngine = new BG_collision(this,true,6000,6000,30);//30
+		this.bg_g_collisionEngineOffSetX = -2000;
+		this.bg_g_collisionEngineOffSetY = -2000;
 		//-----------------------------------------------------------------------------------//
 		//-----------------------------------------------------------------------------------//
 		// gestion evenement
@@ -92,7 +81,7 @@ class BG_engine{
 		this.bg_g_listObj[layer].push( obj );
 	}
 	//----------------------------------
-	deleteObject(obg){
+	deleteObject(obj){
 		this.bg_g_listObjUnload.push(obj);
 	}
 	//----------------------------------
@@ -127,18 +116,6 @@ class BG_engine{
 				this.bg_g_listObj[i][k].drawObj( decXs+this.decX, decYs+this.decY,this.zoomLevel);
 			}
 		}
-		/*this.BG_collisionEngCir1.enterFrame();
-		this.BG_collisionEngCir2.enterFrame();
-		this.BG_collisionEngCir3.enterFrame();
-		this.BG_collisionEngCir4.enterFrame();
-		this.BG_collisionEngCir5.enterFrame();
-		this.BG_collisionEngCir6.enterFrame();
-		this.BG_collisionEngCir7.enterFrame();
-		this.BG_collisionEngCir8.enterFrame();
-		this.BG_collisionEngCir9.enterFrame();
-		this.BG_collisionEngCir10.enterFrame();*/
-		
-		
 
 		for(var k = 0 ; k < this.bg_g_listObjUnload.length ; k++){
 			var index = -1;
@@ -152,8 +129,8 @@ class BG_engine{
 				}
 			}
 			if( index != -1 && layer != -1){
+				this.bg_g_listObjUnload[k].destructor();
 				this.bg_g_listObj[layer].splice(index, 1);
-
 			}
 		}
 		this.bg_g_listObjUnload.splice(0, this.bg_g_listObjUnload.length);
@@ -170,6 +147,7 @@ class BG_engine{
 				}
 			}
 			if( index != -1 ){
+				this.bg_g_listScriptUnload[k].destructor();
 				this.bg_g_listObj.splice(index, 1);
 			}
 		}
@@ -184,7 +162,6 @@ class BG_engine{
 			if( this.bg_g_stat.getRenderEngineTime() < 1000/this.bg_g_targetFps ){
 				this.bg_g_stat.setRenderEngineFps(this.bg_g_targetFps);
 				setTimeout(function () {me.launchEnterFrame()}, (1000/this.bg_g_targetFps)-this.bg_g_stat.getRenderEngineTime() );
-				
 			}
 			else{	// cas ou le rendu 2d est surchargé, on ajoute un délai de 10ms pour ne pas bloquer le navigateur
 				this.bg_g_stat.setRenderEngineFps(1000/(10+this.bg_g_stat.getRenderEngineTime()));

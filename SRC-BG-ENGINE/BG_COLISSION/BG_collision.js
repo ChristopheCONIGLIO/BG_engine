@@ -105,9 +105,9 @@ class BG_collision {
 		------ ------ ------ ------ ------ ------ ------ ------ ------ ------ */
 		/*------------------------------------------------*/
 		initDebug(){
-			this._textDebug = new BG_text(this._BG_engine,true,0,0,12,0);
-			this._BG_engine.addObject(this._textDebug,1);
-			this._textDebug.setText("Start");
+			this._textDebug = new BG_text(this._BG_engine,true,4,0,0,20,"#FF8888");
+			//this._BG_engine.addObject(this._textDebug,1);
+			this._textDebug.setText("");
 		}
 		/*------------------------------------------------*/
 		setNbVectorSend($nbVectorSend){
@@ -121,19 +121,24 @@ class BG_collision {
 		}
 		/*------------------------------------------------*/
 		drawDebug(decX,decY,zoom){
+			var offX = this._BG_engine.bg_g_collisionEngineOffSetX;
+			var offY = this._BG_engine.bg_g_collisionEngineOffSetY;
 			this._BG_engine.bg_g_context.globalAlpha = 0.5;
 			var colorEasy = new HandleColor();	
-			/*this._BG_engine.bg_g_context.beginPath();
+			this._BG_engine.bg_g_context.beginPath();
 			this._BG_engine.bg_g_context.lineWidth = 5;
-			this._BG_engine.bg_g_context.moveTo(decX,decY);
-			this._BG_engine.bg_g_context.lineTo(decX+this._sizeWidth*zoom,decY);
-			this._BG_engine.bg_g_context.lineTo(decX+this._sizeWidth*zoom,decY+this._sizeHeight*zoom);
-			this._BG_engine.bg_g_context.lineTo(decX,decY+this._sizeHeight*zoom);
-			this._BG_engine.bg_g_context.lineTo(decX,decY);
+			
+			
+			this._BG_engine.bg_g_context.moveTo(decX+offX*zoom,decY+offY*zoom);
+			this._BG_engine.bg_g_context.lineTo(decX+(offX+this._sizeWidth)*zoom,decY+offY*zoom);
+			this._BG_engine.bg_g_context.lineTo(decX+(offX+this._sizeWidth)*zoom,decY+(offY+this._sizeHeight)*zoom);
+			this._BG_engine.bg_g_context.lineTo(decX+offX*zoom,decY+(offY+this._sizeHeight)*zoom);
+			this._BG_engine.bg_g_context.lineTo(decX+offX*zoom,decY+offY*zoom);
+			
 			this._BG_engine.bg_g_context.strokeStyle = colorEasy.rgb(255,55,55);
-			this._BG_engine.bg_g_context.stroke();*/
+			this._BG_engine.bg_g_context.stroke();
 
-			for( var i = 0 ; i < this._tabGrid.length ; i++){
+			/*for( var i = 0 ; i < this._tabGrid.length ; i++){
 				for( var j = 0; j < this._tabGrid[0].length ; j++){
 					//if( this._tabGrid[i][j].length != 0){
 						var intensity = this._tabGrid[i][j].length*50 ;
@@ -141,8 +146,8 @@ class BG_collision {
 						var color = colorEasy.rgb(intensity,0,0);
 						this._BG_engine.bg_g_context.beginPath();
 						this._BG_engine.bg_g_context.fillStyle = color;
-						this._BG_engine.bg_g_context.rect(	decX+i*this._stpSize*zoom,
-															decY+j*this._stpSize*zoom,
+						this._BG_engine.bg_g_context.rect(	decX+((i*this._stpSize)+offX)*zoom,
+															decY+((j*this._stpSize)+offY)*zoom,
 															(this._stpSize*zoom)-1,
 															(this._stpSize*zoom)-1
 															);
@@ -150,7 +155,7 @@ class BG_collision {
 						
 					//}
 				}
-			}
+			}*/
 			this._BG_engine.bg_g_context.globalAlpha = 1;
 			// value
 			this._valueVectorSend = this._valueVectorSend*0.9583 + this._nbVectorSend * 0.0517;
@@ -160,9 +165,10 @@ class BG_collision {
 				this._textDebug.setText("[LoopEngine: 0 Object]");
 			}
 			else{
-				this._textDebug.setText(	"[LoopEngine:"+this._valueTimeExe+"ms]"+
-										"[MoySqrt:"+(Math.ceil(this._valueTestContact/this._listOfShip.length))+"]"+
-										"[MoyVector:"+(Math.ceil(this._valueVectorSend/this._listOfShip.length))+"]"
+				this._textDebug.setText(	"[BG_enginePhysic] "+
+										" MeanSqrt: "+(Math.ceil(this._valueTestContact/this._listOfShip.length))+"# "+
+										" MeanVector: "+(Math.ceil(this._valueVectorSend/this._listOfShip.length))+"# "+
+										" Time: "+Math.round(this._valueTimeExe*1000)/1000+"ms "
 										);
 			}
 			//this._textDebug.setTextFormat(this._formatDebug );

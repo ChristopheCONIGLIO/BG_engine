@@ -64,19 +64,10 @@ class BG_collisionEngCir {
 			this._sizeHeight = $engWorld._sizeHeight;
 			//help to prevent bug
 			this._initPosition = true;
-			this._radius = Math.random()*10+10;
+			this._radius = 10;
 			this._mass = 1;
-			this._gravityZ = 0.4;
+			this._gravityZ = 0.5; //original 0.4
 			//this.mouseEventDebug();
-
-			this._px = Math.random() * 200;
-			
-			// en test
-			//next deleteME
-			this._gravityZ = 0.5;
-			this._static = false;
-			this._coefShockabsorb = 1.0;
-			this._mass = this._radius*this._radius;
 		}
 		/*------------------------------------------------*/
 		/*------------------------------------------------*/
@@ -92,19 +83,27 @@ class BG_collisionEngCir {
 					if( !(this._vx == 0 && this._vy == 0) || this._initPosition)
 						this.collisionAndMove();
 				}
+				else{
+					this._vx = 0;
+					this._vy = 0;
+				}
 			}
 			else{	
+				//never activated besause drag are only work with flash api (bg_engine do not need)
+				/* old code
 				this._vx = this._vx*0.1 + (x-this._px)*0.9;
 				this._vy = this._vy*0.1 + (y-this._py)*0.9;
 				this._px=x;
 				this._py=y;
 				this.setPosition(x,y);
+				*/
 			}
 			// ---------------------
 			this.x = this._px;
 			this.y = this._py;
-			//if( this._debug )	
-			this.traceGraphics();
+			if( this._debug){
+				this.traceGraphics(); // used for time calculus
+			}
 		}
 		/*------------------------------------------------*/
 		/*------------------------------------------------*/
@@ -158,7 +157,7 @@ class BG_collisionEngCir {
 		collisionAndMove(){
 			var npx = this._px+this._vx;
 			var npy = this._py+this._vy;
-			var tabCollision = new Array;
+			var tabCollision = new Array();
 			
 			if( npx-this._radius<0)	{
 				npx = this._radius;
@@ -473,14 +472,17 @@ class BG_collisionEngCir {
 					for( j=this._posTabY ; j < end2 ; j++ ){
 						this._tabGrid[i][j].push( this );
 					}
-				}			
+				}	
 			}
 			else{
+				//this.debug_tabGrid();		
+				//console.log("je traite");
 				var countAccessTab = 0;
 				posTabX = Math.floor((this._px-this._radius)/this._stpSize);
 				posTabY = Math.floor((this._py-this._radius)/this._stpSize);
 				//move on X
 				if(  posTabX != this._posTabX ){
+					
 					if( this._posTabX < posTabX){ 	// move ---> x
 						beg = this._posTabX;
 						end = posTabX + this._nbBlock;
@@ -492,7 +494,7 @@ class BG_collisionEngCir {
 							for( j = this._posTabY ; j < end2 ; j++ ){
 								if( i < this._posTabX + this._nbBlock && i<posTabX){
 									if( this._tabGrid[i][j].length == 1 ){
-										this._tabGrid[i][j] = Array;
+										this._tabGrid[i][j] = new Array();
 										countAccessTab++;
 									}
 									else{
@@ -527,7 +529,7 @@ class BG_collisionEngCir {
 								}
 								if( i >= this._posTabX && i>=posTabX+this._nbBlock){
 									if( this._tabGrid[i][j].length == 1 ){
-										this._tabGrid[i][j] = Array;
+										this._tabGrid[i][j] = new Array(); // comprendre new array serait plus rapide que splice ? surement !
 										countAccessTab++;
 									}
 									else{
@@ -557,7 +559,7 @@ class BG_collisionEngCir {
 							for( i = this._posTabX ; i < end2 ; i++ ){
 								if( j < this._posTabY + this._nbBlock && j<posTabY){
 									if( this._tabGrid[i][j].length == 1 ){
-										this._tabGrid[i][j] = new Array;
+										this._tabGrid[i][j] = new Array();
 										countAccessTab++;
 									}
 									else{
@@ -592,7 +594,7 @@ class BG_collisionEngCir {
 								}
 								if( j >= this._posTabY && j>=posTabY+this._nbBlock){
 									if( this._tabGrid[i][j].length == 1 ){
-										this._tabGrid[i][j] = Array;
+										this._tabGrid[i][j] = new Array();
 										countAccessTab++;
 									}
 									else{
@@ -639,7 +641,7 @@ class BG_collisionEngCir {
 			for( i=this._posTabX ; i < end ; i++ ){
 				for( j=this._posTabY ; j < end2 ; j++ ){
 					if( this._tabGrid[i][j].length == 1 ){
-						this._tabGrid[i][j] = Array;
+						this._tabGrid[i][j] = new Array();
 					}
 					else{
 						for( k=0 ; k < this._tabGrid[i][j].length ; k++){
@@ -657,6 +659,17 @@ class BG_collisionEngCir {
 				this.removeEventListener(MouseEvent.MOUSE_UP,mouseUp);
 			}*/
 			
+		}
+
+		debug_tabGrid(){
+			var str = "";
+			for(var j = 0; j < this._tabGrid.length; j++){
+				for(var i = 0; i < this._tabGrid[i].length; i++){
+					str+=this._tabGrid[j][i].length+",";
+				}
+				str+="\n";
+			}
+			console.log(str);
 		}
 		/*------------------------------------------------*/
 		/*------------------------------------------------*/

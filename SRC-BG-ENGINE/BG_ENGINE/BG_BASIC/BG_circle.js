@@ -8,20 +8,23 @@ class BG_circle extends BG_coreObjectBasic{
 		super(bg,onBoard,layer,pX,pY,size,size,color);
 		this.p_bg.addObject(this,this.p_layer);
 		
-		// in developement
-		this.BG_collisionEngCir1 =null;
-		this.collision = false;
-
+		this.p_physicObjet 	=	null;
+		this.p_physicEnable = 	false;
 		
+	}
+	destructor(){
+		if( this.p_physicEnable == true ){
+			this.setPhysicDisable();
+		}
 	}
 	
 	//PS : Rotation has not action of thius form so it's not managed :)
 	drawObj(decX,decY,zoom){
 		// in developement
-		if( this.collision == true){
-			this.BG_collisionEngCir1.enterFrame();
-			this.p_pX = this.BG_collisionEngCir1._px - this.p_sX/2;
-			this.p_pY = this.BG_collisionEngCir1._py - this.p_sX/2;
+		if( this.p_physicEnable == true){
+			this.p_physicObjet.enterFrame();
+			this.p_pX = this.p_physicObjet._px - this.p_sX/2 + this.p_bg.bg_g_collisionEngineOffSetX;
+			this.p_pY = this.p_physicObjet._py - this.p_sX/2 + this.p_bg.bg_g_collisionEngineOffSetY;
 		}
 		// end developement
 		
@@ -62,6 +65,10 @@ class BG_circle extends BG_coreObjectBasic{
 	setPos(pX,pY){
 		this.p_pX = pX;
 		this.p_pY = pY;
+		if( this.p_physicEnable == true ){
+			this.p_physicObjet.setPosition(	this.p_pX-this.p_bg.bg_g_collisionEngineOffSetX,
+											this.p_pY-this.p_bg.bg_g_collisionEngineOffSetY);
+		}
 	}
 
 
@@ -82,33 +89,26 @@ class BG_circle extends BG_coreObjectBasic{
 	
 		
 	/*
-	function in developement DO NOT USE
+
+	physic engine functions
 
 	*/
-	addToPhysicEngine(){
-		this.BG_collisionEngCir1 = new BG_collisionEngCir(this.p_bg.bg_g_collisionEngine);
-		//this.BG_collisionEngCir1._px = this.p_pX;
-		//this.BG_collisionEngCir1._py = this.p_pY;
-		this.BG_collisionEngCir1._radius = this.p_sX/2;
-		this.BG_collisionEngCir1.initDataArray();
-		this.BG_collisionEngCir1.setPosition(this.p_pX,this.p_pY);
-		this.collision = true;
+	setPhysicDisable(){
+		this.p_physicEnable = false;
+		this.p_physicObjet.destroyMe();
 	}
-	rstPhysicEngine(){
-		this.BG_collisionEngCir1._radius =20;
-			this.p_sX = this.BG_collisionEngCir1._radius*2;
-		this.BG_collisionEngCir1.setPosition(this.p_pX,this.p_pY);
+	setPhysicEnable(){
+		this.p_physicObjet = new BG_collisionEngCir(this.p_bg.bg_g_collisionEngine);
+		this.p_physicObjet._radius = this.p_sX/2;
+		this.p_physicObjet._mass = this.p_sX/2*this.p_sX/2;
+		this.p_physicObjet._static = false;
+		this.p_physicObjet.initDataArray();
+		this.p_physicObjet.setPosition(	this.p_pX-this.p_bg.bg_g_collisionEngineOffSetX,
+										this.p_pY-this.p_bg.bg_g_collisionEngineOffSetY);
+		this.p_physicEnable = true;
 	}
-	addToPhysicEngine2(){
-		this.BG_collisionEngCir1 = new BG_collisionEngCir(this.p_bg.bg_g_collisionEngine);
-		//this.BG_collisionEngCir1._px = this.p_pX;
-		//this.BG_collisionEngCir1._py = this.p_pY;
-		this.BG_collisionEngCir1._radius = this.p_sX/2;
-		this.BG_collisionEngCir1._static = true;
-		this.BG_collisionEngCir1.initDataArray();
-		this.BG_collisionEngCir1.setPosition(this.p_pX,this.p_pY);
-		this.collision = true;
-		
+	setPhysicMovable(value){
+		this.p_physicObjet._static = value;
 	}
 
 }

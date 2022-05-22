@@ -29,6 +29,8 @@ class BG_coreObjectBasic {
 	enterFrame(){
 	}
 	
+	destructor(){
+	}
 	
 	setColor(color){
 		this.p_color 	= color; 
