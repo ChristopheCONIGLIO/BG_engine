@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>C.CONIGLIO Project .js BG_engine</title>
+        <style>
+            * { margin:0; padding:0; }
+            #canvas1{
+               float: left;
+               width: 100%;
+               height: 100vh;
+               background-color: rgb(197, 197, 226);
+            }
+        </style>
+        <!-- import de BG engine -->
+        <script type="text/javascript" src="../../SRC-BG-ENGINE/BG_EngineImport.js"></script>
+        <script type="text/javascript"> loadBGengine("../..")</script>
+    </head>
+    <body >
+        <div class="conteneur">
+            <canvas id="canvas1" >BG_engine need a browser canvas HTML5 compatible</canvas>
+        </div>
+    </body>
+    <script type="text/javascript">
+        
+        var poly1,poly2,poly3,poly4;
+        var arr1 = new Array();
+        var arr2 = new Array();
+        var arr3 = new Array();
+        var arr4 = new Array();
+        for(var k = 0; k < Math.PI*2 ;k+=Math.random()*0.8){
+            var dis1 = Math.random()*50+300;
+            arr1.push([Math.cos(k)*dis1,Math.sin(k)*dis1]);
+        }
+        for(var k = 0; k < Math.PI*2 ;k+=Math.random()*0.8){
+            var dis2 = Math.random()*100+200;
+            arr2.push([700+Math.cos(k)*dis2,Math.sin(k)*dis2]);
+        }
+        for(var k = 0; k < Math.PI*2 ;k+=Math.random()*0.8){
+            var dis3 = Math.random()*200+100;
+            arr3.push([Math.cos(k)*dis3,700+Math.sin(k)*dis3]);
+        }
+        for(var k = 0; k < Math.PI*2 ;k+=Math.random()*0.8){
+            var dis4 = Math.random()*300+50;
+            arr4.push([700+Math.cos(k)*dis4,700+Math.sin(k)*dis4]);
+        }
+        //
+        //
+        //
+        class monCode extends BG_script{
+            constructor(bg) {
+                super(bg);
+                this.geofunc = new Geometry();
+            }
+            enterFrame(){
+                    var value = this.geofunc.pointInsideConvexCloud(arr1,this.p_bg.bg_g_stat.getMouseXBoard(),this.p_bg.bg_g_stat.getMouseYBoard());
+                    if(value )  poly1.setAlpha(0.2);
+                    else        poly1.setAlpha(1.0);
+                    value     = this.geofunc.pointInsideConvexCloud(arr2,this.p_bg.bg_g_stat.getMouseXBoard(),this.p_bg.bg_g_stat.getMouseYBoard());
+                    if(value )  poly2.setAlpha(0.2);
+                    else        poly2.setAlpha(1.0);
+                    value     = this.geofunc.pointInsideConvexCloud(arr3,this.p_bg.bg_g_stat.getMouseXBoard(),this.p_bg.bg_g_stat.getMouseYBoard());
+                    if(value )  poly3.setAlpha(0.2);
+                    else        poly3.setAlpha(1.0);
+                    value     = this.geofunc.pointInsideConvexCloud(arr4,this.p_bg.bg_g_stat.getMouseXBoard(),this.p_bg.bg_g_stat.getMouseYBoard());
+                    if(value )  poly4.setAlpha(0.2);
+                    else        poly4.setAlpha(1.0);
+            }
+        }
+        //
+        //
+        //
+
+        // --------------------------------------------------- //
+        // --------------------------------------------------- //
+        
+        //declaration de BG_engine
+        var bg_engine = new BG_engine("canvas1",20,30);
+        poly1 = new BG_polygone(bg_engine,true,2,arr1,"#FF44FF");
+        poly2 = new BG_polygone(bg_engine,true,2,arr2,"#8844FF");
+        poly3 = new BG_polygone(bg_engine,true,2,arr3,"#AA44FF");
+        poly4 = new BG_polygone(bg_engine,true,2,arr4,"#4444FF");
+        var code =  new monCode(bg_engine);
+        // --------------------------------------------------- //
+        // --------------------------------------------------- //
+       
+    </script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

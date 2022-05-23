@@ -3,6 +3,7 @@
 function loadBGengine(relativePathImport) {
     // LOAD JS CODE = NOT ESSENTIAL (for demo)
     document.write("<script type='text/javascript' src='"+relativePathImport+"/SRC-BG-ENGINE/NOT_ESSENTIAL/COLOR_FUNCTION/HandleColor.js'></script>");
+    document.write("<script type='text/javascript' src='"+relativePathImport+"/SRC-BG-ENGINE/NOT_ESSENTIAL/COLOR_FUNCTION/Geometry.js'></script>");
     // LOAD JS CODE = CORE 
     document.write("<script type='text/javascript' src='"+relativePathImport+"/SRC-BG-ENGINE/BG_ENGINE/BG_CORE/BG_coreObjectBasic.js'></script>");  
     document.write("<script type='text/javascript' src='"+relativePathImport+"/SRC-BG-ENGINE/BG_ENGINE/BG_CORE/BG_coreStatistique.js'></script>");  

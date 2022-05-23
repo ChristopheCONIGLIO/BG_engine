@@ -6,7 +6,7 @@
 class BG_polygone extends BG_coreObjectBasic{
 	constructor(bg,onBoard,layer,arrayPoint,color) {
 		super(bg,onBoard,layer,0,0,0,0,color);
-		his.p_bg.addObject(this,this.p_layer);
+		this.p_bg.addObject(this,this.p_layer);
 		this.setArrayPoint(arrayPoint);
 	}
 	

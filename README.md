@@ -1,4 +1,4 @@
-v1.21
+v1.220
 
 Projet
 ------
@@ -59,12 +59,17 @@ Les caractéristiques du moteur 2D sont les suivantes :
 change log
 ----------
 
-    22/05/2022 - v1.21
+    23/05/2022 - v1.211
     -------------------
-    22/05/2022 -- ajout d'un moteur physique sur les cercles fonctionnel
+    23/05/2022 -- Ajout dd'une classe d'outils pour les polygones
+    23/05/2022 -- Ajout d'une exemple pour les polygones 
+    
+    22/05/2022 - v1.210
+    -------------------
+    22/05/2022 -- Ajout d'un moteur physique sur les cercles fonctionnel
     22/05/2022 -- Ajout d'exemple avec le nouveau systèmed'écriture de code via l'héritage script et objet 
 
-    21/05/2022 - v1.20
+    21/05/2022 - v1.200
     -------------------
     21/05/2022 -- Création des exemples d'utilisatio clé en main
     21/05/2022 -- Séparation du code du moteur des exemples
