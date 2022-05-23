@@ -110,6 +110,10 @@ class BG_circle extends BG_coreObjectBasic{
 	setPhysicMovable(value){
 		this.p_physicObjet._static = value;
 	}
+	setPhysicGravity(gX,gY){
+		this.p_physicObjet._gravityX = gX;
+		this.p_physicObjet._gravityY = gY;
+	}
 
 }
 

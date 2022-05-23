@@ -50,9 +50,16 @@ class Geometry{
     }
     //----------------------------------
 
+    /*angle2d(px1,py1,px2,py2){ TODO
+        var delta_x = this.p_pX - pointPassage[0][0];
+        var delta_y = this.p_pY - pointPassage[0][1];
+        return angle = Math.atan2(delta_y, delta_x)
+	}*/
+   
 
-
-
+    distance($c1Px,$c1Py,$c2Px,$c2Py){
+		return Math.sqrt( (($c1Px-$c2Px)*($c1Px-$c2Px))+(($c1Py-$c2Py)*($c1Py-$c2Py)) )   ;
+	}
 
 
 

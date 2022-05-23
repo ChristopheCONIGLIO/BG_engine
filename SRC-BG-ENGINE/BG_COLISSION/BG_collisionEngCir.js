@@ -68,12 +68,18 @@ class BG_collisionEngCir {
 			this._mass = 1;
 			this._gravityZ = 0.5; //original 0.4
 			//this.mouseEventDebug();
+			this._gravityX = 0;
+			this._gravityY = 0.9; //simule de base la pomme qui tombe !
+
 		}
 		/*------------------------------------------------*/
 		/*------------------------------------------------*/
 		enterFrame(){
 			//var g = 0.3;
-			this._vy += 0.9;		//deleteMe
+			this._vx += this._gravityX;
+			this._vy += this._gravityY;
+			
+
 
 			if( this._debug )	
 				this._date1Debug = new Date;
