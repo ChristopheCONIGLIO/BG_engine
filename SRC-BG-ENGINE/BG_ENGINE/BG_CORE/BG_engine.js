@@ -8,6 +8,7 @@ class BG_engine{
 		//-----------------------------------------------------------------------------------//
 		//-----------------------------------------------------------------------------------//
 		this.debugContour = false;
+		this.debugCollisionContour = false;
 		//-----------------------------------------------------------------------------------//
 		//-----------------------------------------------------------------------------------//
 		// basic variable scene
@@ -26,6 +27,7 @@ class BG_engine{
 			this.bg_g_listObj[k] = new Array();
 		}
 		this.bg_g_listObjUnload = new Array();
+		this.bg_g_listObjMoveLayer = new Array();
 		this.bg_g_listScript = new Array();
 		this.bg_g_listScriptUnload = new Array();
 		this.bg_g_stat = new BG_coreStatistique(this);
@@ -38,9 +40,11 @@ class BG_engine{
 		// gestion des collisions
 		//-----------------------------------------------------------------------------------//
 		//-----------------------------------------------------------------------------------//
-		this.bg_g_collisionEngine = new BG_collision(this,true,6000,6000,30);//30
-		this.bg_g_collisionEngineOffSetX = -2000;
-		this.bg_g_collisionEngineOffSetY = -2000;
+		this.bg_g_collisionEngine;
+		this.bg_g_collisionEngineOffSetX;
+		this.bg_g_collisionEngineOffSetY;
+		this.initCollisionEngine(6000,6000,30);
+	 	this.setOffSetCollisionengine(-2000,-2000);
 		//-----------------------------------------------------------------------------------//
 		//-----------------------------------------------------------------------------------//
 		// gestion evenement
@@ -85,6 +89,11 @@ class BG_engine{
 		this.bg_g_listObjUnload.push(obj);
 	}
 	//----------------------------------
+	changeLayer(obj,newLayer){
+		var arr = new Array();
+		this.bg_g_listObjMoveLayer.push([obj,newLayer]);
+	}
+	//----------------------------------
 	addScript(obj){
 		this.bg_g_listScript.push( obj );
 	}
@@ -108,15 +117,43 @@ class BG_engine{
 		var decXs = (-this.decX+this.bg_g_width/2) * (1-this.zoomLevel);
 		var decYs = (-this.decY+this.bg_g_height/2) * (1-this.zoomLevel);
 		
-		//this.bg_g_collisionEngine.drawDebug(decXs+this.decX, decYs+this.decY,this.zoomLevel);
+		if( this.debugCollisionContour ) this.bg_g_collisionEngine.drawDebug(decXs+this.decX, decYs+this.decY,this.zoomLevel);
 		// handle objetc
 		for(var i = 0 ; i < this.bg_g_nbLayer ; i++){
 			for(var k = 0 ; k < this.bg_g_listObj[i].length ; k++){
-				this.bg_g_listObj[i][k].enterFrame();
+				
 				this.bg_g_listObj[i][k].drawObj( decXs+this.decX, decYs+this.decY,this.zoomLevel);
+				this.bg_g_listObj[i][k].enterFrame();
 			}
 		}
 
+
+
+		//gere le déaplcement des couche graphique des objets
+		for(var k = 0 ; k < this.bg_g_listObjMoveLayer.length ; k++){
+			var index = -1;
+			var layer = -1;
+			for(var i = 0 ; i < this.bg_g_nbLayer ; i++){
+				for(var j = 0 ; j < this.bg_g_listObj[i].length ; j++){
+					if( this.bg_g_listObj[i][j] == this.bg_g_listObjMoveLayer[k][0] ){
+						index = j;
+						layer = i;
+					}
+				}
+			}
+			if( index != -1 && layer != -1){
+				this.bg_g_listObj[layer].splice(index, 1);
+				this.bg_g_listObj[this.bg_g_listObjMoveLayer[k][1]].push( this.bg_g_listObjMoveLayer[k][0] );
+			}
+			
+		}
+		this.bg_g_listObjMoveLayer.splice(0, this.bg_g_listObjMoveLayer.length); //? new Array not ?
+		
+
+		// optimisable parcque on connait la position dans le tableau pas besoin de chercher dans toute les couches ?
+		//gere le déchargement des objets graphique
+		//
+		//
 		for(var k = 0 ; k < this.bg_g_listObjUnload.length ; k++){
 			var index = -1;
 			var layer = -1;
@@ -133,8 +170,9 @@ class BG_engine{
 				this.bg_g_listObj[layer].splice(index, 1);
 			}
 		}
-		this.bg_g_listObjUnload.splice(0, this.bg_g_listObjUnload.length);
-		
+		this.bg_g_listObjUnload.splice(0, this.bg_g_listObjUnload.length); //? new Array not ?
+
+
 		//handle script
 		for(var k = 0 ; k < this.bg_g_listScript.length ; k++){
 				this.bg_g_listScript[k].enterFrame();
@@ -170,5 +208,22 @@ class BG_engine{
 		}
 	}
  	//----------------------------------
+	 
+		
+	//----------------------------------
+	//----------------------------------
+	// Method for handle specific 2d collision engine
+	//----------------------------------
+	//----------------------------------
+	initCollisionEngine(sizeX,sizeY,incrementArray){
+		this.bg_g_collisionEngine = new BG_collision(this,true,sizeX,sizeY,incrementArray);
+	}
+	setOffSetCollisionengine(offSetX,offSetY){
+		this.bg_g_collisionEngineOffSetX = offSetX;
+		this.bg_g_collisionEngineOffSetY = offSetY;	
+	}	
+	//----------------------------------
+
+
 }
 

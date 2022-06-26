@@ -10,7 +10,51 @@ class BG_roundRect extends BG_coreObjectBasic{
 		this.p_round	= round;
 	}
 	
-	
+	/* 
+
+		public function accesseur get/set
+
+	*/
+	setPos(pX,pY){
+		this.p_pX = pX;
+		this.p_pY = pY;
+	}
+	setPosX(pX){
+		this.p_pX = pX;
+	}
+	setPosY(pY){
+		this.p_pY = pY;
+	}
+	getPosX(){
+		return this.p_pX;
+	}
+	getPosY(){
+		return this.p_pY;
+	}
+	setDim(sX,sY){
+		this.p_sX = sX;
+		this.p_sY = sY;
+	}
+	setDimX(sX){
+		this.p_sX = sX;
+	}
+	setDimY(sY){
+		this.p_sY = sY;
+	}
+	getDimX(){
+		return this.p_sX;
+	}
+	getDimY(){
+		return this.p_sY;
+	}
+	setRound(round){
+		this.p_round = round;
+	}
+	getRound(){
+		return this.p_round;
+	}
+
+
 	drawObj(decX,decY,zoom){
 		if( this.visible == true){
 			let px,py,pSX,pSY,radius;
@@ -41,22 +85,7 @@ class BG_roundRect extends BG_coreObjectBasic{
 		}
 	}
 	
-	/* 
-	
-		public function
 
-	*/
-	setRound(round){
-		this.p_round = round;
-	}
-	setPos(pX,pY){
-		this.p_pX = pX;
-		this.p_pY = pY;
-	}
-	setDim(sX,sY){
-		this.p_sX = sX;
-		this.p_sY = sY;
-	}
 
 	/* 
 	

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>C.CONIGLIO Project .js BG_engine</title>
+        <style>
+            * { margin:0; padding:0; }
+            #canvas1{
+               float: left;
+               width: 100%;
+               height: 100vh;
+               background-color: rgb(197, 197, 226);
+            }
+        </style>
+        <!-- import de BG engine -->
+        <script type="text/javascript" src="../../SRC-BG-ENGINE/BG_EngineImport.js"></script>
+        <script type="text/javascript"> loadBGengine("../..")</script>
+    </head>
+    <body >
+        <div class="conteneur">
+            <canvas id="canvas1" >BG_engine need a browser canvas HTML5 compatible</canvas>
+        </div>
+    </body>
+    <script type="text/javascript">
+        
+        // --------------------------------------------------- //
+        // --------------------------------------------------- //
+        class BG_circleGame extends BG_circle{
+            constructor(bg,onBoard,layer,pX,pY,size,color) {
+                super(bg,onBoard,layer,pX,pY,size,color);
+                this.p_power = 0;
+                this.p_maxVelocity = 25;
+                this.p_life = 0;
+
+                this.p_objText = new BG_text(this.p_bg,true,10,this.p_pX-8,this.p_pY-20,30,"#222222");
+                
+
+
+            }
+            destructor(){
+                
+                super.destructor();
+                this.p_bg.deleteObject(this.p_objText);
+                
+            }
+            enterFrame(){
+                /*if( this.p_pY > 2500){
+                    this.setPos(Math.random()*999,0);   
+                }*/
+
+                for(var k = 0 ; k < this.p_physicListLastContact.length ; k++){
+                    if( this.p_physicListLastContact[k].p_physicStatic == true){
+                        /*if( this.p_physicListLastContact[k].p_power == 1){
+                            this.p_physicListLastContact[k].p_life--;
+                        }*/
+                        this.p_physicListLastContact[k].p_life--;
+                        if( this.p_physicListLastContact[k].p_power >= 2){
+                            this.p_physicVx*=this.p_physicListLastContact[k].p_power;
+                            this.p_physicVy*=this.p_physicListLastContact[k].p_power;
+                            
+                        }
+                        if( this.p_physicListLastContact[k].p_life <= 0 ){
+                            this.p_bg.deleteObject(this.p_physicListLastContact[k]);
+                        }
+                    }
+                }
+                this.forceMaxVelocity();
+                this.p_objText.setPos(this.p_pX+20,this.p_pY+10);
+                if( this.p_life != 0){
+                    this.p_objText.setText(this.p_life);
+                }
+            }
+            forceMaxVelocity(){
+                var veloActual = Math.sqrt(this.p_physicVx*this.p_physicVx+this.p_physicVy*this.p_physicVy);
+                if( veloActual > this.p_maxVelocity){
+                    var correction = this.p_maxVelocity/veloActual;
+                    this.p_physicVx *= correction;
+                    this.p_physicVy *= correction;
+                }
+            }
+        }
+        // --------------------------------------------------- //
+        // --------------------------------------------------- //
+        class scriptExemple extends BG_script{
+            constructor(bg) {
+                super(bg);// bg accès by this variable -> this.p_bg
+                this.inc = 0;
+            }
+            enterFrame(){
+                if( this.inc < 6){
+                    this.inc++;
+                    var circle = new BG_circleGame(this.p_bg,true,8,Math.random()*1000,-300,30+Math.random()*30,"#FF0000");
+                    circle.setPhysicEnable();
+                }
+            }
+        }
+        // --------------------------------------------------- //
+        // --------------------------------------------------- //
+        
+        //declaration de BG_engine
+        var bg_engine = new BG_engine("canvas1",20,30);
+        bg_engine.debugCollisionContour = true;
+        bg_engine.initCollisionEngine(1080,4000,30);
+        bg_engine.setOffSetCollisionengine(0,-1000);
+        //ajout du script via la classe précédente
+        var code = new scriptExemple(bg_engine);
+        // ajout d'objet fixe au début
+        for(var k = 0; k < 10 ; k++){
+            for(var i = 0; i < 5;i++){
+                var value = Math.random();
+                if( value < 0.3 ){
+                    var objCer = new BG_circleGame(bg_engine,true,8,0+i*220,600+k*110,45,"#4444FF");
+                    objCer.setPhysicEnable();
+                    objCer.setPhysicMovable(true);
+                    objCer.p_power = 1;
+                    objCer.p_life = 5;
+                }
+                else if( value < 0.6 ){
+                    var objCer = new BG_circleGame(bg_engine,true,8,0+i*220,600+k*110,45,"#888888");
+                    objCer.setPhysicEnable();
+                    objCer.setPhysicMovable(true);
+                    objCer.p_power = 0;
+                    objCer.p_life = 10;
+                }
+                else{
+                    var objCer = new BG_circleGame(bg_engine,true,8,0+i*220,600+k*110,45,"#FF00FF");
+                    objCer.setPhysicEnable();
+                    objCer.setPhysicMovable(true);
+                    objCer.p_power = 3;
+                    objCer.p_life = 20;
+                }
+                
+            }
+            for(var i = 0; i < 5;i++){
+                var value = Math.random();
+                if( value < 0.3 ){
+                    var objCer = new BG_circleGame(bg_engine,true,8,100+i*220,655+k*110,45,"#4444FF");
+                    objCer.setPhysicEnable();
+                    objCer.setPhysicMovable(true);
+                    objCer.p_power = 1;
+                    objCer.p_life = 5;
+                }
+                else if( value < 0.6 ){
+                    var objCer = new BG_circleGame(bg_engine,true,8,100+i*220,655+k*110,45,"#888888");
+                    objCer.setPhysicEnable();
+                    objCer.setPhysicMovable(true);
+                    objCer.p_power = 0;
+                    objCer.p_life = 10;
+                }
+                else{
+                    var objCer = new BG_circleGame(bg_engine,true,8,100+i*220,655+k*110,45,"#FF00FF");
+                    objCer.setPhysicEnable();
+                    objCer.setPhysicMovable(true);
+                    objCer.p_power = 3;
+                    objCer.p_life = 20;
+                }
+            }
+        }
+        // --------------------------------------------------- //
+        // --------------------------------------------------- //
+
+        // pluseiur type de ball (ballon de foot, metal avec des coef de rebond diférent)
+        // 3 entonoir a la fin
+       
+    </script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

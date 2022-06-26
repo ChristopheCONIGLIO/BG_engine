@@ -12,7 +12,7 @@
 class BG_collisionEngCir {
 		
 		/*------------------------------------------------*/
-		constructor($engWorld) {
+		constructor($engWorld,$bg_engineObject) {
 			
 			
 			// declaration (portage of old flash .as code)
@@ -53,6 +53,7 @@ class BG_collisionEngCir {
 			
 			// begining of the code
 			this._world = $engWorld;
+			this._bg = $bg_engineObject;
 			this._listOfShip = $engWorld._listOfShip;
 			this._listOfShip.push( this );
 			this._tabGrid = $engWorld._tabGrid;
@@ -66,7 +67,7 @@ class BG_collisionEngCir {
 			this._initPosition = true;
 			this._radius = 10;
 			this._mass = 1;
-			this._gravityZ = 0.5; //original 0.4
+			this._gravityZ = 0.2; //original 0.4
 			//this.mouseEventDebug();
 			this._gravityX = 0;
 			this._gravityY = 0.9; //simule de base la pomme qui tombe !
@@ -206,6 +207,7 @@ class BG_collisionEngCir {
 								var distance = this.squareDistance(this._tabGrid[i][j][m]._px,this._tabGrid[i][j][m]._py,npx,npy);
 								if( distance < (this._tabGrid[i][j][m]._radius + this._radius)*(this._tabGrid[i][j][m]._radius + this._radius) ){
 									tabCollision.push( [this._tabGrid[i][j][m]._px,this._tabGrid[i][j][m]._py,this._tabGrid[i][j][m]._radius,this._tabGrid[i][j][m],distance] );
+									this._bg.p_physicListLastContact.push(this._tabGrid[i][j][m]._bg);
 								}
 							}
 						}

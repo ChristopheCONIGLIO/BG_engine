@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>C.CONIGLIO Project .js BG_engine</title>
+        <style>
+            * { margin:0; padding:0; }
+            #canvas1{
+               float: left;
+               width: 80%;
+               height: 100vh;
+               background-color: rgb(197, 197, 226);
+            }
+            #handleEditor{
+                float: left;
+               width: 20%;
+               height: 100vh;
+               background-color: rgb(221, 195, 195);
+            }
+        </style>
+        <!-- import de BG engine -->
+        <script type="text/javascript" src="../../SRC-BG-ENGINE/BG_EngineImport.js"></script>
+        <script type="text/javascript"> loadBGengine("../..")</script>
+        <script type="text/javascript" src="./code/boutons/gestionBoutons.js"></script>
+        <script type="text/javascript" src="./code/objets/BG_rectEditor.js"></script>
+        <script type="text/javascript" src="./code/mainScript/monCode.js"></script>
+    </head>
+    <body >
+        <div class="conteneur">
+            <canvas id="canvas1" >BG_engine need a browser canvas HTML5 compatible</canvas>
+            <div id="handleEditor" >
+                <button onclick="ajoutRectangle()">Ajout rectangle</button>
+                <button onclick="supprimerObj()">Supprimer Objet</button>
+                <div></div>
+                <button onclick="moveObjRotation(10)">rotation+=10</button>
+                <button onclick="moveObjRotation(-10)">rotation-=10</button>
+                <div></div>
+                <button onclick="moveObjPosition(10,0)">posX+=10</button>
+                <button onclick="moveObjPosition(-10,0)">posX-=10</button>
+                <button onclick="moveObjPosition(0,10)">posY+=10</button>
+                <button onclick="moveObjPosition(0,-10)">posY-=10</button>
+                <div></div>
+                <button onclick="moveObjAlpha(0.1)">alpha+=0.1</button>
+                <button onclick="moveObjAlpha(-0.1)">alpha-=0.1</button>
+                <div></div>
+                <button onclick="moveObjDim(10,0)">dimX+=10</button>
+                <button onclick="moveObjDim(-10,0)">dimX-=10</button>
+                <button onclick="moveObjDim(0,10)">dimY+=10</button>
+                <button onclick="moveObjDim(0,-10)">dimY-=10</button>
+                <div></div>
+                <div>Couleur objet</div>
+                <button onclick="getColor()">getColor</button>
+                <button onclick="setColor()">setColor</button>
+                <input type="text" id="bkg"  size="20">
+                <div></div>
+                <div>couche</div>
+                <button onclick="getLayer()">getLayer</button>
+                <button onclick="setLayer()">setLayer</button>
+                <input type="text" id="layer" size="20">
+                <div></div>
+                <button onclick="visuHelp()">Active/desactive info</button>
+            </div>
+            
+        </div>
+    </body>
+    <script type="text/javascript">
+        //
+        //
+        //
+        // Ceci est un exemple d'implémentation d'editeur de forme avec 
+        // le BG engine
+        // Elle est a but pédagogique est contient de très nombreuse 
+        // améliorations possibles
+        //
+        //
+        
+        
+        // !!!!!!!!!!!!!!!!!!!!!
+        // pour INFORMATION
+        // j'utilise "_" devant mes variables globales qui seront réutiliser dans l'ensemble du code pour les identifier clairement plus tard
+
+
+        //declare le bg_engine 
+        var _bg_engine1 = new BG_engine("canvas1",150,35); //150 layer et 35 fps
+        //Ajoute le script a executer a chaque frame dans le bg_engine
+        var code1 = new monCode(_bg_engine1);
+
+        var _arrListAllObjEditor = new Array(); // ici on pousse tous les objet graphique que l'ont construira
+        // La liste permettra de faire l'export mais aussi de gerer des interactions (voir code plus tard)
+
+        //Ajoute le pointeur souris clic // selectorMouse est une variable globale donc acceisble dans le script
+        var _selectorMouse = new BG_circle(_bg_engine1,true,120,-100,-100,20,"#FF0000");
+        _selectorMouse.setAlpha(0.5); //lui passe un alpha de 0.5  
+        _selectorMouse.setVisible(false); //on veux pas le voir au début      
+        var _dragAndDroEnable = false; // permet a l'objet selectionner de savoir si il est en mode drag and drop 
+        var _etatAide = 1; //permet de savoir si on veux afficher les info d'aide curseur etc...
+
+        //on créé quelques variable globale que l'ont aura besoin d'accéder depuis les boutons en dehord des script dédidé du BG_engine
+        var _mouseXclic = 0;
+        var _mouseYclic = 0;
+        // la variable permettant de faire le lien entre l'objet sélectionner et les boutons
+        var _currentObjSelected = undefined; // au début aucun objet n'est sélectionné
+
+
+        //on créé l'élément graphique <Mire> pour situer le centre
+        var _textOrigine = new BG_text(_bg_engine1,true,104,-20,-20,10,"#EEEEEE");
+        _textOrigine.setText("(0,0)");
+
+        var _mireLigneX = new BG_line(_bg_engine1,true,104,0,0,100,0,5,"#CC2222");
+        var _textMireLigneX = new BG_text(_bg_engine1,true,104,-20+100,-20,10,"#CC2222");
+        _textMireLigneX.setText("(100,0)");
+
+        var _mireLigneY = new BG_line(_bg_engine1,true,104,0,0,0,100,5,"#22CC22");
+        var _textMireLigneY = new BG_text(_bg_engine1,true,104,-40,-10+100,10,"#22CC22");
+        _textMireLigneY.setText("(0,100)");
+
+        // on positionnne la position du plateau de jeu autour de la mire
+        _bg_engine1.bg_g_stat.setCameraPositionX(_bg_engine1.bg_g_stat.getScreenWidth()/2);
+        _bg_engine1.bg_g_stat.setCameraPositionY(_bg_engine1.bg_g_stat.getScreenHeight()/2);
+        
+
+        //
+        //
+        //  FIN du code d'intilisation
+        //
+        //
+
+    </script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -35,7 +35,7 @@ class BG_coreStatistique {
 	setCameraPositionX(value){
 		this.g_bg.decX = value;
 	}
-	setCameraPositionY(){
+	setCameraPositionY(value){
 		this.g_bg.decY = value;
 	}
 	setCameraPositionZoom(value){

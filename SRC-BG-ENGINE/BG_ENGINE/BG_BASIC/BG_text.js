@@ -14,6 +14,55 @@ class BG_text extends BG_coreObjectBasic{
 
 	}
 	
+	/* 
+		fonctions public
+	*/
+	setPos(pX,pY){
+		this.p_pX = pX;
+		this.p_pY = pY;
+	}
+	setPosX(pX){
+		this.p_pX = pX;
+	}
+	setPosY(pY){
+		this.p_pY = pY;
+	}
+	getPosX(){
+		return this.p_pX;
+	}
+	getPosY(){
+		return this.p_pY;
+	}
+
+	setDim(arg){
+		this.p_size = arg;
+	}
+	getDim(){
+		return this.p_size;
+	}
+
+	setText(text){
+		this.text = text;
+	}
+	getText(text){
+		return this.text;
+	}
+	getWidthText(zoom){	//la taille sans le zoom
+		this.p_ctx.font = (this.p_size) +"px "+this.font;
+		return this.p_ctx.measureText(this.text).width;
+	}
+	getWidthTextWithZoom(zoom){	//la taille dépend du zoom de la carte !!!!!
+		this.p_ctx.font = (zoom*this.p_size) +"px "+this.font;
+		return this.p_ctx.measureText(this.text).width;
+	}
+ 	//----------------------------------
+
+
+
+
+
+
+	
 	drawObj(decX,decY,zoom){
 		if( this.visible == true){
 			let px,py,pSX,pSY,size;
@@ -21,7 +70,7 @@ class BG_text extends BG_coreObjectBasic{
 				// calcul limit of form
 				px = decX+this.p_pX*zoom;
 				py = (zoom*this.p_size) + decY+this.p_pY*zoom;
-				pSX = this.getWidthText(zoom);
+				pSX = this.getWidthTextWithZoom(zoom);
 				pSY = zoom*this.p_size;
 				size = zoom;	
 				//determine if form must be draw
@@ -35,7 +84,7 @@ class BG_text extends BG_coreObjectBasic{
 				// calcul limit of form
 				px = this.p_pX;
 				py = this.p_size + this.p_pY;
-				pSX = this.getWidthText(1.0);
+				pSX = this.getWidthTextWithZoom(1.0);
 				pSY = this.p_size;
 				size = 1.0;
 				//determine if form must be draw
@@ -50,30 +99,6 @@ class BG_text extends BG_coreObjectBasic{
 			this.stat.setRenderEngineObject( this.stat.getRenderEngineObject() + 1 );
 		}
 	}
-	
-	/* 
-		fonctions public
-	*/
-	setPos(pX,pY){
-		this.p_pX = pX;
-		this.p_pY = pY;
-	}
-
-	setDim(arg){
-		this.p_size = arg;
-	}
-
-	setText(text){
-		this.text = text;
-	}
-	getText(text){
-		return this.text;
-	}
-	getWidthText(zoom){	//la taille dépend du zoom de la carte !!!!!
-		this.p_ctx.font = (zoom*this.p_size) +"px "+this.font;
-		return this.p_ctx.measureText(this.text).width;
-	}
- 	//----------------------------------
 	
 	 
 	/* 

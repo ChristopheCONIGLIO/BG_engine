@@ -40,16 +40,40 @@ class BG_rect extends BG_coreObjectBasic{
 	
 	/* 
 
-		public function
+		public function accesseur get/set
 
 	*/
 	setPos(pX,pY){
 		this.p_pX = pX;
 		this.p_pY = pY;
 	}
+	setPosX(pX){
+		this.p_pX = pX;
+	}
+	setPosY(pY){
+		this.p_pY = pY;
+	}
+	getPosX(){
+		return this.p_pX;
+	}
+	getPosY(){
+		return this.p_pY;
+	}
 	setDim(sX,sY){
 		this.p_sX = sX;
 		this.p_sY = sY;
+	}
+	setDimX(sX){
+		this.p_sX = sX;
+	}
+	setDimY(sY){
+		this.p_sY = sY;
+	}
+	getDimX(){
+		return this.p_sX;
+	}
+	getDimY(){
+		return this.p_sY;
 	}
 	/* 
 

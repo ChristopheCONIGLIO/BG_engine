@@ -10,7 +10,37 @@ class BG_polygone extends BG_coreObjectBasic{
 		this.setArrayPoint(arrayPoint);
 	}
 	
+	/*
 
+		public function
+
+	*/
+	setArrayPoint(arrayPoint){
+		this.p_arrayPoint = arrayPoint;
+		let minX = arrayPoint[0][0];
+		let minY = arrayPoint[0][1];
+		let maxX = arrayPoint[0][0];
+		let maxY = arrayPoint[0][1];
+		// un peu d'algo ... (a optimiser ,)
+		for(var j = 0; j < this.p_arrayPoint.length; j++){
+			if( arrayPoint[j][0] < minX) minX = arrayPoint[j][0];
+			if( arrayPoint[j][1] < minY) minY = arrayPoint[j][1];
+			if( arrayPoint[j][0] > maxX) maxX = arrayPoint[j][0];
+			if( arrayPoint[j][1] > maxY) maxY = arrayPoint[j][1];
+		}
+		this.p_pX 		= minX;
+		this.p_pY		= minY;
+		this.p_sX		= maxX-minX;
+		this.p_sY		= maxY-minY; 
+	}
+	getArrayPoint(){
+		return this.p_arrayPoint;
+	}
+
+
+	/*
+
+	*/
 
 	drawObj(decX,decY,zoom){
 		if( this.visible == true){
@@ -51,29 +81,7 @@ class BG_polygone extends BG_coreObjectBasic{
 	}
 
 
-	/*
 
-		public function
-
-	*/
-	setArrayPoint(arrayPoint){
-		this.p_arrayPoint = arrayPoint;
-		let minX = arrayPoint[0][0];
-		let minY = arrayPoint[0][1];
-		let maxX = arrayPoint[0][0];
-		let maxY = arrayPoint[0][1];
-		// un peu d'algo ... (a optimiser ,)
-		for(var j = 0; j < this.p_arrayPoint.length; j++){
-			if( arrayPoint[j][0] < minX) minX = arrayPoint[j][0];
-			if( arrayPoint[j][1] < minY) minY = arrayPoint[j][1];
-			if( arrayPoint[j][0] > maxX) maxX = arrayPoint[j][0];
-			if( arrayPoint[j][1] > maxY) maxY = arrayPoint[j][1];
-		}
-		this.p_pX 		= minX;
-		this.p_pY		= minY;
-		this.p_sX		= maxX-minX;
-		this.p_sY		= maxY-minY; 
-	}
 
 
 	

@@ -12,6 +12,39 @@ class BG_line extends BG_coreObjectBasic{
 		this.setPoint(p1X,p1Y,p2X,p2Y);
 	}
 	
+
+	/* 
+
+		public function accesseur get/set
+
+	*/
+	setThickness(thickness){
+		this.p_thickness = thickness;
+	}
+	getThickness(){
+		return this.p_thickness;
+	}
+	setPoint(p1X,p1Y,p2X,p2Y){
+		this.p_p1X		= p1X;
+		this.p_p1Y		= p1Y;
+		this.p_p2X		= p2X;
+		this.p_p2Y		= p2Y;
+	}
+	getPoints(){
+		return [[this.p_p1X,this.p_p1Y],[this.p_p2X,this.p_p2Y]];
+	}
+	getPoint1(){
+		return [this.p_p1X,this.p_p1Y];
+	}
+	getPoint2(){
+		return [this.p_p2X,this.p_p2Y];
+	}
+
+	/*
+
+
+	*/
+
 	drawObj(decX,decY,zoom){
 		if( this.visible == true){
 			
@@ -56,15 +89,8 @@ class BG_line extends BG_coreObjectBasic{
 	
 
 
-	setThickness(thickness){
-		this.p_thickness = thickness;
-	}
-	setPoint(p1X,p1Y,p2X,p2Y){
-		this.p_p1X		= p1X;
-		this.p_p1Y		= p1Y;
-		this.p_p2X		= p2X;
-		this.p_p2Y		= p2Y;
-	}
+
+
 
 	/* 
 		
