@@ -17,6 +17,19 @@ class BG_drawImage extends BG_coreObjectBasic{
 		public function accesseur get/set
 
 	*/
+	getImageWidth(){
+		return this.img.width;
+	}
+	getImageHeight(){
+		return this.img.height;
+	}
+	
+	getImageURL(){
+		return this.img.src;
+	}
+	setImageURL(url){
+		this.img.src = url;
+	}
 	setPos(pX,pY){
 		this.p_pX = pX;
 		this.p_pY = pY;
@@ -91,6 +104,7 @@ class BG_drawImage extends BG_coreObjectBasic{
 
 	*/
 	drawImage(x,y,width,height){
+		
 		if( this.rotation != 0){
 			this.p_ctx.translate(x+width/2,y+height/2);
 			this.p_ctx.rotate(this.rotation * Math.PI / 180);

@@ -1,4 +1,4 @@
-v1.212
+v1.213
 
 Projet
 ------
@@ -59,11 +59,15 @@ Les caractéristiques du moteur 2D sont les suivantes :
 change log
 ----------
 
+    27/06/2022 - v1.213
+    -------------------
+    27/06/2022 -- Ajout des image dans l'exemple "008-MinimalEditeurDeForme"
+    
     26/06/2022 - v1.212
     -------------------
-    23/05/2022 -- Ajout d'un example de createurs d'objets graphiques via le bg_engine "008-MinimalEditeurDeForme"
-    23/05/2022 -- Diverses corrections
-    23/05/2022 -- Ajout de plusieurs set/get dans les objets
+    26/06/2022 -- Ajout d'un example de createurs d'objets graphiques via le bg_engine "008-MinimalEditeurDeForme"
+    26/06/2022 -- Diverses corrections
+    26/06/2022 -- Ajout de plusieurs set/get dans les objets
 
     23/05/2022 - v1.211
     -------------------

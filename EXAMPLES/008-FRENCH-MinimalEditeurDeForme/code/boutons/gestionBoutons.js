@@ -14,6 +14,14 @@ function ajoutRectangle(){
     _currentObjSelected = randomRectangle; //on possition le dernier obj en obje selectiionner
     _arrListAllObjEditor.push(randomRectangle);
 }
+function ajoutImage(){
+    //on commence par cacher le selector
+    _selectorMouse.setVisible(false); //les obj BG_engine sont accesible aussi en dehord des scripts BG_engine
+    // on créé un rectangle pour le BG_engine
+    var randomImage = new BG_imageEditor(_bg_engine1,true,10,_mouseXclic-50,_mouseYclic-50,100,100,"../../SRC-BG-ENGINE/NOT_ESSENTIAL/IMAGE/openImage.jpeg");//le 1 c'est la couche d'afficahge
+    _currentObjSelected = randomImage; //on possition le dernier obj en obje selectiionner
+    _arrListAllObjEditor.push(randomImage);
+}
 function supprimerObj(){
     if( _currentObjSelected != undefined){ //on check qu'il y a bien un obj selectionné
         //on commence par cacher le selector
@@ -106,6 +114,16 @@ function setLayer(){
 function visuHelp(){
     if( _etatAide == 1) _etatAide = 0;
     else                _etatAide = 1;
+}
+
+
+// la partie charger image en HTML est un peu complexe !!!!
+
+function chargerImage(){
+    if( _currentObjSelected != undefined){ //on check qu'il y a bien un obj selectionné
+        var layer = document.getElementById("imageurl").value;
+        _currentObjSelected.setImageURL(layer);
+    }
 }
 
 

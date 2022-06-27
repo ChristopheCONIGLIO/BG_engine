@@ -19,6 +19,8 @@ class monCode extends BG_script{
         // 2 - on regarde le clic pour activer la selection d'objet ou du curseur
         // 3 - on active l'animation
         // 4 - on gere l'affichage ou pas de certains elèments
+
+        // 1 - on regarde mousedonw pour activer le drag and drop
         if( _dragAndDroEnable == false && this.p_bg.bg_g_stat.getMouseDown() == 1){ 
             // detect le mouseDown surtout ne pas tester si 
             // _dragAndDroEnable == true car sa veut dire qu'il est deja activé
@@ -50,6 +52,7 @@ class monCode extends BG_script{
             this.p_bg.bg_g_stat.setManualControl(true); // reactive le controle de la camera
         }
         
+        // 2 - on regarde le clic pour activer la selection d'objet ou du curseur
         if( this.p_bg.bg_g_stat.getMouseClick() == 1){ // clic détecté par le bg_engine via this.p_bg.bg_g_stat.getMouseClick()
             
             var mouseXClic = this.p_bg.bg_g_stat.getMouseXBoard();
@@ -84,6 +87,8 @@ class monCode extends BG_script{
             
 
         }
+
+        // 3 - on active l'animation
         //gere l'animation du curseur
         var selectorAlpha = _selectorMouse.getAlpha();
         if( this.animAlphaSens == 1)    selectorAlpha += this.animAlphaIncr;
@@ -94,6 +99,9 @@ class monCode extends BG_script{
         if( _dragAndDroEnable == true)  _selectorMouse.setVisible(false);
         //else                            _selectorMouse.setVisible(true);
 
+
+        // 4 - on gere l'affichage ou pas de certains elèments
+        //ici pour afficher ou pas les élemnet interactif
         if( _etatAide == 0 ){
             _textOrigine.setVisible(false);
             _mireLigneX.setVisible(false);
@@ -107,6 +115,14 @@ class monCode extends BG_script{
             _textMireLigneX.setVisible(true);
             _mireLigneY.setVisible(true);
             _textMireLigneY.setVisible(true);
+        }
+        //ici pour MAJ a chaque frame la taille original de l'image 
+        //si elle est selectionné
+        if( _currentObjSelected != undefined && _currentObjSelected.type == "image"){ 
+            //on a bien qqch de selectionné et c'est bien une image
+            var imageOriginalWidth = _currentObjSelected.getImageWidth();
+            var imageOriginalHeight = _currentObjSelected.getImageHeight();
+            document.getElementById("imageSize").value = "taille = "+imageOriginalWidth+"/"+imageOriginalHeight;
         }
     }
 }

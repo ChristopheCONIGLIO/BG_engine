@@ -22,15 +22,22 @@
         <script type="text/javascript"> loadBGengine("../..")</script>
         <script type="text/javascript" src="./code/boutons/gestionBoutons.js"></script>
         <script type="text/javascript" src="./code/objets/BG_rectEditor.js"></script>
+        <script type="text/javascript" src="./code/objets/BG_imageEditor.js"></script>
         <script type="text/javascript" src="./code/mainScript/monCode.js"></script>
     </head>
     <body >
         <div class="conteneur">
             <canvas id="canvas1" >BG_engine need a browser canvas HTML5 compatible</canvas>
             <div id="handleEditor" >
+                <h3>.</h3>
+                <h3>.</h3>
+                <h3>Gestion objets</h3>
                 <button onclick="ajoutRectangle()">Ajout rectangle</button>
+                <button onclick="ajoutImage()">Ajout image</button>
                 <button onclick="supprimerObj()">Supprimer Objet</button>
-                <div></div>
+                <h3>.</h3>
+                <h3>.</h3>
+                <h3>Attributs communs</h3>
                 <button onclick="moveObjRotation(10)">rotation+=10</button>
                 <button onclick="moveObjRotation(-10)">rotation-=10</button>
                 <div></div>
@@ -47,17 +54,30 @@
                 <button onclick="moveObjDim(0,10)">dimY+=10</button>
                 <button onclick="moveObjDim(0,-10)">dimY-=10</button>
                 <div></div>
-                <div>Couleur objet</div>
-                <button onclick="getColor()">getColor</button>
-                <button onclick="setColor()">setColor</button>
-                <input type="text" id="bkg"  size="20">
-                <div></div>
                 <div>couche</div>
                 <button onclick="getLayer()">getLayer</button>
                 <button onclick="setLayer()">setLayer</button>
                 <input type="text" id="layer" size="20">
                 <div></div>
+                <h3>.</h3>
+                <h3>.</h3>
+                <h3>Attributs Rectangle</h3>
+                <button onclick="getColor()">getColor</button>
+                <button onclick="setColor()">setColor</button>
+                <input type="text" id="bkg"  size="20">
+                <h3>.</h3>
+                <h3>.</h3>
+                <h3>Attributs Image</h3>
+                <input type="text" id="imageSize"  size="20">
+                <div>url</div>
+                <input type="text" id="imageurl"  size="20">
+                <button onclick="chargerImage()">chargerImage</button>
+                <h3>.</h3>
+                <h3>.</h3>
+                <h3>Interface</h3>
                 <button onclick="visuHelp()">Active/desactive info</button>
+
+                
             </div>
             
         </div>
