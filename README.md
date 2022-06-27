@@ -61,7 +61,7 @@ change log
 
     27/06/2022 - v1.213
     -------------------
-    27/06/2022 -- Ajout des image dans l'exemple "008-MinimalEditeurDeForme"
+    27/06/2022 -- Ajout de l'objet image dans l'exemple "008-MinimalEditeurDeForme"
     
     26/06/2022 - v1.212
     -------------------
