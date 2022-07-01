@@ -3,6 +3,8 @@ class BG_coreObjectBasic {
 		this.p_bg		= bg;
 		this.stat		= bg.bg_g_stat;
 		this.p_ctx		= bg.bg_g_context;
+		//this.p_fixedSize = fixedSize;
+		this.p_fixedSize = false;
 		this.p_onBoard	= onBoard;
 		this.p_layer	= layer; 
 		this.p_sX 		= sX;
@@ -15,7 +17,6 @@ class BG_coreObjectBasic {
 		this.alpha			= 1;
 		this.visible 		= true;
 		this.rotation 		= 0;	
-
 	}
 	
 	/* 
@@ -57,11 +58,22 @@ class BG_coreObjectBasic {
 
 	//color
 	setColor(color){
-		this.p_color 	= color; 
+		this.p_color = color; 
 	}
 	getColor(){
 		return this.p_color; 
 	}
+
+	//color
+	setFixedSize(value){
+		this.p_fixedSize = value; 
+	}
+	getFixedsize(){
+		return this.p_fixedSize; 
+	}
+
+
+	
 	
 	//transparence
 	setAlpha(value){

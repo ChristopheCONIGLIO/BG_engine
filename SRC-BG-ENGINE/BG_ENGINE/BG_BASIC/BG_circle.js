@@ -5,6 +5,7 @@
 
 class BG_circle extends BG_coreObjectBasic{
 	constructor(bg,onBoard,layer,pX,pY,size,color) {
+		
 		super(bg,onBoard,layer,pX,pY,size,size,color);
 		this.p_bg.addObject(this,this.p_layer);
 		
@@ -98,7 +99,12 @@ class BG_circle extends BG_coreObjectBasic{
 		
 		if( this.visible == true){
 			let px,py,pS;
-			if( this.p_onBoard == true){
+			if( this.p_fixedSize == true){
+				px = decX+this.p_pX*zoom-this.p_sX/2;
+				py = decY+this.p_pY*zoom-this.p_sY/2;
+				pS = this.p_sX;
+			}
+			else if( this.p_onBoard == true){
 				// calcul limit of form
 				px = decX+this.p_pX*zoom;
 				py = decY+this.p_pY*zoom;

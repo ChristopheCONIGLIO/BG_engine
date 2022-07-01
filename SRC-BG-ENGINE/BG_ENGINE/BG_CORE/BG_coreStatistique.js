@@ -47,7 +47,7 @@ class BG_coreStatistique {
 	getCameraPositionY(){
 		return this.g_bg.decY;
 	}
-	getCameraPositionZoom(value){
+	getCameraPositionZoom(){
 		return this.g_bg.zoomLevel;
 	}
 
