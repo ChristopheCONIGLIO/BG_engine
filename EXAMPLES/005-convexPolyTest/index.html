@@ -46,22 +46,23 @@
         //
         //
         //
+
         class monCode extends BG_script{
             constructor(bg) {
                 super(bg);
                 this.geofunc = new Geometry();
             }
             enterFrame(){
-                    var value = this.geofunc.pointInsideConvexCloud(arr1,this.p_bg.bg_g_stat.getMouseXBoard(),this.p_bg.bg_g_stat.getMouseYBoard());
+                    var value = this.geofunc.pointInsidePolygone(arr1,this.p_bg.bg_g_stat.getMouseXBoard(),this.p_bg.bg_g_stat.getMouseYBoard());
                     if(value )  poly1.setAlpha(0.2);
                     else        poly1.setAlpha(1.0);
-                    value     = this.geofunc.pointInsideConvexCloud(arr2,this.p_bg.bg_g_stat.getMouseXBoard(),this.p_bg.bg_g_stat.getMouseYBoard());
+                    value     = this.geofunc.pointInsidePolygone(arr2,this.p_bg.bg_g_stat.getMouseXBoard(),this.p_bg.bg_g_stat.getMouseYBoard());
                     if(value )  poly2.setAlpha(0.2);
                     else        poly2.setAlpha(1.0);
-                    value     = this.geofunc.pointInsideConvexCloud(arr3,this.p_bg.bg_g_stat.getMouseXBoard(),this.p_bg.bg_g_stat.getMouseYBoard());
+                    value     = this.geofunc.pointInsidePolygone(arr3,this.p_bg.bg_g_stat.getMouseXBoard(),this.p_bg.bg_g_stat.getMouseYBoard());
                     if(value )  poly3.setAlpha(0.2);
                     else        poly3.setAlpha(1.0);
-                    value     = this.geofunc.pointInsideConvexCloud(arr4,this.p_bg.bg_g_stat.getMouseXBoard(),this.p_bg.bg_g_stat.getMouseYBoard());
+                    value     = this.geofunc.pointInsidePolygone(arr4,this.p_bg.bg_g_stat.getMouseXBoard(),this.p_bg.bg_g_stat.getMouseYBoard());
                     if(value )  poly4.setAlpha(0.2);
                     else        poly4.setAlpha(1.0);
             }

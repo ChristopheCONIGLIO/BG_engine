@@ -55,6 +55,8 @@ class BG_engine{
 	
 		this.decX = 0;
 		this.decY = 0;
+		this.decXwithZoom = 0;
+		this.decYwithZoom = 0;
 		this.mouseDownX = -1;
 		this.mouseDownY;
 		this.mouseX = 0;
@@ -116,7 +118,8 @@ class BG_engine{
 		this.bg_g_stat.setScreenHeight(this.bg_g_height);
 		var decXs = (-this.decX+this.bg_g_width/2) * (1-this.zoomLevel);
 		var decYs = (-this.decY+this.bg_g_height/2) * (1-this.zoomLevel);
-		
+		this.decXwithZoom = decXs+this.decX;
+		this.decYwithZoom = decYs+this.decY;
 		if( this.debugCollisionContour ) this.bg_g_collisionEngine.drawDebug(decXs+this.decX, decYs+this.decY,this.zoomLevel);
 		// handle objetc
 		for(var i = 0 ; i < this.bg_g_nbLayer ; i++){

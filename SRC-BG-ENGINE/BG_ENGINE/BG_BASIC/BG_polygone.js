@@ -8,6 +8,7 @@ class BG_polygone extends BG_coreObjectBasic{
 		super(bg,onBoard,layer,0,0,0,0,color);
 		this.p_bg.addObject(this,this.p_layer);
 		this.setArrayPoint(arrayPoint);
+		
 	}
 	
 	/*
@@ -44,36 +45,22 @@ class BG_polygone extends BG_coreObjectBasic{
 
 	drawObj(decX,decY,zoom){
 		if( this.visible == true){
-			let px,py,pSX,pSY,size,ldecX,ldecY;
-			if( this.p_onBoard == true){
-				// calcul if form must be drawed
-				// basé sur les dimensions max du polygone 
-				px = decX+this.p_pX*zoom;
-				py = decY+this.p_pY*zoom;
-				pSX = this.p_sX*zoom;
-				pSY = this.p_sY*zoom;
-				size = zoom;
-				ldecX = decX;
-				ldecY = decY;
-				
-			}
-			else{
-				// calcul if form must be drawed
-				// basé sur les dimensions max du polygone 
-				px = this.p_pX;
-				py = this.p_pY;
-				pSX = this.p_sX;
-				pSY = this.p_sY;
-				size = 1.0;
-				ldecX = 1;
-				ldecY = 1;
-				
-			}
+			
+			var info = this.getLocalInfo();
+			let px  = info[0];
+			let py  = info[1];
+			let pSX = info[2];
+			let pSY = info[3];
+			let size = info[4];
+			let ldecX = info[5];
+			let ldecY = info[6];
+			
 			if( px-pSX > this.stat.getScreenWidth())	return;
 			if( py-pSY > this.stat.getScreenHeight())	return;
 			if( px + pSX < 0)		return;
 			if( py + pSY < 0)		return;
 			if( this.p_bg.debugContour == true) this.drawLimitContour(px,py,pSX,pSY);
+			
 			// draw the form
 			this.drawPoly(ldecX,ldecY,size);		
 			this.stat.setRenderEngineObject( this.stat.getRenderEngineObject() + 1 );
@@ -119,6 +106,92 @@ class BG_polygone extends BG_coreObjectBasic{
 			
 
 	}
-	
+	//info locales
+	getLocalInfo(){
+		let decX = this.p_bg.decXwithZoom;
+		let decY = this.p_bg.decYwithZoom;
+		let zoom = this.p_bg.zoomLevel;
+		let px,py,pSX,pSY,size,ldecX,ldecY;
+		if( this.p_onBoard == true){
+			// calcul if form must be drawed
+			// basé sur les dimensions max du polygone 
+			px = decX+this.p_pX*zoom;
+			py = decY+this.p_pY*zoom;
+			pSX = this.p_sX*zoom;
+			pSY = this.p_sY*zoom;
+			size = zoom;
+			ldecX = decX;
+			ldecY = decY;
+			
+		}
+		else{
+			// calcul if form must be drawed
+			// basé sur les dimensions max du polygone 
+			px = this.p_pX;
+			py = this.p_pY;
+			pSX = this.p_sX;
+			pSY = this.p_sY;
+			size = 1.0;
+			ldecX = 1;
+			ldecY = 1;
+			
+		}
+		return [px,py,pSX,pSY,size,ldecX,ldecY];
+	}
+	getMouseOver(){
+		let decX = this.p_bg.decXwithZoom;
+		let decY = this.p_bg.decYwithZoom;
+		let zoom = this.p_bg.zoomLevel;
+
+		let arrayXpoints = new Array(); 
 		
+		if( this.p_onBoard == true){
+
+			let cx = decX + (this.p_pX+this.p_sX/2)*zoom;
+			let cy = decY + (this.p_pY+this.p_sY/2)*zoom;
+
+			for(var k = 0; k < this.p_arrayPoint.length ; k++){
+				var px = decX+this.p_arrayPoint[k][0]*zoom;
+				var py = decY+this.p_arrayPoint[k][1]*zoom;
+				var tab = this.tools_rotatePointFromCenter (px,py, cx,cy, this.rotation);
+				arrayXpoints.push( [tab[0],tab[1]]);
+			}
+		}
+		else{
+			let cx =  (this.p_pX+this.p_sX/2);
+			let cy =  (this.p_pY+this.p_sY/2);
+
+			for(var k = 0; k < this.p_arrayPoint.length ; k++){
+				var px = this.p_arrayPoint[k][0];
+				var py = this.p_arrayPoint[k][1];
+				var tab = this.tools_rotatePointFromCenter (px,py, cx,cy, this.rotation);
+				arrayXpoints.push( [tab[0],tab[1]]);
+			}
+		}
+
+		this.tools_drawExactContour(arrayXpoints);
+		
+		this.mouseOver = this.tools_pointInsidePolygone(
+				arrayXpoints,
+				this.p_bg.mouseX,
+				this.p_bg.mouseY
+				);
+		return this.mouseOver;
+	}
+	tools_drawExactContour(arr){	 //arr = tab of X points	
+		
+		
+		this.p_ctx.beginPath();
+		//console.log(arr.length);
+		for(var j = 0; j < arr.length; j++){
+			//console.log(arr[j][0], arr[j][1]);
+			if( j == 0) this.p_ctx.moveTo(arr[j][0], arr[j][1]);
+			else		this.p_ctx.lineTo(arr[j][0], arr[j][1]);
+		}
+		this.p_ctx.lineTo(arr[0][0], arr[0][1]);
+
+		this.p_ctx.lineWidth = 4;
+		this.p_ctx.strokeStyle = "#FF0000";
+		this.p_ctx.stroke();
+	}
 }

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>C.CONIGLIO Project .js BG_engine</title>
+        <style>
+            * { margin:0; padding:0; }
+            #canvas1{
+               float: left;
+               width: 100%;
+               height: 100vh;
+               background-color: rgb(197, 197, 226);
+            }
+        </style>
+        <!-- import de BG engine -->
+        <script type="text/javascript" src="../../SRC-BG-ENGINE/BG_EngineImport.js"></script>
+        <script type="text/javascript"> loadBGengine("../..")</script>
+    </head>
+    <body >
+        <div class="conteneur">
+            <canvas id="canvas1" >BG_engine need a browser canvas HTML5 compatible</canvas>
+        </div>
+    </body>
+    <script type="text/javascript">
+        
+       
+        // --------------------------------------------------- //
+        // --------------------------------------------------- //
+        
+        class monCode extends BG_script{
+            constructor(bg) {
+                super(bg);
+            }
+            enterFrame(){
+                if( circleOnBoard.getMouseOver() == false)    circleOnBoard.setAlpha(1);
+                else                                        circleOnBoard.setAlpha(0.2); 
+                if( circleBoardFixed.getMouseOver() == false)    circleBoardFixed.setAlpha(1);
+                else                                        circleBoardFixed.setAlpha(0.2); 
+                if( circleOnScreen.getMouseOver() == false)    circleOnScreen.setAlpha(1);
+                else                                        circleOnScreen.setAlpha(0.2); 
+                
+                rectOnBoard.rotation++;
+                if( rectOnBoard.getMouseOver() == false)    rectOnBoard.setAlpha(1);
+                else                                        rectOnBoard.setAlpha(0.2); 
+                rectOnScreen.rotation++;
+                if( rectOnScreen.getMouseOver() == false)    rectOnScreen.setAlpha(1);
+                else                                        rectOnScreen.setAlpha(0.2); 
+                rectBoardFixed.rotation++;
+                if( rectBoardFixed.getMouseOver() == false)    rectBoardFixed.setAlpha(1);
+                else                                        rectBoardFixed.setAlpha(0.2); 
+
+                rectOnBoardA.rotation++;
+                if( rectOnBoardA.getMouseOver() == false)    rectOnBoardA.setAlpha(1);
+                else                                        rectOnBoardA.setAlpha(0.2); 
+                rectBoardFixedA.rotation++;
+                if( rectBoardFixedA.getMouseOver() == false)    rectBoardFixedA.setAlpha(1);
+                else                                        rectBoardFixedA.setAlpha(0.2); 
+                rectOnScreenA.rotation++;
+                if( rectOnScreenA.getMouseOver() == false)    rectOnScreenA.setAlpha(1);
+                else                                        rectOnScreenA.setAlpha(0.2); 
+
+                imageOnBoard.rotation++;
+                if( imageOnBoard.getMouseOver() == false)    imageOnBoard.setAlpha(1);
+                else                                        imageOnBoard.setAlpha(0.2); 
+                imageBoardFixed.rotation++;
+                if( imageBoardFixed.getMouseOver() == false)    imageBoardFixed.setAlpha(1);
+                else                                        imageBoardFixed.setAlpha(0.2); 
+                imageOnScreen.rotation++;
+                if( imageOnScreen.getMouseOver() == false)    imageOnScreen.setAlpha(1);
+                else                                        imageOnScreen.setAlpha(0.2); 
+
+                texteOnBoard.rotation++;
+                if( texteOnBoard.getMouseOver() == false)    texteOnBoard.setAlpha(1);
+                else                                        texteOnBoard.setAlpha(0.2); 
+
+                texteOnScreen.rotation++;
+                if( texteOnScreen.getMouseOver() == false)    texteOnScreen.setAlpha(1);
+                else                                        texteOnScreen.setAlpha(0.2); 
+                textBoardFixed.rotation++;
+                if( textBoardFixed.getMouseOver() == false)    textBoardFixed.setAlpha(1);
+                else                                        textBoardFixed.setAlpha(0.2); 
+                
+                polyOnBoard.rotation++;
+                if( polyOnBoard.getMouseOver() == false)    polyOnBoard.setAlpha(1);
+                else                                        polyOnBoard.setAlpha(0.2); 
+
+                polyOnScreen.rotation++;
+                if( polyOnScreen.getMouseOver() == false)    polyOnScreen.setAlpha(1);
+                else                                        polyOnScreen.setAlpha(0.2); 
+
+                
+                
+            }
+        }
+
+
+
+        //declaration de BG_engine
+        var bg_engine = new BG_engine("canvas1",20,30);
+        var code =  new monCode(bg_engine);
+
+        
+        var circleOnBoard    = new BG_circle(bg_engine,true,10,500,200,200,"#FF0000");
+        var circleBoardFixed = new BG_circle(bg_engine,true,true,11,600,300,100,"#00FF00");
+        var circleOnScreen   = new BG_circle(bg_engine,false,19,200,200,50,"#0000FF");
+
+        var rectOnBoard    = new BG_rect(bg_engine,true,10,500,500,200,100,"#884444");
+        var rectBoardFixed = new BG_rect(bg_engine,true,true,11,600,550,100,50,"#00FF00");
+        var rectOnScreen   = new BG_rect(bg_engine,false,19,200,500,50,100,"#0000FF");
+
+        var rectOnBoardA    = new BG_roundRect(bg_engine,true,10,800,500,200,100,12,"#884444");
+        var rectBoardFixedA= new BG_roundRect(bg_engine,true,true,11,900,550,100,50,12,"#00FF00");
+        var rectOnScreenA   = new BG_roundRect(bg_engine,false,false,19,200,330,50,100,12,"#0000FF");
+
+        var imageOnBoard    = new BG_drawImage(bg_engine,true,10,800,200,200,100,"../../SRC-BG-ENGINE/NOT_ESSENTIAL/IMAGE/openImage.jpeg");
+        var imageBoardFixed = new BG_drawImage(bg_engine,true,true,10,900,250,100,50,"../../SRC-BG-ENGINE/NOT_ESSENTIAL/IMAGE/openImage.jpeg");
+        var imageOnScreen   = new BG_drawImage(bg_engine,false,19,200,650,50,100,"../../SRC-BG-ENGINE/NOT_ESSENTIAL/IMAGE/openImage.jpeg");
+        
+        var texteOnBoard    = new BG_text(bg_engine,true,10,510,75,25,"#884444");
+        texteOnBoard.setText("Board [B][G]_engine");
+        var textBoardFixed    = new BG_text(bg_engine,true,true,10,900,80,25,"#00FF00");
+        textBoardFixed.setText("Fixed [B][G]_engine");
+        var refCircle   = new BG_circle(bg_engine,true,true,9,900,80,10,"#0000FF");
+        var texteOnScreen    = new BG_text(bg_engine,false,10,110,100,25,"#0000FF");
+        texteOnScreen.setText("Static [B][G]_engine");
+        
+
+        var polyOnBoard   = new BG_polygone(bg_engine,true,9,[[1200,200],[1500,250],[1200,300],[1300,250]],"#884444");
+         
+        var polyOnScreen   = new BG_polygone(bg_engine,false,19,[[400,200],[500,250],[350,300]],"#0000FF");
+        //manque polyfixed
+        //line
+
+
+        // --------------------------------------------------- //
+        // --------------------------------------------------- //
+       
+    </script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

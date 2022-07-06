@@ -4,9 +4,15 @@
 */
 
 class BG_circle extends BG_coreObjectBasic{
-	constructor(bg,onBoard,layer,pX,pY,size,color) {
+	constructor(bg,onBoard,fixed,layer,pX,pY,size,color) {
+		if( color == undefined){
+			super(bg,onBoard,false,fixed,layer,pX,pY,size,size);
+		}
+		else{
+			super(bg,onBoard,fixed,layer,pX,pY,size,size,color);
+		}
+
 		
-		super(bg,onBoard,layer,pX,pY,size,size,color);
 		this.p_bg.addObject(this,this.p_layer);
 		
 		//variables internes physic
@@ -98,30 +104,19 @@ class BG_circle extends BG_coreObjectBasic{
 		// end developement
 		
 		if( this.visible == true){
-			let px,py,pS;
-			if( this.p_fixedSize == true){
-				px = decX+this.p_pX*zoom-this.p_sX/2;
-				py = decY+this.p_pY*zoom-this.p_sY/2;
-				pS = this.p_sX;
-			}
-			else if( this.p_onBoard == true){
-				// calcul limit of form
-				px = decX+this.p_pX*zoom;
-				py = decY+this.p_pY*zoom;
-				pS = this.p_sX*zoom; //pas pS ? bug ?
-			}
-			else{
-				// calcul limit of form
-				px = this.p_pX;
-				py = this.p_pY;
-				pS = this.p_sX;
-			}
+			
+			var info = this.getLocalInfo();
+			let px  = info[0];
+			let py  = info[1];
+			let pS  = info[2];
+			
 			//determine if form must be draw
 			if( px-pS > this.stat.getScreenWidth())	return;
 			if( py-pS > this.stat.getScreenHeight())	return;
 			if( px + pS < 0)		return;
 			if( py + pS < 0)		return;
 			if( this.p_bg.debugContour == true) this.drawLimitContour(px,py,pS,pS);
+			
 			// draw the form
 			this.drawCircle(px,py,pS,this.p_color);
 			this.stat.setRenderEngineObject( this.stat.getRenderEngineObject() + 1 );
@@ -131,6 +126,57 @@ class BG_circle extends BG_coreObjectBasic{
 	
 
 
+	/*
+		info
+
+	*/
+	getLocalInfo(){
+		let decX = this.p_bg.decXwithZoom;
+		let decY = this.p_bg.decYwithZoom;
+		let zoom = this.p_bg.zoomLevel;
+		let px,py,pS;
+		if( this.p_fixedSize == true){
+			px = decX+this.p_pX*zoom-this.p_sX/2;
+			py = decY+this.p_pY*zoom-this.p_sY/2;
+			pS = this.p_sX;
+		}
+		else if( this.p_onBoard == true){
+			// calcul limit of form
+			px = decX+this.p_pX*zoom;
+			py = decY+this.p_pY*zoom;
+			pS = this.p_sX*zoom; //pas pS ? bug ?
+		}
+		else{
+			// calcul limit of form
+			px = this.p_pX;
+			py = this.p_pY;
+			pS = this.p_sX;
+		}
+		return [px,py,pS];
+	}
+	getMouseOver(){
+		var info = this.getLocalInfo();
+		let px  = info[0];
+		let py  = info[1];
+		let pS = info[2];
+		
+		let cx = px+pS/2;
+		let cy = py+pS/2;
+
+		var dis = this.tools_distance(
+			this.p_bg.mouseX,
+			this.p_bg.mouseY
+			,cx,
+			cy
+			);
+		if( dis < pS/2)	this.mouseOver = true;
+		else			this.mouseOver = false;
+
+		return this.mouseOver;
+	}
+	tools_distance($c1Px,$c1Py,$c2Px,$c2Py){
+        return Math.sqrt( (($c1Px-$c2Px)*($c1Px-$c2Px))+(($c1Py-$c2Py)*($c1Py-$c2Py)) )   ;
+    }
 
 	/* 
 		

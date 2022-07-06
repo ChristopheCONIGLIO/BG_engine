@@ -5,8 +5,9 @@ class BG_rectEditor extends BG_rect{
     constructor(bg,onBoard,layer,pX,pY,sX,sY,color) {
         super(bg,onBoard,layer,pX,pY,sX,sY,color);
         this.type = "rectangle";
-        this.mireSize = 15;
-        this.mire = new BG_circle(this.getRefEngine(),true,106,this.getPosX()-15,this.getPosY()-15,this.mireSize,"#33FFFF");
+        this.mireSize = 30;
+        this.mire = new BG_circle(this.getRefEngine(),true,106,this.getPosX(),this.getPosY(),this.mireSize,"#33FFFF");
+        this.mire.setFixedSize(true);
         this.dragAndDrop_decMouseX = 0;
         this.dragAndDrop_decMouseY = 0;
     }
@@ -16,8 +17,8 @@ class BG_rectEditor extends BG_rect{
     }
     enterFrame(){
         // fait en sorte de centrer à chaque frame la mire de l'objet
-        this.mire.setPosX(this.getPosX()-this.mireSize/2 );
-        this.mire.setPosY(this.getPosY()-this.mireSize/2 );
+        this.mire.setPosX(this.getPosX() );
+        this.mire.setPosY(this.getPosY() );
         
         if( _currentObjSelected == this)    this.mire.setAlpha(1);
         else                                this.mire.setAlpha(0.5);
@@ -35,8 +36,8 @@ class BG_rectEditor extends BG_rect{
     }
     //permet de calculer de facon autonome suivant caractérisqtique de this.mire si on a cliqué dessus
     determineIfClicOfMe(mouseX,mouseY){
-        var dis = this.distance(mouseX,mouseY,this.mire.getPosX()+this.mireSize/2,this.mire.getPosY()+this.mireSize/2);
-        if( dis < this.mireSize/2){
+        var dis = this.distance(mouseX,mouseY,this.mire.getPosX(),this.mire.getPosY());
+        if( dis < (this.mireSize/2)/this.getRefEngine().bg_g_stat.getCameraPositionZoom()){
             return [true,dis];
         }
         return [false,dis];

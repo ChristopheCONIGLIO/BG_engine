@@ -1,4 +1,4 @@
-v1.213
+v1.300
 
 Projet
 ------
@@ -35,17 +35,23 @@ Les caractéristiques du moteur 2D sont les suivantes :
 
 •	Pensé pour afficher une carte en vue de dessus, gere le zoom et le drag and drop automatiquement
 
-•	Aucune dépendance (basé uniquement sur du HTML5), fonctionne directement pas besoin de serveur
+•	Aucune dépendance (basé uniquement sur du HTML5), fonctionne directement coté client (pas besoin de serveur)
 
-•	Gestion des scripts du jeu simplifié via deux fonctions « EnterFrame » et « DrawObject », pas d’autres fonction à implémenter
+•	Gestion des scripts du jeu simplifié via deux fonctions « EnterFrame » et « DrawObject », pas d’autre fonction à implémenter
 
 •	Chargement et déchargement d’objet simplifiés
 
 •	Disposition de formes basiques (rond rectangle,...) et de formats d'image (png,jpeg,...) clé en main
 
+•	Trois mode d'affichage (1) sur le plateau, (2) sur plateau avec taile fixe ou (3) sur l'écran fixe
+
+•	Divers atributs pré-implémenté calque/rotation/visible/transparence/...
+
 •	Affichage intelligent des formes tracées sur l’écran afin d’optimiser les temps de calcul
 
 •	Gestion des évènement souris
+
+•	Gestion automatique du survol souris sur toutes les formes implémentés
 
 •	Gestion automatique et rendu graphique et des temps morts (choisir uniquement le taux de rafraichissement <FPS> le moteur s'occupe du reste)
 
@@ -56,8 +62,14 @@ Les caractéristiques du moteur 2D sont les suivantes :
 •	Proposition d'exemples d'usage faisant offcice de documentation
 
 
-change log
+Change log
 ----------
+
+    06/07/2022 - v1.300
+    -------------------
+    06/07/2022 -- Ajout du mode sur plateau avec taille fixe
+    06/07/2022 -- Ajout du du survol souris pour tous les objets avec l'exact représentation !
+    06/07/2022 -- Ajout d'un exemple de projet incluant le survol sur tous les objets et type d'affichage
 
     27/06/2022 - v1.213
     -------------------
@@ -65,7 +77,7 @@ change log
     
     26/06/2022 - v1.212
     -------------------
-    26/06/2022 -- Ajout d'un example de createurs d'objets graphiques via le bg_engine "008-MinimalEditeurDeForme"
+    26/06/2022 -- Ajout d'un exemple de createurs d'objets graphiques via le bg_engine "008-MinimalEditeurDeForme"
     26/06/2022 -- Diverses corrections
     26/06/2022 -- Ajout de plusieurs set/get dans les objets
 
@@ -136,14 +148,13 @@ change log
     > /XX/2015 -- Originel HTML5 2d engine - Christophe CONIGLIO
     > /XX/2013 -- Originel flash code 2d pcircle physic engine - Christophe CONIGLIO 
 
-IDEAS
------
+Idées d'amélioration
+--------------------
    
+    -- Ajouter un système de masque sur les objets
     -- Ne gere pas plus de deux doigts pour le mobile
     -- Ajouter des limites de déplacement max sur la partie drag and drop et zoom
-    -- L'optimisation des tracés ne prend pas totalement en compte les modifications de dimensions à cause de la rotation (commencé pour les lignes)
-    -- Les évènements souris et leurs variables ne sont pas encore supporté en langage objet
-    -- Doc à créer
-    -- Qualité code à réaliser commentaire et passer sur les import 
+    -- L'optimisation du rendu des tracés ne prend pas totalement en compte les modifications de dimensions à cause de la rotation (l'implémnetation actuelle favorise l'optimisation à l'l'exactitude)
+    -- **Doc à créer**
     
 

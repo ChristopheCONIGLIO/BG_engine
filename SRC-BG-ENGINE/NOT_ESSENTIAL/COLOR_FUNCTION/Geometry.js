@@ -4,10 +4,26 @@ class Geometry{
 	constructor() {
 	}
 	//----------------------------------
-
-
+    // corners need to be a array for Xy point wuich folow
+    // x and y are point to test
+    pointInsidePolygone(corners , x, y ) {
+        //adapted from https://stackoverflow.com/questions/22521982/check-if-point-is-inside-a-polygon?answertab=trending#tab-top
+        var i, j=corners.length-1 ;
+        var odd = false;
+        for (i=0; i<corners.length; i++) {
+            if ((corners[i][1]< y && corners[j][1]>=y ||  corners[j][1]< y && corners[i][1]>=y)
+                && (corners[i][0]<=x || corners[j][0]<=x)) {
+                odd ^= (corners[i][0] + (y-corners[i][1])*(corners[j][0]-corners[i][0])/(corners[j][1]-corners[i][1])) < x; 
+            }
+            j=i; 
+        }
+        return odd;
+    }
 	//----------------------------------
-    pointInsideConvexCloud($tab,$px,$py){
+    
+    pointInsideConvexCloud($tab,$px,$py){ 
+        // Christophe CONIGLIO
+        // personal hitstorique implementation for convex form
         if( $tab.length < 3 )	return false;
         var p1x = $tab[0][0]-$px;
         var p1y = $tab[0][1]-$py;

@@ -4,11 +4,19 @@
 */
 
 class BG_text extends BG_coreObjectBasic{
-	constructor(bg,onBoard,layer,pX,pY,size,color) {
-		super(bg,onBoard,layer,pX,pY,0,0,color);
-		this.p_bg.addObject(this,this.p_layer);
+	constructor(bg,onBoard,fixed,layer,pX,pY,size,color) {
 		
-		this.p_size = size;
+		if( color == undefined){
+			super(bg,onBoard,false,fixed,layer,pX,0,0,size);
+			this.p_size = pY;
+		}
+		else{
+			super(bg,onBoard,fixed,layer,pX,pY,0,0,color);
+			this.p_size = size;
+		}
+			
+		this.p_bg.addObject(this,this.p_layer);
+
 		this.font = "Arial";
 		this.text = "";
 
@@ -65,14 +73,15 @@ class BG_text extends BG_coreObjectBasic{
 	
 	drawObj(decX,decY,zoom){
 		if( this.visible == true){
-			let px,py,pSX,pSY,size;
+			
+			var info = this.getLocalInfo();
+			let px  = info[0];
+			let py  = info[1];
+			let pSX = info[2];
+			let pSY = info[3];
+			let size = info[4];
+			
 			if( this.p_onBoard == true){
-				// calcul limit of form
-				px = decX+this.p_pX*zoom;
-				py = (zoom*this.p_size) + decY+this.p_pY*zoom;
-				pSX = this.getWidthTextWithZoom(zoom);
-				pSY = zoom*this.p_size;
-				size = zoom;	
 				//determine if form must be draw
 				if( px-pSX > this.stat.getScreenWidth())	return;
 				if( py-(zoom*this.p_size)-pSY > this.stat.getScreenHeight())	return;
@@ -81,12 +90,6 @@ class BG_text extends BG_coreObjectBasic{
 				if( this.p_bg.debugContour == true) this.drawLimitContour(px,py-(zoom*this.p_size),pSX,pSY);
 			}
 			else{
-				// calcul limit of form
-				px = this.p_pX;
-				py = this.p_size + this.p_pY;
-				pSX = this.getWidthTextWithZoom(1.0);
-				pSY = this.p_size;
-				size = 1.0;
 				//determine if form must be draw
 				if( px-pSX > this.stat.getScreenWidth())	return;
 				if( py-this.p_size-pSY > this.stat.getScreenHeight())	return;
@@ -131,8 +134,97 @@ class BG_text extends BG_coreObjectBasic{
 		}
 	}
 
+	getLocalInfo(){
+		let decX = this.p_bg.decXwithZoom;
+		let decY = this.p_bg.decYwithZoom;
+		let zoom = this.p_bg.zoomLevel;
+		
+		
+		let px,py,pSX,pSY,size;
+		if( this.p_fixedSize == true){
+			
+			pSX = this.getWidthTextWithZoom(1.0);
+			pSY = this.p_size;
+			px = decX+this.p_pX*zoom - pSX/2;
+			py = decY+this.p_pY*zoom + pSY/2;
+			size = 1.0;
+		}
+		else if( this.p_onBoard == true){
+			// calcul limit of form
+			px = decX+this.p_pX*zoom;
+			py = (zoom*this.p_size) + decY+this.p_pY*zoom;
+			pSX = this.getWidthTextWithZoom(zoom);
+			pSY = zoom*this.p_size;
+			size = zoom;	
+		}
+		else{
+			// calcul limit of form
+			px = this.p_pX;
+			py = this.p_size + this.p_pY;
+			pSX = this.getWidthTextWithZoom(1.0);
+			pSY = this.p_size;
+			size = 1.0;
+		}
 
+		return [px,py,pSX,pSY,size];
+	}
 
+	getMouseOver(){
+		var info = this.getLocalInfo();
+		let px  = info[0];
+		let py  = info[1];
+		let pSX = info[2];
+		let pSY = info[3];
+
+		//local corection ?		
+		py = py - pSY;
+		//with this adjustment the 4 poitns are very correct Good !!!
+
+		let array4points = new Array([0,0],[0,0],[0,0],[0,0]); //limit position
+		//calcul 4 points
+		let cx = px+pSX/2;
+		let cy = py+pSY/2;
+		array4points[0][0] =  cx + pSX/2;
+		array4points[0][1] =  cy + pSY/2;
+		array4points[1][0] =  cx - pSX/2;
+		array4points[1][1] =  cy + pSY/2;
+		array4points[3][0] =  cx + pSX/2;
+		array4points[3][1] =  cy - pSY/2;
+		array4points[2][0] =  cx - pSX/2;
+		array4points[2][1] =  cy - pSY/2;
+		var tab = this.tools_rotatePointFromCenter (array4points[0][0],array4points[0][1], cx,cy, this.rotation);
+		array4points[0][0] = tab[0];
+		array4points[0][1] = tab[1];
+		tab = this.tools_rotatePointFromCenter (array4points[1][0],array4points[1][1], cx,cy, this.rotation);
+		array4points[1][0] = tab[0];
+		array4points[1][1] = tab[1];
+		tab = this.tools_rotatePointFromCenter (array4points[2][0],array4points[2][1], cx,cy, this.rotation);
+		array4points[2][0] = tab[0];
+		array4points[2][1] = tab[1];
+		tab = this.tools_rotatePointFromCenter (array4points[3][0],array4points[3][1], cx,cy, this.rotation);
+		array4points[3][0] = tab[0];
+		array4points[3][1] = tab[1];
+		//this.drawExactContour(array4points);
+		this.mouseOver = this.tools_pointInsidePolygone(
+				array4points,
+				this.p_bg.mouseX,
+				this.p_bg.mouseY
+				);
+		return this.mouseOver;
+	}
+
+	
+	drawExactContour(arr){	 //arr = tab of four points	
+		this.p_ctx.beginPath();
+		this.p_ctx.moveTo(arr[0][0],arr[0][1]);
+		this.p_ctx.lineTo(arr[1][0],arr[1][1]);
+		this.p_ctx.lineTo(arr[2][0],arr[2][1]);
+		this.p_ctx.lineTo(arr[3][0],arr[3][1]);
+		this.p_ctx.lineTo(arr[0][0],arr[0][1]);
+		this.p_ctx.lineWidth = 4;
+		this.p_ctx.strokeStyle = "#FF0000";
+		this.p_ctx.stroke();
+	}
 
 
 }
