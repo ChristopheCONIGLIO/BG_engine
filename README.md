@@ -68,7 +68,7 @@ Change log
     06/07/2022 - v1.300
     -------------------
     06/07/2022 -- Ajout du mode sur plateau avec taille fixe
-    06/07/2022 -- Ajout du du survol souris pour tous les objets avec l'exact représentation !
+    06/07/2022 -- Mise en oeuvre du survol souris pour tous les objets avec l'exact représentation !
     06/07/2022 -- Ajout d'un exemple de projet incluant le survol sur tous les objets et type d'affichage
 
     27/06/2022 - v1.213
