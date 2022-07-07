@@ -87,6 +87,21 @@
                 if( polyOnScreen.getMouseOver() == false)    polyOnScreen.setAlpha(1);
                 else                                        polyOnScreen.setAlpha(0.2); 
 
+                polyBoardFixed.rotation++;
+                if( polyBoardFixed.getMouseOver() == false)    polyBoardFixed.setAlpha(1);
+                else                                        polyBoardFixed.setAlpha(0.2); 
+                
+                lineOnBoard.rotation++;
+                if( lineOnBoard.getMouseOver() == false)    lineOnBoard.setAlpha(1);
+                else                                        lineOnBoard.setAlpha(0.2); 
+
+                lineOnScreen.rotation++;
+                if( lineOnScreen.getMouseOver() == false)    lineOnScreen.setAlpha(1);
+                else                                        lineOnScreen.setAlpha(0.2); 
+                
+                lineBoardFixed.rotation++;
+                if( lineBoardFixed.getMouseOver() == false)    lineBoardFixed.setAlpha(1);
+                else                                        lineBoardFixed.setAlpha(0.6);
                 
                 
             }
@@ -99,16 +114,16 @@
         var code =  new monCode(bg_engine);
 
         
-        var circleOnBoard    = new BG_circle(bg_engine,true,10,500,200,200,"#FF0000");
-        var circleBoardFixed = new BG_circle(bg_engine,true,true,11,600,300,100,"#00FF00");
-        var circleOnScreen   = new BG_circle(bg_engine,false,19,200,200,50,"#0000FF");
+        var circleOnBoard   = new BG_circle(bg_engine,true,10,500,200,200,"#FF0000");
+        var circleBoardFixed= new BG_circle(bg_engine,true,true,11,600,300,100,"#00FF00");
+        var circleOnScreen  = new BG_circle(bg_engine,false,19,200,200,50,"#0000FF");
 
-        var rectOnBoard    = new BG_rect(bg_engine,true,10,500,500,200,100,"#884444");
-        var rectBoardFixed = new BG_rect(bg_engine,true,true,11,600,550,100,50,"#00FF00");
-        var rectOnScreen   = new BG_rect(bg_engine,false,19,200,500,50,100,"#0000FF");
+        var rectOnBoard     = new BG_rect(bg_engine,true,10,500,500,200,100,"#884444");
+        var rectBoardFixed  = new BG_rect(bg_engine,true,true,11,600,550,100,50,"#00FF00");
+        var rectOnScreen    = new BG_rect(bg_engine,false,19,200,500,50,100,"#0000FF");
 
         var rectOnBoardA    = new BG_roundRect(bg_engine,true,10,800,500,200,100,12,"#884444");
-        var rectBoardFixedA= new BG_roundRect(bg_engine,true,true,11,900,550,100,50,12,"#00FF00");
+        var rectBoardFixedA = new BG_roundRect(bg_engine,true,true,11,900,550,100,50,12,"#00FF00");
         var rectOnScreenA   = new BG_roundRect(bg_engine,false,false,19,200,330,50,100,12,"#0000FF");
 
         var imageOnBoard    = new BG_drawImage(bg_engine,true,10,800,200,200,100,"../../SRC-BG-ENGINE/NOT_ESSENTIAL/IMAGE/openImage.jpeg");
@@ -117,18 +132,24 @@
         
         var texteOnBoard    = new BG_text(bg_engine,true,10,510,75,25,"#884444");
         texteOnBoard.setText("Board [B][G]_engine");
-        var textBoardFixed    = new BG_text(bg_engine,true,true,10,900,80,25,"#00FF00");
+        var textBoardFixed  = new BG_text(bg_engine,true,true,10,900,80,25,"#00FF00");
         textBoardFixed.setText("Fixed [B][G]_engine");
-        var refCircle   = new BG_circle(bg_engine,true,true,9,900,80,10,"#0000FF");
-        var texteOnScreen    = new BG_text(bg_engine,false,10,110,100,25,"#0000FF");
+        var refCircle       = new BG_circle(bg_engine,true,true,9,900,80,10,"#0000FF");
+        var texteOnScreen   = new BG_text(bg_engine,false,10,110,100,25,"#0000FF");
         texteOnScreen.setText("Static [B][G]_engine");
         
 
-        var polyOnBoard   = new BG_polygone(bg_engine,true,9,[[1200,200],[1500,250],[1200,300],[1300,250]],"#884444");
-         
-        var polyOnScreen   = new BG_polygone(bg_engine,false,19,[[400,200],[500,250],[350,300]],"#0000FF");
+        var polyOnBoard     = new BG_polygone(bg_engine,true,9,[[1200,200],[1500,250],[1200,300],[1300,250]],"#884444");
+        var tmpRect         = new BG_rect(bg_engine,true,true,11,400,600,100,50,"#222222");
+        var polyBoardFixed  = new BG_polygone(bg_engine,true,true,12,[[350,575],[450,575],[450,625],[350,625]],"#00FF00");
+        var polyOnScreen    = new BG_polygone(bg_engine,false,19,[[400,200],[500,250],[350,300]],"#0000FF");
         //manque polyfixed
         //line
+
+        var lineOnBoard     = new BG_line(bg_engine,true,9,1200,900,1500,700,40,"#884444");
+        var lineBoardFixed  = new BG_line(bg_engine,true,true,17,350,575,450,625,18,"#FF88FF");
+        var lineOnScreen    = new BG_line(bg_engine,false,9,100,50,130,70,20,"#0000FF");
+        
 
 
         // --------------------------------------------------- //

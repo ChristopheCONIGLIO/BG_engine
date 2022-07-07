@@ -4,12 +4,27 @@
 */
 
 class BG_line extends BG_coreObjectBasic{
-	constructor(bg,onBoard,layer,p1X,p1Y,p2X,p2Y,thickness,color) {
-		super(bg,onBoard,layer,p1X,p1Y,p2X,p2Y,color);
-		this.p_bg.addObject(this,this.p_layer);
-
+	constructor(bg,onBoard,fixed,layer,p1X,p1Y,p2X,p2Y,thickness,color) {
+		
+		if( color == undefined){
+			super(bg,onBoard,false,fixed,layer,p1X,p1Y,p2X,thickness);
+			this.setThickness(p2Y);
+			this.setPoint(layer,p1X,p1Y,p2X);
+		}
+		else{
+			super(bg,onBoard,fixed,layer,p1X,p1Y,p2X,p2Y,color);
+			this.setThickness(thickness);
+			this.setPoint(p1X,p1Y,p2X,p2Y);
+		}
+		
+		/*super(bg,onBoard,layer,p1X,p1Y,p2X,p2Y,color);
 		this.setThickness(thickness);
 		this.setPoint(p1X,p1Y,p2X,p2Y);
+*/
+
+		this.p_bg.addObject(this,this.p_layer);
+
+		
 	}
 	
 
@@ -57,7 +72,31 @@ class BG_line extends BG_coreObjectBasic{
 			// 2 - On calcul la distance entre les deux points
 			let dis = Math.sqrt((this.p_p1X - this.p_p2X) * (this.p_p1X - this.p_p2X) + (this.p_p1Y - this.p_p2Y) * (this.p_p1Y - this.p_p2Y));
 			
-			if( this.p_onBoard == true){
+			if( this.p_fixedSize == true){
+				let px = decX + (minX-dis/2) * zoom;
+				let py = decY + (minY-dis/2) * zoom;
+				let pSX = dis*2 * zoom;
+				let pSY = dis*2 * zoom;
+				if( px-pSX > this.stat.getScreenWidth())	return;
+				if( py-pSY > this.stat.getScreenHeight())	return;
+				if( px + pSX < 0)		return;
+				if( py + pSY < 0)		return;
+
+				let px1 = decX+this.p_p1X*zoom;
+				let py1 = decY+this.p_p1Y*zoom;
+				let px2 = decX+this.p_p2X*zoom;
+				let py2 = decY+this.p_p2Y*zoom;
+				let cx  = (px1+px2)/2;
+				let cy  = (py1+py2)/2;
+
+				var pts1 = this.tools_disPointFromCenter (px1,py1, cx,cy, dis/2);
+				var pts2 = this.tools_disPointFromCenter (px2,py2, cx,cy, dis/2);
+
+				if( this.p_bg.debugContour == true) this.drawLimitContour(px,py,pSX,pSY);
+				this.drawLine(pts1[0],pts1[1],pts2[0],pts2[1],this.p_color,1);
+				this.stat.setRenderEngineObject( this.stat.getRenderEngineObject() + 1 );
+			} 
+			else if( this.p_onBoard == true){
 				let px = decX + (minX-dis/2) * zoom;
 				let py = decY + (minY-dis/2) * zoom;
 				let pSX = dis*2 * zoom;
@@ -80,7 +119,7 @@ class BG_line extends BG_coreObjectBasic{
 				if( px + pSX < 0)		return;
 				if( py + pSY < 0)		return;
 				if( this.p_bg.debugContour == true) this.drawLimitContour(px,py,pSX,pSY);
-				this.drawLine(this.p_p1X,this.p_p1Y,this.p_p2X,this.p_p2Y,this.p_color,zoom);
+				this.drawLine(this.p_p1X,this.p_p1Y,this.p_p2X,this.p_p2Y,this.p_color,1);
 				this.stat.setRenderEngineObject( this.stat.getRenderEngineObject() + 1 );
 			}
 
@@ -121,5 +160,132 @@ class BG_line extends BG_coreObjectBasic{
 
 	}
 	
+	getMouseOver(){
 		
+		let decX = this.p_bg.decXwithZoom;
+		let decY = this.p_bg.decYwithZoom;
+		let zoom = this.p_bg.zoomLevel;
+
+		let arrayXpoints = new Array(); 
+		
+		if( this.p_fixedSize == true){
+			let px1 = decX+this.p_p1X*zoom;
+			let py1 = decY+this.p_p1Y*zoom;
+			let px2 = decX+this.p_p2X*zoom;
+			let py2 = decY+this.p_p2Y*zoom;
+			let cx  = (px1+px2)/2;
+			let cy  = (py1+py2)/2;
+			let dis = Math.sqrt((this.p_p1X - this.p_p2X) * (this.p_p1X - this.p_p2X) + (this.p_p1Y - this.p_p2Y) * (this.p_p1Y - this.p_p2Y));
+			
+
+			var pts1 = this.tools_disPointFromCenter (px1,py1, cx,cy, dis/2);
+			var pts2 = this.tools_disPointFromCenter (px2,py2, cx,cy, dis/2);
+			
+			var tab = this.tools_rotatePointFromCenter (pts2[0],pts2[1], pts1[0],pts1[1], -90);
+			var pts = this.tools_disPointFromCenter (tab[0],tab[1],pts1[0],pts1[1],(this.p_thickness)/2);
+			pts = this.tools_rotatePointFromCenter (pts[0],pts[1], cx,cy, this.rotation);
+			arrayXpoints.push([pts[0],pts[1]]);	
+
+			tab = this.tools_rotatePointFromCenter (pts2[0],pts2[1], pts1[0],pts1[1], 90);
+			pts = this.tools_disPointFromCenter (tab[0],tab[1],pts1[0],pts1[1],(this.p_thickness)/2);
+			pts = this.tools_rotatePointFromCenter (pts[0],pts[1], cx,cy, this.rotation);
+			arrayXpoints.push([pts[0],pts[1]]);	
+
+			tab = this.tools_rotatePointFromCenter (pts1[0],pts1[1], pts2[0],pts2[1], -90);
+			pts = this.tools_disPointFromCenter (tab[0],tab[1],pts2[0],pts2[1],(this.p_thickness)/2);
+			pts = this.tools_rotatePointFromCenter (pts[0],pts[1], cx,cy, this.rotation);
+			arrayXpoints.push([pts[0],pts[1]]);	
+
+			tab = this.tools_rotatePointFromCenter (pts1[0],pts1[1], pts2[0],pts2[1], 90);
+			pts = this.tools_disPointFromCenter (tab[0],tab[1],pts2[0],pts2[1],(this.p_thickness)/2);
+			pts = this.tools_rotatePointFromCenter (pts[0],pts[1], cx,cy, this.rotation);
+			arrayXpoints.push([pts[0],pts[1]]);	
+
+		}
+		else if( this.p_onBoard == true){
+			let px1 = decX+this.p_p1X*zoom;
+			let py1 = decY+this.p_p1Y*zoom;
+			let px2 = decX+this.p_p2X*zoom;
+			let py2 = decY+this.p_p2Y*zoom;
+			let cx  = (px1+px2)/2;
+			let cy  = (py1+py2)/2;
+
+
+			var tab = this.tools_rotatePointFromCenter (px2,py2, px1,py1, -90);
+			var pts = this.tools_disPointFromCenter (tab[0],tab[1],px1,py1,(this.p_thickness*zoom)/2);
+			pts = this.tools_rotatePointFromCenter (pts[0],pts[1], cx,cy, this.rotation);
+			arrayXpoints.push([pts[0],pts[1]]);	
+
+			tab = this.tools_rotatePointFromCenter (px2,py2, px1,py1, 90);
+			pts = this.tools_disPointFromCenter (tab[0],tab[1],px1,py1,(this.p_thickness*zoom)/2);
+			pts = this.tools_rotatePointFromCenter (pts[0],pts[1], cx,cy, this.rotation);
+			arrayXpoints.push([pts[0],pts[1]]);	
+
+			tab = this.tools_rotatePointFromCenter (px1,py1, px2,py2, -90);
+			pts = this.tools_disPointFromCenter (tab[0],tab[1],px2,py2,(this.p_thickness*zoom)/2);
+			pts = this.tools_rotatePointFromCenter (pts[0],pts[1], cx,cy, this.rotation);
+			arrayXpoints.push([pts[0],pts[1]]);	
+
+			tab = this.tools_rotatePointFromCenter (px1,py1, px2,py2, 90);
+			pts = this.tools_disPointFromCenter (tab[0],tab[1],px2,py2,(this.p_thickness*zoom)/2);
+			pts = this.tools_rotatePointFromCenter (pts[0],pts[1], cx,cy, this.rotation);
+			arrayXpoints.push([pts[0],pts[1]]);	
+			
+			
+		}
+		else{
+			let px1 = this.p_p1X;
+			let py1 = this.p_p1Y;
+			let px2 = this.p_p2X;
+			let py2 = this.p_p2Y;
+			let cx  = (px1+px2)/2;
+			let cy  = (py1+py2)/2;
+
+
+			var tab = this.tools_rotatePointFromCenter (px2,py2, px1,py1, -90);
+			var pts = this.tools_disPointFromCenter (tab[0],tab[1],px1,py1,(this.p_thickness)/2);
+			pts = this.tools_rotatePointFromCenter (pts[0],pts[1], cx,cy, this.rotation);
+			arrayXpoints.push([pts[0],pts[1]]);	
+
+			tab = this.tools_rotatePointFromCenter (px2,py2, px1,py1, 90);
+			pts = this.tools_disPointFromCenter (tab[0],tab[1],px1,py1,(this.p_thickness)/2);
+			pts = this.tools_rotatePointFromCenter (pts[0],pts[1], cx,cy, this.rotation);
+			arrayXpoints.push([pts[0],pts[1]]);	
+
+			tab = this.tools_rotatePointFromCenter (px1,py1, px2,py2, -90);
+			pts = this.tools_disPointFromCenter (tab[0],tab[1],px2,py2,(this.p_thickness)/2);
+			pts = this.tools_rotatePointFromCenter (pts[0],pts[1], cx,cy, this.rotation);
+			arrayXpoints.push([pts[0],pts[1]]);	
+
+			tab = this.tools_rotatePointFromCenter (px1,py1, px2,py2, 90);
+			pts = this.tools_disPointFromCenter (tab[0],tab[1],px2,py2,(this.p_thickness)/2);
+			pts = this.tools_rotatePointFromCenter (pts[0],pts[1], cx,cy, this.rotation);
+			arrayXpoints.push([pts[0],pts[1]]);	
+		}
+		//this.tools_drawExactContour(arrayXpoints);
+		
+		this.mouseOver = this.tools_pointInsidePolygone(
+				arrayXpoints,
+				this.p_bg.mouseX,
+				this.p_bg.mouseY
+				);
+		return this.mouseOver;
+	}
+	tools_drawExactContour(arr){	 //arr = tab of X points	
+		if( arr.length == 0 ) return ;
+		this.p_ctx.beginPath();
+		for(var j = 0; j < arr.length; j++){
+			if( j == 0) this.p_ctx.moveTo(arr[j][0], arr[j][1]);
+			else		this.p_ctx.lineTo(arr[j][0], arr[j][1]);
+		}
+		this.p_ctx.lineTo(arr[0][0], arr[0][1]);
+
+		this.p_ctx.lineWidth = 4;
+		this.p_ctx.strokeStyle = "#FF0000";
+		this.p_ctx.stroke();
+	}
+
+	tools_distance($c1Px,$c1Py,$c2Px,$c2Py){
+        return Math.sqrt( (($c1Px-$c2Px)*($c1Px-$c2Px))+(($c1Py-$c2Py)*($c1Py-$c2Py)) )   ;
+    }
 }

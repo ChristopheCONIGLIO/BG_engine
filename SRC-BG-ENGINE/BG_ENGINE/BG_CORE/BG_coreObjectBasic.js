@@ -133,7 +133,7 @@ class BG_coreObjectBasic {
 	drawLimitContour(x, y, width, height){
 		this.p_ctx.beginPath();
 		this.p_ctx.rect(x,y ,width,height);
-		this.p_ctx.lineWidth = 1;
+		this.p_ctx.lineWidth = 3;
 		this.p_ctx.strokeStyle = "#FF0000";
 		this.p_ctx.stroke();
 	}
@@ -145,6 +145,30 @@ class BG_coreObjectBasic {
 		yM = My - Oy;
 		x = xM * Math.cos (angle) + yM * Math.sin (angle) + Ox;
 		y = - xM * Math.sin (angle) + yM * Math.cos (angle) + Oy;
+		return ([Math.round (x), Math.round (y)]);
+	}
+	tools_scalePointFromCenter (Mx,My, Ox,Oy, scale) {
+		var xM, yM, x, y;
+		
+		xM = (Mx - Ox)*scale;
+		yM = (My - Oy)*scale;
+		x = xM * Math.cos (0) + yM * Math.sin (0) + Ox;
+		y = - xM * Math.sin (0) + yM * Math.cos (0) + Oy;
+		return ([Math.round (x), Math.round (y)]);
+	}
+	tools_disPointFromCenter (Mx,My, Ox,Oy, dis) {
+		var xM, yM, x, y;
+	
+		xM = (Mx - Ox);
+		yM = (My - Oy);
+
+		let disori = Math.sqrt(xM*xM+yM*yM);
+		let coef = dis/disori;
+		xM *= coef;
+		yM *= coef;
+
+		x = xM * Math.cos (0) + yM * Math.sin (0) + Ox;
+		y = - xM * Math.sin (0) + yM * Math.cos (0) + Oy;
 		return ([Math.round (x), Math.round (y)]);
 	}
 		//----------------------------------

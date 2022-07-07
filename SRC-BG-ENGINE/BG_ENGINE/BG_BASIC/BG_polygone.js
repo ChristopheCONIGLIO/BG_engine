@@ -4,10 +4,19 @@
 */
 
 class BG_polygone extends BG_coreObjectBasic{
-	constructor(bg,onBoard,layer,arrayPoint,color) {
-		super(bg,onBoard,layer,0,0,0,0,color);
+	constructor(bg,onBoard,fixed,layer,arrayPoint,color) {
+		//super(bg,onBoard,layer,0,0,0,0,color);
+		if( color == undefined){
+			super(bg,onBoard,false,fixed,0,0,0,0,arrayPoint);
+			this.setArrayPoint(layer);
+		}
+		else{
+			super(bg,onBoard,fixed,layer,0,0,0,0,color);
+			this.setArrayPoint(arrayPoint);
+		}
+		
 		this.p_bg.addObject(this,this.p_layer);
-		this.setArrayPoint(arrayPoint);
+		
 		
 	}
 	
@@ -84,22 +93,45 @@ class BG_polygone extends BG_coreObjectBasic{
 			var width = this.p_sX*zoom;
 			var height = this.p_sY*zoom;
 
+			
 			if( this.rotation != 0){
 				this.p_ctx.translate(x+width/2,y+height/2);
 				this.p_ctx.rotate(this.rotation * Math.PI / 180);
 				this.p_ctx.translate(-x-width/2,-y-height/2);
 			}
-
+			
 			this.p_ctx.beginPath();
 			this.p_ctx.globalAlpha = this.alpha;
-			for(var j = 0; j < this.p_arrayPoint.length; j++){
-				if( j == 0) this.p_ctx.moveTo(decX+this.p_arrayPoint[j][0]*zoom, decY+this.p_arrayPoint[j][1]*zoom);
-				else		this.p_ctx.lineTo(decX+this.p_arrayPoint[j][0]*zoom, decY+this.p_arrayPoint[j][1]*zoom);
+			if( this.p_fixedSize == true){
+				var cx = x+width/2;
+				var cy = y+height/2;
+				
+				for(var j = 0; j < this.p_arrayPoint.length; j++){
+					
+					var pts = this.tools_scalePointFromCenter (
+								decX+this.p_arrayPoint[j][0]*zoom,
+								decY+this.p_arrayPoint[j][1]*zoom,
+								cx,
+								cy,
+								1/zoom);
+					var ptmpX = pts[0];
+					var ptmpY = pts[1];
+					
+					if( j == 0) this.p_ctx.moveTo(ptmpX,ptmpY);
+					else		this.p_ctx.lineTo(ptmpX,ptmpY);
+				}
+			}
+			else{
+				for(var j = 0; j < this.p_arrayPoint.length; j++){
+					if( j == 0) this.p_ctx.moveTo(decX+this.p_arrayPoint[j][0]*zoom, decY+this.p_arrayPoint[j][1]*zoom);
+					else		this.p_ctx.lineTo(decX+this.p_arrayPoint[j][0]*zoom, decY+this.p_arrayPoint[j][1]*zoom);
+				}
 			}
 			this.p_ctx.fillStyle = this.p_color;
 			this.p_ctx.fill();
 			this.p_ctx.globalAlpha = 1;
-
+			
+			
 			if( this.rotation != 0){
 				this.p_ctx.setTransform(1, 0, 0, 1, 0, 0);
 			}
@@ -112,6 +144,7 @@ class BG_polygone extends BG_coreObjectBasic{
 		let decY = this.p_bg.decYwithZoom;
 		let zoom = this.p_bg.zoomLevel;
 		let px,py,pSX,pSY,size,ldecX,ldecY;
+		
 		if( this.p_onBoard == true){
 			// calcul if form must be drawed
 			// basé sur les dimensions max du polygone 
@@ -143,9 +176,27 @@ class BG_polygone extends BG_coreObjectBasic{
 		let decY = this.p_bg.decYwithZoom;
 		let zoom = this.p_bg.zoomLevel;
 
+		var x = decX+this.p_pX*zoom;
+		var y = decY+this.p_pY*zoom;
+		var width = this.p_sX*zoom;
+		var height = this.p_sY*zoom;
+
+
 		let arrayXpoints = new Array(); 
 		
-		if( this.p_onBoard == true){
+		if( this.p_fixedSize == true){
+			let cx = decX + (this.p_pX+this.p_sX/2)*zoom;
+			let cy = decY + (this.p_pY+this.p_sY/2)*zoom;
+
+			for(var k = 0; k < this.p_arrayPoint.length ; k++){
+				var px = decX+this.p_arrayPoint[k][0]*zoom;
+				var py = decY+this.p_arrayPoint[k][1]*zoom;
+				var tab = this.tools_rotatePointFromCenter (px,py, cx,cy, this.rotation);
+				var pts = this.tools_scalePointFromCenter (tab[0],tab[1],cx,cy,1/zoom);
+				arrayXpoints.push( [pts[0],pts[1]]);
+			}
+		}
+		else if( this.p_onBoard == true){
 
 			let cx = decX + (this.p_pX+this.p_sX/2)*zoom;
 			let cy = decY + (this.p_pY+this.p_sY/2)*zoom;
@@ -169,7 +220,7 @@ class BG_polygone extends BG_coreObjectBasic{
 			}
 		}
 
-		this.tools_drawExactContour(arrayXpoints);
+		//this.tools_drawExactContour(arrayXpoints);
 		
 		this.mouseOver = this.tools_pointInsidePolygone(
 				arrayXpoints,
@@ -179,12 +230,8 @@ class BG_polygone extends BG_coreObjectBasic{
 		return this.mouseOver;
 	}
 	tools_drawExactContour(arr){	 //arr = tab of X points	
-		
-		
 		this.p_ctx.beginPath();
-		//console.log(arr.length);
 		for(var j = 0; j < arr.length; j++){
-			//console.log(arr[j][0], arr[j][1]);
 			if( j == 0) this.p_ctx.moveTo(arr[j][0], arr[j][1]);
 			else		this.p_ctx.lineTo(arr[j][0], arr[j][1]);
 		}
