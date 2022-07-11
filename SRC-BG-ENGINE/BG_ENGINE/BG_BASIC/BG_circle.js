@@ -6,7 +6,7 @@
 class BG_circle extends BG_coreObjectBasic{
 	constructor(bg,onBoard,fixed,layer,pX,pY,size,color) {
 		if( color == undefined){
-			super(bg,onBoard,false,fixed,layer,pX,pY,size,size);
+			super(bg,onBoard,false,fixed,layer,pX,pY,pY,size);
 		}
 		else{
 			super(bg,onBoard,fixed,layer,pX,pY,size,size,color);
