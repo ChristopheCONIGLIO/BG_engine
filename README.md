@@ -1,4 +1,4 @@
-v1.301
+v1.302
 
 Projet
 ------
@@ -64,6 +64,11 @@ Les caractéristiques du moteur 2D sont les suivantes :
 
 Change log
 ----------
+
+    13/07/2022 - v1.302
+    -------------------
+    13/07/2022 -- mineurs améliorations
+    08/07/2022 -- Ajout de de formes dans l'exemple 9
 
     08/07/2022 - v1.301
     -------------------

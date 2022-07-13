@@ -1,11 +1,10 @@
 //
 //
 //
-class BG_imageEditor extends BG_drawImage{
-               
-    constructor(bg,onBoard,layer,pX,pY,sX,sY,urlImage) {
-        super(bg,onBoard,layer,pX,pY,sX,sY,urlImage);
-        this.type = "image";
+class BG_rectRoundEditor extends BG_roundRect{
+    constructor(bg,onBoard,layer,pX,pY,sX,sY,round,color) {
+        super(bg,onBoard,layer,pX,pY,sX,sY,round,color);
+        this.type = "rectangleArrondis";
         this.dragAndDrop_decMouseX = 0;
         this.dragAndDrop_decMouseY = 0;
     }
@@ -14,8 +13,7 @@ class BG_imageEditor extends BG_drawImage{
         this.getRefEngine().deleteObject(this.mire);
     }
     enterFrame(){
-        // cas ou on drag and drop
-        if( _dragAndDroEnable == true && _currentObjSelected==this){
+       if( _dragAndDroEnable == true && _currentObjSelected==this){
             //on colle la souris avec l'element graphique mais avec de décalage d'initialisation
             //sinon l'aobjet serait téléporter à la soruis
             this.setPosX(this.getRefEngine().bg_g_stat.getMouseXBoard() + this.dragAndDrop_decMouseX);

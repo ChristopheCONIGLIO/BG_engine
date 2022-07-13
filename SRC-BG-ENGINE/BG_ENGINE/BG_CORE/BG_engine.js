@@ -84,7 +84,13 @@ class BG_engine{
  	//----------------------------------
 	 //future update : créé à la volé les layer mais attention pour cela il faut attendre que l'enterfame a fini comme pour la destruction
 	addObject(obj,layer){
-		this.bg_g_listObj[layer].push( obj );
+		try{
+			this.bg_g_listObj[layer].push( obj );
+		}
+		catch (error) {
+			console.log("[B]ack[g]round ERROR : bad initialisation object: Object rejected");
+		}
+		
 	}
 	//----------------------------------
 	deleteObject(obj){

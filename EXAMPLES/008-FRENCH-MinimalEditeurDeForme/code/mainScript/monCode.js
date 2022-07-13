@@ -27,15 +27,15 @@ class monCode extends BG_script{
 
             //on check si le mousedown est sur une zone clicaquable d'obj déja créé
             var obj = undefined;
-            var bestdis = 999;
-            for(var k = 0; k < _arrListAllObjEditor.length ; k++){ //on parcourt tous les obj
+            var bestLayer = 0;
+            for(var k = _arrListAllObjEditor.length-1 ; k >= 0 ; k--){ //on parcourt tous les obj
                 // on suposse que tous les objet on bien la fonction determineIfClicOfMe
                 // si ce n'est pas le cas il faut surcharger l'objet et l'ajouter
                 
                 var ret = _arrListAllObjEditor[k].determineIfClicOfMe(this.p_bg.bg_g_stat.getMouseXBoard(),this.p_bg.bg_g_stat.getMouseYBoard());
-                if( ret[0] == true && bestdis > ret[1] ){
+                if( ret[0] == true && _arrListAllObjEditor[k].getLayer() > bestLayer  ){
                     obj = _arrListAllObjEditor[k];
-                    bestdis = ret[1];
+                    bestLayer = _arrListAllObjEditor[k].getLayer();
                     this.p_bg.bg_g_stat.setManualControl(false); //permet de bloquer le controle de la camera pour faire le drag and drop sans bouger le plateau
                 }
             }

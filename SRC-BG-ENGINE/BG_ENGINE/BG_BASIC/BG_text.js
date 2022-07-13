@@ -25,6 +25,14 @@ class BG_text extends BG_coreObjectBasic{
 	/* 
 		fonctions public
 	*/
+
+	setFont(value){
+		this.font = value; 
+	}
+	getFont(){
+		return this.font;
+	}
+
 	setPos(pX,pY){
 		this.p_pX = pX;
 		this.p_pY = pY;
@@ -55,7 +63,7 @@ class BG_text extends BG_coreObjectBasic{
 	getText(text){
 		return this.text;
 	}
-	getWidthText(zoom){	//la taille sans le zoom
+	getWidthText(){	//la taille sans le zoom
 		this.p_ctx.font = (this.p_size) +"px "+this.font;
 		return this.p_ctx.measureText(this.text).width;
 	}

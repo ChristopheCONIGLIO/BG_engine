@@ -1,6 +1,4 @@
 
-
-
 //
 //
 // Iici on déclare les functions des boutons
@@ -13,6 +11,38 @@ function ajoutRectangle(){
     var randomRectangle = new BG_rectEditor(_bg_engine1,true,10,_mouseXclic-50,_mouseYclic-50,100,100,"#3333FF");//le 1 c'est la couche d'afficahge
     _currentObjSelected = randomRectangle; //on possition le dernier obj en obje selectiionner
     _arrListAllObjEditor.push(randomRectangle);
+}
+function ajoutCircle(){
+    //on commence par cacher le selector
+    _selectorMouse.setVisible(false); //les obj BG_engine sont accesible aussi en dehord des scripts BG_engine
+    // on créé un rectangle pour le BG_engine
+    var rd = new BG_circleEditor(_bg_engine1,true,10,_mouseXclic-50,_mouseYclic-50,100,"#3333FF");//le 1 c'est la couche d'afficahge
+    _currentObjSelected = rd; //on possition le dernier obj en obje selectiionner
+    _arrListAllObjEditor.push(rd);
+}
+function ajoutLine(){
+    //on commence par cacher le selector
+    _selectorMouse.setVisible(false); //les obj BG_engine sont accesible aussi en dehord des scripts BG_engine
+    // on créé un rectangle pour le BG_engine
+    var rd = new BG_lineEditor(_bg_engine1,true,10,_mouseXclic-50,_mouseYclic,_mouseXclic+50,_mouseYclic,20,"#3333FF");//le 1 c'est la couche d'afficahge
+    _currentObjSelected = rd; //on possition le dernier obj en obje selectiionner
+    _arrListAllObjEditor.push(rd);
+}
+function ajoutTexte(){
+    //on commence par cacher le selector
+    _selectorMouse.setVisible(false); //les obj BG_engine sont accesible aussi en dehord des scripts BG_engine
+    // on créé un rectangle pour le BG_engin
+    var randomTexte = new BG_textEditor(_bg_engine1,true,10,_mouseXclic-50,_mouseYclic-50,35,"#3333FF");//le 1 c'est la couche d'afficahge
+    _currentObjSelected = randomTexte; //on possition le dernier obj en obje selectiionner
+    _arrListAllObjEditor.push(randomTexte);
+}
+function ajoutRectangleArrondis(){
+    //on commence par cacher le selector
+    _selectorMouse.setVisible(false); //les obj BG_engine sont accesible aussi en dehord des scripts BG_engine
+    // on créé un rectangle pour le BG_engin
+    var rd = new BG_rectRoundEditor(_bg_engine1,true,10,_mouseXclic-50,_mouseYclic-50,100,100,10,"#3333FF");//le 1 c'est la couche d'afficahge
+    _currentObjSelected = rd; //on possition le dernier obj en obje selectiionner
+    _arrListAllObjEditor.push(rd);
 }
 function ajoutImage(){
     //on commence par cacher le selector

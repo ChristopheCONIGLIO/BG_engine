@@ -1,11 +1,10 @@
 //
 //
 //
-class BG_imageEditor extends BG_drawImage{
-               
-    constructor(bg,onBoard,layer,pX,pY,sX,sY,urlImage) {
-        super(bg,onBoard,layer,pX,pY,sX,sY,urlImage);
-        this.type = "image";
+class BG_circleEditor extends BG_circle{
+    constructor(bg,onBoard,layer,pX,pY,rayon,color) {
+        super(bg,onBoard,layer,pX,pY,rayon,color);
+        this.type = "rectangle";
         this.dragAndDrop_decMouseX = 0;
         this.dragAndDrop_decMouseY = 0;
     }
@@ -14,8 +13,7 @@ class BG_imageEditor extends BG_drawImage{
         this.getRefEngine().deleteObject(this.mire);
     }
     enterFrame(){
-        // cas ou on drag and drop
-        if( _dragAndDroEnable == true && _currentObjSelected==this){
+       if( _dragAndDroEnable == true && _currentObjSelected==this){
             //on colle la souris avec l'element graphique mais avec de décalage d'initialisation
             //sinon l'aobjet serait téléporter à la soruis
             this.setPosX(this.getRefEngine().bg_g_stat.getMouseXBoard() + this.dragAndDrop_decMouseX);
@@ -27,8 +25,8 @@ class BG_imageEditor extends BG_drawImage{
     determineIfClicOfMe(mouseX,mouseY){
         var mouseOver = this.getMouseOver();
         if( mouseOver == false) return [false,-1];
-        var centerX = this.getPosX() + this.getDimX()/2;
-        var centerY = this.getPosY() + this.getDimY()/2;
+        var centerX = this.getPosX() + this.getDim();
+        var centerY = this.getPosY() + this.getDim();
         var dis = this.distance(mouseX,mouseY,centerX,centerY);
         return [true,dis];
     }

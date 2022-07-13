@@ -22,8 +22,14 @@
         <script type="text/javascript"> loadBGengine("../..")</script>
         <script type="text/javascript" src="./code/boutons/gestionBoutons.js"></script>
         <script type="text/javascript" src="./code/objets/BG_rectEditor.js"></script>
+        <script type="text/javascript" src="./code/objets/BG_textEditor.js"></script>
+        <script type="text/javascript" src="./code/objets/BG_circleEditor.js"></script>
+        <script type="text/javascript" src="./code/objets/BG_lineEditor.js"></script>
+        <script type="text/javascript" src="./code/objets/BG_rectRoundEditor.js"></script>
         <script type="text/javascript" src="./code/objets/BG_imageEditor.js"></script>
         <script type="text/javascript" src="./code/mainScript/monCode.js"></script>
+
+        
     </head>
     <body >
         <div class="conteneur">
@@ -33,7 +39,11 @@
                 <h3>.</h3>
                 <h3>Gestion objets</h3>
                 <button onclick="ajoutRectangle()">Ajout rectangle</button>
+                <button onclick="ajoutCircle()">Ajout cercle</button>
+                <button onclick="ajoutLine()">Ajout ligne</button>
+                <button onclick="ajoutTexte()">Ajout texte</button>
                 <button onclick="ajoutImage()">Ajout image</button>
+                <button onclick="ajoutRectangleArrondis()">Ajout recArrondis</button>
                 <button onclick="supprimerObj()">Supprimer Objet</button>
                 <h3>.</h3>
                 <h3>.</h3>
