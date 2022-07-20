@@ -16,10 +16,17 @@ class BG_rectEditor extends BG_rect{
        if( _dragAndDroEnable == true && _currentObjSelected==this){
             //on colle la souris avec l'element graphique mais avec de décalage d'initialisation
             //sinon l'aobjet serait téléporter à la soruis
-            this.setPosX(this.getRefEngine().bg_g_stat.getMouseXBoard() + this.dragAndDrop_decMouseX);
-            this.setPosY(this.getRefEngine().bg_g_stat.getMouseYBoard() + this.dragAndDrop_decMouseY);
-        }
 
+            if( this.getOnBoard() == false){
+                this.setPosX(this.getRefEngine().bg_g_stat.getMouseXScreen() + this.dragAndDrop_decMouseX);
+                this.setPosY(this.getRefEngine().bg_g_stat.getMouseYScreen() + this.dragAndDrop_decMouseY);
+            }
+            else {
+                this.setPosX(this.getRefEngine().bg_g_stat.getMouseXBoard() + this.dragAndDrop_decMouseX);
+                this.setPosY(this.getRefEngine().bg_g_stat.getMouseYBoard() + this.dragAndDrop_decMouseY);
+            }
+            
+        }
     }
     //permet de calculer de facon autonome suivant caractérisqtique de this.mire si on a cliqué dessus
     determineIfClicOfMe(mouseX,mouseY){
@@ -35,8 +42,15 @@ class BG_rectEditor extends BG_rect{
     }
     //permet de définir la distance entre la souris et la mire pour garder ce décalage pendent le dragAndDrop
     initDragandDrop(){
-        this.dragAndDrop_decMouseX = this.getPosX()-this.getRefEngine().bg_g_stat.getMouseXBoard();
-        this.dragAndDrop_decMouseY = this.getPosY()-this.getRefEngine().bg_g_stat.getMouseYBoard();
+        if( this.getOnBoard() == false){
+            this.dragAndDrop_decMouseX = this.getPosX()-this.getRefEngine().bg_g_stat.getMouseXScreen();
+            this.dragAndDrop_decMouseY = this.getPosY()-this.getRefEngine().bg_g_stat.getMouseYScreen();
+        }
+        else{
+            this.dragAndDrop_decMouseX = this.getPosX()-this.getRefEngine().bg_g_stat.getMouseXBoard();
+            this.dragAndDrop_decMouseY = this.getPosY()-this.getRefEngine().bg_g_stat.getMouseYBoard();
+        }
+        
     }
 }
 //

@@ -10,7 +10,7 @@ class BG_lineEditor extends BG_line{
         this.diffP1 = [0,0];
         this.diffP2 = [0,0];
 
-        this.mireSize = 15;
+        this.mireSize = 22;
         this.mire1 = new BG_circle(this.getRefEngine(),true,106,-1000,-1000,this.mireSize,"#33FFFF");
         this.mire1.setFixedSize(true);
         this.mire1.setAlpha(0.4);
@@ -21,6 +21,8 @@ class BG_lineEditor extends BG_line{
         
     }
     destructor(){
+        this.getRefEngine().deleteObject(this.mire1);
+        this.getRefEngine().deleteObject(this.mire2);
         super.destructor();
         this.getRefEngine().deleteObject(this.mire);
     }
@@ -30,7 +32,7 @@ class BG_lineEditor extends BG_line{
         this.mire1.setPosY(this.getPoint1()[1]);
         this.mire2.setPosX(this.getPoint2()[0]);
         this.mire2.setPosY(this.getPoint2()[1]);
-        if( _etatAide == 0 )   {
+        if( _etatAide == 0 ||  _currentObjSelected != this )   {
             this.mire1.setVisible(false);
             this.mire2.setVisible(false);
         } 
@@ -83,13 +85,15 @@ class BG_lineEditor extends BG_line{
     determineIfClicOfMe(mouseX,mouseY){
         var mouseOver = this.getMouseOver();
 
-        var dis = this.distance(mouseX,mouseY,this.mire1.getPosX(),this.mire1.getPosY());
-        if( dis < (this.mireSize/2)/this.getRefEngine().bg_g_stat.getCameraPositionZoom()){
-            return [true,dis];
-        }
-        dis = this.distance(mouseX,mouseY,this.mire2.getPosX(),this.mire2.getPosY());
-        if( dis < (this.mireSize/2)/this.getRefEngine().bg_g_stat.getCameraPositionZoom()){
-            return [true,dis];
+        if( _currentObjSelected == this ){
+            var dis = this.distance(mouseX,mouseY,this.mire1.getPosX(),this.mire1.getPosY());
+            if( dis < (this.mireSize/2)/this.getRefEngine().bg_g_stat.getCameraPositionZoom()){
+                return [true,dis];
+            }
+            dis = this.distance(mouseX,mouseY,this.mire2.getPosX(),this.mire2.getPosY());
+            if( dis < (this.mireSize/2)/this.getRefEngine().bg_g_stat.getCameraPositionZoom()){
+                return [true,dis];
+            }
         }
 
         if( mouseOver == false) return [false,-1];
@@ -106,19 +110,21 @@ class BG_lineEditor extends BG_line{
         var mouseX = this.getRefEngine().bg_g_stat.getMouseXBoard();
         var mouseY = this.getRefEngine().bg_g_stat.getMouseYBoard();
         this.mireSelected = 0;
-        var dis = this.distance(mouseX,mouseY,this.mire1.getPosX(),this.mire1.getPosY());
-        if( dis < (this.mireSize/2)/this.getRefEngine().bg_g_stat.getCameraPositionZoom()){
-            this.mireSelected = 1;
-            this.diffP1[0] = this.getPoint1()[0]-this.getRefEngine().bg_g_stat.getMouseXBoard();
-            this.diffP1[1] = this.getPoint1()[1]-this.getRefEngine().bg_g_stat.getMouseYBoard();
-            return;
-        }
-        dis = this.distance(mouseX,mouseY,this.mire2.getPosX(),this.mire2.getPosY());
-        if( dis < (this.mireSize/2)/this.getRefEngine().bg_g_stat.getCameraPositionZoom()){
-            this.mireSelected = 2;
-            this.diffP1[0] = this.getPoint2()[0]-this.getRefEngine().bg_g_stat.getMouseXBoard();
-            this.diffP1[1] = this.getPoint2()[1]-this.getRefEngine().bg_g_stat.getMouseYBoard();
-            return;
+        if( _currentObjSelected == this ){
+            var dis = this.distance(mouseX,mouseY,this.mire1.getPosX(),this.mire1.getPosY());
+            if( dis < (this.mireSize/2)/this.getRefEngine().bg_g_stat.getCameraPositionZoom()){
+                this.mireSelected = 1;
+                this.diffP1[0] = this.getPoint1()[0]-this.getRefEngine().bg_g_stat.getMouseXBoard();
+                this.diffP1[1] = this.getPoint1()[1]-this.getRefEngine().bg_g_stat.getMouseYBoard();
+                return;
+            }
+            dis = this.distance(mouseX,mouseY,this.mire2.getPosX(),this.mire2.getPosY());
+            if( dis < (this.mireSize/2)/this.getRefEngine().bg_g_stat.getCameraPositionZoom()){
+                this.mireSelected = 2;
+                this.diffP1[0] = this.getPoint2()[0]-this.getRefEngine().bg_g_stat.getMouseXBoard();
+                this.diffP1[1] = this.getPoint2()[1]-this.getRefEngine().bg_g_stat.getMouseYBoard();
+                return;
+            }
         }
         this.diffP1[0] = this.getPoint1()[0]-this.getRefEngine().bg_g_stat.getMouseXBoard();
         this.diffP1[1] = this.getPoint1()[1]-this.getRefEngine().bg_g_stat.getMouseYBoard();

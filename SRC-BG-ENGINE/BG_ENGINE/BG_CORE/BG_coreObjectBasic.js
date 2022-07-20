@@ -72,14 +72,20 @@ class BG_coreObjectBasic {
 		return this.p_color; 
 	}
 
-	//color
+	//fixedSize
 	setFixedSize(value){
 		this.p_fixedSize = value; 
 	}
-	getFixedsize(){
+	getFixedSize(){
 		return this.p_fixedSize; 
 	}
-
+	//onboard
+	setOnBoard(value){
+		this.p_onBoard = value; 
+	}
+	getOnBoard(){
+		return this.p_onBoard; 
+	}
 
 	
 	

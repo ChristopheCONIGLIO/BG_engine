@@ -171,7 +171,9 @@ class BG_polygone extends BG_coreObjectBasic{
 		}
 		return [px,py,pSX,pSY,size,ldecX,ldecY];
 	}
-	getMouseOver(){
+
+
+	getInfoPoints(){
 		let decX = this.p_bg.decXwithZoom;
 		let decY = this.p_bg.decYwithZoom;
 		let zoom = this.p_bg.zoomLevel;
@@ -219,9 +221,13 @@ class BG_polygone extends BG_coreObjectBasic{
 				arrayXpoints.push( [tab[0],tab[1]]);
 			}
 		}
+		return arrayXpoints;		
+	}
 
+
+	getMouseOver(){
+		var arrayXpoints = this.getInfoPoints();
 		//this.tools_drawExactContour(arrayXpoints);
-		
 		this.mouseOver = this.tools_pointInsidePolygone(
 				arrayXpoints,
 				this.p_bg.mouseX,

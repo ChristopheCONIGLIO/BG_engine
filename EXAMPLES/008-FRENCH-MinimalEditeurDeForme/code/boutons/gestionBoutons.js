@@ -12,6 +12,17 @@ function ajoutRectangle(){
     _currentObjSelected = randomRectangle; //on possition le dernier obj en obje selectiionner
     _arrListAllObjEditor.push(randomRectangle);
 }
+function ajoutRectangleScreen(){
+    //on commence par cacher le selector
+    _selectorMouse.setVisible(false); //les obj BG_engine sont accesible aussi en dehord des scripts BG_engine
+    // on créé un rectangle pour le BG_engine
+   
+    let pts = _bg_engine1.bg_g_stat.convertPointBoardToScreen([_mouseXclic,_mouseYclic]);
+    var randomRectangle = new BG_rectEditor(_bg_engine1,false,10,pts[0]-50,pts[1]-50,100,100,"#3333FF");//le 1 c'est la couche d'afficahge
+    _currentObjSelected = randomRectangle; //on possition le dernier obj en obje selectiionner
+    _arrListAllObjEditor.push(randomRectangle);
+}
+
 function ajoutCircle(){
     //on commence par cacher le selector
     _selectorMouse.setVisible(false); //les obj BG_engine sont accesible aussi en dehord des scripts BG_engine
@@ -28,6 +39,31 @@ function ajoutLine(){
     _currentObjSelected = rd; //on possition le dernier obj en obje selectiionner
     _arrListAllObjEditor.push(rd);
 }
+function ajoutPolygone(){
+    //on commence par cacher le selector
+    _selectorMouse.setVisible(false); //les obj BG_engine sont accesible aussi en dehord des scripts BG_engine
+    // on créé un rectangle pour le BG_engine
+    var posPolygone = [
+        [_mouseXclic,_mouseYclic-50],
+        [_mouseXclic+50,_mouseYclic+50],
+        [_mouseXclic-50,_mouseYclic+50]
+    ];
+
+    var rd = new BG_polygoneEditor(_bg_engine1,true,10,posPolygone,"#3333FF");//le 1 c'est la couche d'afficahge
+    _currentObjSelected = rd; //on possition le dernier obj en obje selectiionner
+    _arrListAllObjEditor.push(rd);
+}
+function ajoutPointPolygone(){
+    if( _currentObjSelected.type == "polygone"){
+        _currentObjSelected.addPoint();
+    }
+}
+function supPointPolygone(){
+    if( _currentObjSelected.type == "polygone"){
+        _currentObjSelected.deletePoint();
+    }
+}
+
 function ajoutTexte(){
     //on commence par cacher le selector
     _selectorMouse.setVisible(false); //les obj BG_engine sont accesible aussi en dehord des scripts BG_engine
@@ -144,6 +180,12 @@ function setLayer(){
 function visuHelp(){
     if( _etatAide == 1) _etatAide = 0;
     else                _etatAide = 1;
+}
+
+function onBoardFixedSizeSwitch(){
+    let obj = _currentObjSelected.getFixedSize();
+    if( obj == false)   _currentObjSelected.setFixedSize(true);
+    else                _currentObjSelected.setFixedSize(false);
 }
 
 

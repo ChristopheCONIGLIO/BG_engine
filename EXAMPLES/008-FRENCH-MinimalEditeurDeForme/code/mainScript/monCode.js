@@ -8,11 +8,11 @@ class monCode extends BG_script{
         super(bg); // appel du super !
         this.animAlphaSens = 1; //utilisé pour coder un va et vient sur l'apha du curseur pour faire jolie
         this.animAlphaIncr = 0.03; // vitesse de l'annimation
+        this.enablemouseDonwDetector = 1;
         // si il vaut 1 alors j'augmente l'apha si il vaut 0 je le dominue
         // une boucle dans le enterfrmae gere tout ca 
     }
     enterFrame(){
-        
         
         // Explication des diférent cas  traiter ici "if"
         // 1 - on regarde mousedonw pour activer le drag and drop
@@ -21,7 +21,10 @@ class monCode extends BG_script{
         // 4 - on gere l'affichage ou pas de certains elèments
 
         // 1 - on regarde mousedonw pour activer le drag and drop
-        if( _dragAndDroEnable == false && this.p_bg.bg_g_stat.getMouseDown() == 1){ 
+
+        if( this.p_bg.bg_g_stat.getMouseDown() == 0 )    this.enablemouseDonwDetector = 1;
+        if( _dragAndDroEnable == false && this.p_bg.bg_g_stat.getMouseDown() == 1 && this.enablemouseDonwDetector == 1){ 
+            this.enablemouseDonwDetector = 0;
             // detect le mouseDown surtout ne pas tester si 
             // _dragAndDroEnable == true car sa veut dire qu'il est deja activé
 
@@ -41,8 +44,8 @@ class monCode extends BG_script{
             }
             
             if( obj != undefined){ //la ca devient compliqué
-                _currentObjSelected = obj;  // choix purement personnel , ici la classe obj concercé saura quelle est choisit
                 obj.initDragandDrop(); // init le drag and drop notameent pour récuprer la pos de la soruis par rapport à l'objet
+                _currentObjSelected = obj;  // choix purement personnel , ici la classe obj concercé saura quelle est choisit
                 _dragAndDroEnable = true;   // variable globale utilisé pour informer tout le monde ! 
             }
 

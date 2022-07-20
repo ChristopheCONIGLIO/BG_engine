@@ -4,7 +4,7 @@
 class BG_circleEditor extends BG_circle{
     constructor(bg,onBoard,layer,pX,pY,rayon,color) {
         super(bg,onBoard,layer,pX,pY,rayon,color);
-        this.type = "rectangle";
+        this.type = "circle";
         this.dragAndDrop_decMouseX = 0;
         this.dragAndDrop_decMouseY = 0;
     }
@@ -16,8 +16,15 @@ class BG_circleEditor extends BG_circle{
        if( _dragAndDroEnable == true && _currentObjSelected==this){
             //on colle la souris avec l'element graphique mais avec de décalage d'initialisation
             //sinon l'aobjet serait téléporter à la soruis
-            this.setPosX(this.getRefEngine().bg_g_stat.getMouseXBoard() + this.dragAndDrop_decMouseX);
-            this.setPosY(this.getRefEngine().bg_g_stat.getMouseYBoard() + this.dragAndDrop_decMouseY);
+            if( this.getOnBoard() == false){
+                this.setPosX(this.getRefEngine().bg_g_stat.getMouseXScreen() + this.dragAndDrop_decMouseX);
+                this.setPosY(this.getRefEngine().bg_g_stat.getMouseYScreen() + this.dragAndDrop_decMouseY);
+            }
+            else{
+                this.setPosX(this.getRefEngine().bg_g_stat.getMouseXBoard() + this.dragAndDrop_decMouseX);
+                this.setPosY(this.getRefEngine().bg_g_stat.getMouseYBoard() + this.dragAndDrop_decMouseY);
+            }
+            
         }
 
     }
@@ -35,8 +42,16 @@ class BG_circleEditor extends BG_circle{
     }
     //permet de définir la distance entre la souris et la mire pour garder ce décalage pendent le dragAndDrop
     initDragandDrop(){
-        this.dragAndDrop_decMouseX = this.getPosX()-this.getRefEngine().bg_g_stat.getMouseXBoard();
-        this.dragAndDrop_decMouseY = this.getPosY()-this.getRefEngine().bg_g_stat.getMouseYBoard();
+
+        if( this.getOnBoard() == false){
+            this.dragAndDrop_decMouseX = this.getPosX()-this.getRefEngine().bg_g_stat.getMouseXScreen();
+            this.dragAndDrop_decMouseY = this.getPosY()-this.getRefEngine().bg_g_stat.getMouseYScreen();
+        }
+        else{
+            this.dragAndDrop_decMouseX = this.getPosX()-this.getRefEngine().bg_g_stat.getMouseXBoard();
+            this.dragAndDrop_decMouseY = this.getPosY()-this.getRefEngine().bg_g_stat.getMouseYBoard();
+        }
+        
     }
 }
 //

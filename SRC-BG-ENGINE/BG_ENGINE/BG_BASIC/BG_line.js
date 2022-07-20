@@ -45,6 +45,14 @@ class BG_line extends BG_coreObjectBasic{
 		this.p_p2X		= p2X;
 		this.p_p2Y		= p2Y;
 	}
+	setPoint1(p1X,p1Y){
+		this.p_p1X		= p1X;
+		this.p_p1Y		= p1Y;
+	}
+	setPoint2(p2X,p2Y){
+		this.p_p2X		= p2X;
+		this.p_p2Y		= p2Y;
+	}
 	getPoints(){
 		return [[this.p_p1X,this.p_p1Y],[this.p_p2X,this.p_p2Y]];
 	}

@@ -52,7 +52,24 @@ class BG_coreStatistique {
 	}
 
 
+	//
+	//fonction de conversion
+	//
 
+	convertPointScreenToBoard([px,py]){
+		let decXs = (-this.g_bg.decX+this.g_bg.bg_g_width/2) * (1-this.g_bg.zoomLevel);
+		let decYs = (-this.g_bg.decY+this.g_bg.bg_g_height/2) * (1-this.g_bg.zoomLevel);
+		let pxl = ((px-(this.g_bg.decX+decXs))/this.g_bg.zoomLevel);
+		let pyl = ((py-(this.g_bg.decY+decYs))/this.g_bg.zoomLevel);
+		return [pxl,pyl];
+	}
+	convertPointBoardToScreen([px,py]){ // !!!!!!!!!!!!!
+		let decXs = (-this.g_bg.decX+this.g_bg.bg_g_width/2) * (1-this.g_bg.zoomLevel);
+		let decYs = (-this.g_bg.decY+this.g_bg.bg_g_height/2) * (1-this.g_bg.zoomLevel);
+		let pxl = (px*this.g_bg.zoomLevel)+this.g_bg.decX+decXs;
+		let pyl = (py*this.g_bg.zoomLevel)+this.g_bg.decY+decYs;
+		return [pxl,pyl];
+	}
 
 	//foncrtion issu des variables locales
 
