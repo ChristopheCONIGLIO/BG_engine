@@ -21,6 +21,9 @@ class BG_polygoneEditor extends BG_polygone{
             this.arrMire.push(mire);
         }
         this.mireSelected = -1;
+
+        this.mireBonus = new BG_circle(this.getRefEngine(),false,106,-1000,-1000,this.mireSize/2,"#FF8888");
+        this.mireBonus.setAlpha(0.6);
         
     }
     destructor(){
@@ -29,6 +32,7 @@ class BG_polygoneEditor extends BG_polygone{
         }
         super.destructor();
         this.getRefEngine().deleteObject(this.mire);
+        this.getRefEngine().deleteObject(this.mireBonus);
     }
 
     //
@@ -71,12 +75,16 @@ class BG_polygoneEditor extends BG_polygone{
             this.arrMire[k].setPosY(arrPts[k][1]-this.mireSize/2);
             if( _etatAide == 0 || _currentObjSelected != this )   {
                 this.arrMire[k].setVisible(false);
+                this.mireBonus.setVisible(false);
             } 
             else    {
                 this.arrMire[k].setVisible(true);
+                this.mireBonus.setVisible(true);
             }
         }
 
+        this.mireBonus.setPosX((arrPts[this.arrMire.length-1][0]+arrPts[0][0])/2 - this.mireSize/4);
+        this.mireBonus.setPosY((arrPts[this.arrMire.length-1][1]+arrPts[0][1])/2 - this.mireSize/4 );
 
         //
         if( this.getFixedSize() == true && Math.abs(1-this.getRefEngine().zoomLevel) > 0.01){
