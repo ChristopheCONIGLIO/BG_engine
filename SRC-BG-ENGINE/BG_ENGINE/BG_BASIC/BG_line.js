@@ -168,8 +168,20 @@ class BG_line extends BG_coreObjectBasic{
 
 	}
 	
-	getMouseOver(){
-		
+	getInfo2Points(){
+		var arrayXpoints = this.getInfoPoints();
+		let pt1 = [
+			(arrayXpoints[0][0]+arrayXpoints[1][0])/2,
+			(arrayXpoints[0][1]+arrayXpoints[1][1])/2
+		];
+		let pt2 = [
+			(arrayXpoints[2][0]+arrayXpoints[3][0])/2,
+			(arrayXpoints[2][1]+arrayXpoints[3][1])/2
+		];
+		return [pt1,pt2];
+	}
+	getInfoPoints(){
+
 		let decX = this.p_bg.decXwithZoom;
 		let decY = this.p_bg.decYwithZoom;
 		let zoom = this.p_bg.zoomLevel;
@@ -270,6 +282,11 @@ class BG_line extends BG_coreObjectBasic{
 			pts = this.tools_rotatePointFromCenter (pts[0],pts[1], cx,cy, this.rotation);
 			arrayXpoints.push([pts[0],pts[1]]);	
 		}
+		return arrayXpoints;
+	}
+
+	getMouseOver(){
+		var arrayXpoints = this.getInfoPoints();
 		//this.tools_drawExactContour(arrayXpoints);
 		
 		this.mouseOver = this.tools_pointInsidePolygone(

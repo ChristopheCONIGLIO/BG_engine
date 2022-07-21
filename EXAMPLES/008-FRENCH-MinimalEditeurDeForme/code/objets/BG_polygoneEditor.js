@@ -77,50 +77,78 @@ class BG_polygoneEditor extends BG_polygone{
             }
         }
 
+
+        //
+        if( this.getFixedSize() == true && Math.abs(1-this.getRefEngine().zoomLevel) > 0.01){
+            for(var k = 0 ; k <  this.arrMire.length ; k++){
+                this.arrMire[k].setColor("#FF6644");
+            }
+        }
+        else{
+            for(var k = 0 ; k <  this.arrMire.length ; k++){
+                this.arrMire[k].setColor("#33FFFF");
+            }
+        }
+
+
        
        if( _dragAndDroEnable == true && _currentObjSelected==this){
             
             if( this.mireSelected !=  -1){
-
-                if( this.getFixedSize() == true){
-                    
-                    
-                    //if( this.getRefEngine().zoomLevel ;)
-                    
-                   this.getRefEngine().zoomLevel = this.getRefEngine().zoomLevel*0.95+1*0.05;
-
-
+                var arrPts = this.getArrayPoint();
+                
+                if( this.getOnBoard() == false){
+                    arrPts[this.mireSelected][0] = this.getRefEngine().bg_g_stat.getMouseXScreen() + this.diffP[0][0];
+                    arrPts[this.mireSelected][1] = this.getRefEngine().bg_g_stat.getMouseYScreen() + this.diffP[0][1];
+                }
+                else if( this.getFixedSize() == true){
+                    let ressort = 0.65;
+                    let ressortInv = 1-ressort;
+                    this.getRefEngine().zoomLevel = this.getRefEngine().zoomLevel*ressort+1*ressortInv;
+                    if( Math.abs(1-this.getRefEngine().zoomLevel) > 0.01){
+                        this.getRefEngine().decX = this.getRefEngine().decX*ressort + ressortInv*(this.getRefEngine().bg_g_stat.getMouseXScreen()-arrPts[this.mireSelected][0]);
+                        this.getRefEngine().decY = this.getRefEngine().decY*ressort + ressortInv*(this.getRefEngine().bg_g_stat.getMouseYScreen()-arrPts[this.mireSelected][1]); 
+                    }
+                    else{
+                        arrPts[this.mireSelected][0] = this.getRefEngine().bg_g_stat.getMouseXScreen() - this.getRefEngine().decX;
+                        arrPts[this.mireSelected][1] = this.getRefEngine().bg_g_stat.getMouseYScreen() - this.getRefEngine().decY;
+                    }
                     
                 }
-
-
-                var arrPts = this.getArrayPoint();
-
-                arrPts[this.mireSelected][0] = this.getRefEngine().bg_g_stat.getMouseXBoard() + this.diffP[0][0];
-                arrPts[this.mireSelected][1] = this.getRefEngine().bg_g_stat.getMouseYBoard() + this.diffP[0][1];
-                //arrPts[this.mireSelected][0] = this.getRefEngine().bg_g_stat.getMouseXBoard() + this.diffP[0][0];
-                //arrPts[this.mireSelected][1] = this.getRefEngine().bg_g_stat.getMouseYBoard() + this.diffP[0][1];
-
-
+                else{
+                    arrPts[this.mireSelected][0] = this.getRefEngine().bg_g_stat.getMouseXBoard() + this.diffP[0][0];
+                    arrPts[this.mireSelected][1] = this.getRefEngine().bg_g_stat.getMouseYBoard() + this.diffP[0][1];
+                }
                 this.setArrayPoint(arrPts);
-                
             }
            
             else{
                 
-                //
-                // cas on drag and drop la forme entiere
-                //
-                var newArray = new Array(this.diffP.length);
-                for(var k = 0 ; k <  this.diffP.length ; k++){
-                    var posX = this.diffP[k][0] + this.getRefEngine().bg_g_stat.getMouseXBoard();
-                    var posY = this.diffP[k][1] + this.getRefEngine().bg_g_stat.getMouseYBoard();
-                    newArray[k] = [posX,posY];
+                if( this.getOnBoard() == false){
+                    //
+                    // cas on drag and drop la forme entiere
+                    //
+                    var newArray = new Array(this.diffP.length);
+                    for(var k = 0 ; k <  this.diffP.length ; k++){
+                        var posX = this.diffP[k][0] + this.getRefEngine().bg_g_stat.getMouseXScreen();
+                        var posY = this.diffP[k][1] + this.getRefEngine().bg_g_stat.getMouseYScreen();
+                        newArray[k] = [posX,posY];
+                    }
+                    this.setArrayPoint(newArray);
                 }
-                this.setArrayPoint(newArray);
-
-
-
+                else{
+                    //
+                    // cas on drag and drop la forme entiere
+                    //
+                    var newArray = new Array(this.diffP.length);
+                    for(var k = 0 ; k <  this.diffP.length ; k++){
+                        var posX = this.diffP[k][0] + this.getRefEngine().bg_g_stat.getMouseXBoard();
+                        var posY = this.diffP[k][1] + this.getRefEngine().bg_g_stat.getMouseYBoard();
+                        newArray[k] = [posX,posY];
+                    }
+                    this.setArrayPoint(newArray);
+                }
+                
             }        
 
         }
@@ -188,16 +216,30 @@ class BG_polygoneEditor extends BG_polygone{
        
              
 
-        //
-        // cas on drag and drop la forme entiere
-        //
-        var ArrPts = this.getArrayPoint();
-
-        for(var k = 0 ; k <  this.diffP.length ; k++){
-            var posX = ArrPts[k][0]-this.getRefEngine().bg_g_stat.getMouseXBoard();
-            var posY = ArrPts[k][1]-this.getRefEngine().bg_g_stat.getMouseYBoard();
-            this.diffP[k] = [posX,posY];
+        if( this.getOnBoard() == false){
+            //
+            // cas on drag and drop la forme entiere
+            //
+            var ArrPts = this.getArrayPoint();
+            for(var k = 0 ; k <  this.diffP.length ; k++){
+                var posX = ArrPts[k][0]-this.getRefEngine().bg_g_stat.getMouseXScreen();
+                var posY = ArrPts[k][1]-this.getRefEngine().bg_g_stat.getMouseYScreen();
+                this.diffP[k] = [posX,posY];
+            }
         }
+        else{
+            //
+            // cas on drag and drop la forme entiere
+            //
+            var ArrPts = this.getArrayPoint();
+
+            for(var k = 0 ; k <  this.diffP.length ; k++){
+                var posX = ArrPts[k][0]-this.getRefEngine().bg_g_stat.getMouseXBoard();
+                var posY = ArrPts[k][1]-this.getRefEngine().bg_g_stat.getMouseYBoard();
+                this.diffP[k] = [posX,posY];
+            }
+        }
+
         
        
     }

@@ -39,6 +39,30 @@ function ajoutLine(){
     _currentObjSelected = rd; //on possition le dernier obj en obje selectiionner
     _arrListAllObjEditor.push(rd);
 }
+function ajoutLineScreen(){
+    //on commence par cacher le selector
+    _selectorMouse.setVisible(false); //les obj BG_engine sont accesible aussi en dehord des scripts BG_engine
+    // on créé un rectangle pour le BG_engine
+    let pts = _bg_engine1.bg_g_stat.convertPointBoardToScreen([_mouseXclic,_mouseYclic]);
+    var rd = new BG_lineEditor(_bg_engine1,false,10,pts[0]-50,pts[1],pts[0]+50,pts[1],20,"#3333FF");//le 1 c'est la couche d'afficahge
+    _currentObjSelected = rd; //on possition le dernier obj en obje selectiionner
+    _arrListAllObjEditor.push(rd);
+}
+function ajoutPolygoneScreen(){
+    //on commence par cacher le selector
+    _selectorMouse.setVisible(false); //les obj BG_engine sont accesible aussi en dehord des scripts BG_engine
+    // on créé un rectangle pour le BG_engine
+    let pts = _bg_engine1.bg_g_stat.convertPointBoardToScreen([_mouseXclic,_mouseYclic]);
+    var posPolygone = [
+        [pts[0],pts[1]-50],
+        [pts[0]+50,pts[1]+50],
+        [pts[0]-50,pts[1]+50]
+    ];
+
+    var rd = new BG_polygoneEditor(_bg_engine1,false,10,posPolygone,"#3333FF");//le 1 c'est la couche d'afficahge
+    _currentObjSelected = rd; //on possition le dernier obj en obje selectiionner
+    _arrListAllObjEditor.push(rd);
+}
 function ajoutPolygone(){
     //on commence par cacher le selector
     _selectorMouse.setVisible(false); //les obj BG_engine sont accesible aussi en dehord des scripts BG_engine
@@ -184,8 +208,20 @@ function visuHelp(){
 
 function onBoardFixedSizeSwitch(){
     let obj = _currentObjSelected.getFixedSize();
-    if( obj == false)   _currentObjSelected.setFixedSize(true);
-    else                _currentObjSelected.setFixedSize(false);
+    if( obj == false)   {
+        _currentObjSelected.setFixedSize(true);
+        //case rectangle
+        
+        _currentObjSelected.setPosX(_currentObjSelected.getPosX()+_currentObjSelected.getDimX()/2);
+        _currentObjSelected.setPosY(_currentObjSelected.getPosY()+_currentObjSelected.getDimY()/2);
+    }
+    else {
+        _currentObjSelected.setFixedSize(false);
+        _currentObjSelected.setPosX(_currentObjSelected.getPosX()-_currentObjSelected.getDimX()/2);
+        _currentObjSelected.setPosY(_currentObjSelected.getPosY()-_currentObjSelected.getDimY()/2);
+    }               
+
+
 }
 
 

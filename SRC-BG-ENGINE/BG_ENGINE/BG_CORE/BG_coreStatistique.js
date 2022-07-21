@@ -63,12 +63,32 @@ class BG_coreStatistique {
 		let pyl = ((py-(this.g_bg.decY+decYs))/this.g_bg.zoomLevel);
 		return [pxl,pyl];
 	}
+	convertPointScreenToBoardX(px){
+		let decXs = (-this.g_bg.decX+this.g_bg.bg_g_width/2) * (1-this.g_bg.zoomLevel);
+		let pxl = ((px-(this.g_bg.decX+decXs))/this.g_bg.zoomLevel);
+		return pxl;
+	}
+	convertPointScreenToBoardY(py){
+		let decYs = (-this.g_bg.decY+this.g_bg.bg_g_height/2) * (1-this.g_bg.zoomLevel);
+		let pyl = ((py-(this.g_bg.decY+decYs))/this.g_bg.zoomLevel);
+		return pyl;
+	}
 	convertPointBoardToScreen([px,py]){ // !!!!!!!!!!!!!
 		let decXs = (-this.g_bg.decX+this.g_bg.bg_g_width/2) * (1-this.g_bg.zoomLevel);
 		let decYs = (-this.g_bg.decY+this.g_bg.bg_g_height/2) * (1-this.g_bg.zoomLevel);
 		let pxl = (px*this.g_bg.zoomLevel)+this.g_bg.decX+decXs;
 		let pyl = (py*this.g_bg.zoomLevel)+this.g_bg.decY+decYs;
 		return [pxl,pyl];
+	}
+	convertPointBoardToScreenX(px){ // !!!!!!!!!!!!!
+		let decXs = (-this.g_bg.decX+this.g_bg.bg_g_width/2) * (1-this.g_bg.zoomLevel);
+		let pxl = (px*this.g_bg.zoomLevel)+this.g_bg.decX+decXs;
+		return pxl;
+	}
+	convertPointBoardToScreenY(py){ // !!!!!!!!!!!!!
+		let decYs = (-this.g_bg.decY+this.g_bg.bg_g_height/2) * (1-this.g_bg.zoomLevel);
+		let pyl = (py*this.g_bg.zoomLevel)+this.g_bg.decY+decYs;
+		return pyl;
 	}
 
 	//foncrtion issu des variables locales
