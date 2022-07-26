@@ -137,7 +137,7 @@ class BG_circle extends BG_coreObjectBasic{
 		let px,py,pS;
 		if( this.p_fixedSize == true){
 			px = decX+this.p_pX*zoom-this.p_sX/2;
-			py = decY+this.p_pY*zoom-this.p_sY/2;
+			py = decY+this.p_pY*zoom-this.p_sX/2;
 			pS = this.p_sX;
 		}
 		else if( this.p_onBoard == true){
