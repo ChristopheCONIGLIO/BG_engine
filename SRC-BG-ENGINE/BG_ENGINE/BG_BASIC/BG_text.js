@@ -177,7 +177,10 @@ class BG_text extends BG_coreObjectBasic{
 		return [px,py,pSX,pSY,size];
 	}
 
-	getMouseOver(){
+	
+
+	getInfoPoints(){
+
 		var info = this.getLocalInfo();
 		let px  = info[0];
 		let py  = info[1];
@@ -212,6 +215,12 @@ class BG_text extends BG_coreObjectBasic{
 		tab = this.tools_rotatePointFromCenter (array4points[3][0],array4points[3][1], cx,cy, this.rotation);
 		array4points[3][0] = tab[0];
 		array4points[3][1] = tab[1];
+		return array4points;
+	}
+
+
+	getMouseOver(){
+		var array4points = this.getInfoPoints();
 		//this.drawExactContour(array4points);
 		this.mouseOver = this.tools_pointInsidePolygone(
 				array4points,
