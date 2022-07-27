@@ -89,22 +89,13 @@ class BG_text extends BG_coreObjectBasic{
 			let pSY = info[3];
 			let size = info[4];
 			
-			if( this.p_onBoard == true){
-				//determine if form must be draw
-				if( px-pSX > this.stat.getScreenWidth())	return;
-				if( py-(zoom*this.p_size)-pSY > this.stat.getScreenHeight())	return;
-				if( px + pSX < 0)		return;
-				if( py-(zoom*this.p_size) + pSY < 0)		return;
-				if( this.p_bg.debugContour == true) this.drawLimitContour(px,py-(zoom*this.p_size),pSX,pSY);
-			}
-			else{
-				//determine if form must be draw
-				if( px-pSX > this.stat.getScreenWidth())	return;
-				if( py-this.p_size-pSY > this.stat.getScreenHeight())	return;
-				if( px + pSX < 0)		return;
-				if( py-this.p_size + pSY < 0)		return;
-				if( this.p_bg.debugContour == true) this.drawLimitContour(px,py-this.p_size,pSX,pSY);
-			}
+			//determine if form must be draw
+			if( px-pSX > this.stat.getScreenWidth())	return;
+			if( py-this.p_size-pSY > this.stat.getScreenHeight())	return;
+			if( px + pSX < 0)		return;
+			if( py-this.p_size + pSY < 0)		return;
+			if( this.p_bg.debugContour == true) this.drawLimitContour(px,py-this.p_size,pSX,pSY);
+			
 			// draw the form
 			this.drawText(px,py,pSX,pSY,size);	
 			this.stat.setRenderEngineObject( this.stat.getRenderEngineObject() + 1 );
