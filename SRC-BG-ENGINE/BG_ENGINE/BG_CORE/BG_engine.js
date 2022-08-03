@@ -64,6 +64,9 @@ class BG_engine{
 
 		this.mouseEventMouse = new BG_eventMouse(this);
 		this.mouseEventTouch = new BG_eventTouch(this);
+		
+		this.activeDragAndDropDelayCounter = 0;
+		this.activeDragAndDropDelay = 0;
 
 		//-----------------------------------------------------------------------------------//
 		//-----------------------------------------------------------------------------------//
@@ -74,7 +77,13 @@ class BG_engine{
 	}
 	//----------------------------------
 
-
+	setDragAndDropDelay(val){
+		this.activeDragAndDropDelayCounter = val;
+		this.activeDragAndDropDelay = val;
+	}
+	getDragAndDropDelay(val){
+		return this.activeDragAndDropDelayCounter;
+	}
 	//----------------------------------
 	// OBSELETE
 	/*initialisation(){
@@ -127,6 +136,27 @@ class BG_engine{
 		this.decXwithZoom = decXs+this.decX;
 		this.decYwithZoom = decYs+this.decY;
 		if( this.debugCollisionContour ) this.bg_g_collisionEngine.drawDebug(decXs+this.decX, decYs+this.decY,this.zoomLevel);
+		
+		
+		//handle script
+		for(var k = 0 ; k < this.bg_g_listScript.length ; k++){
+			this.bg_g_listScript[k].enterFrame();
+		}
+		for(var k = 0 ; k < this.bg_g_listScriptUnload.length ; k++){
+			var index = -1;
+			for(var j = 0 ; j < this.bg_g_listScript.length ; j++){
+				if( this.bg_g_listScript[j] == this.bg_g_listScriptUnload[k] ){
+						index = j;
+				}
+			}
+			if( index != -1 ){
+				this.bg_g_listScriptUnload[k].destructor();
+				this.bg_g_listObj.splice(index, 1);
+			}
+		}
+		
+		
+		
 		// handle objetc
 		for(var i = 0 ; i < this.bg_g_nbLayer ; i++){
 			for(var k = 0 ; k < this.bg_g_listObj[i].length ; k++){
@@ -182,21 +212,12 @@ class BG_engine{
 		this.bg_g_listObjUnload.splice(0, this.bg_g_listObjUnload.length); //? new Array not ?
 
 
-		//handle script
-		for(var k = 0 ; k < this.bg_g_listScript.length ; k++){
-				this.bg_g_listScript[k].enterFrame();
+		//handle drag and drop delay
+		if( this.mouseDownX == -1){
+			this.activeDragAndDropDelay = 0;
 		}
-		for(var k = 0 ; k < this.bg_g_listScriptUnload.length ; k++){
-			var index = -1;
-			for(var j = 0 ; j < this.bg_g_listScript.length ; j++){
-				if( this.bg_g_listScript[j] == this.bg_g_listScriptUnload[k] ){
-						index = j;
-				}
-			}
-			if( index != -1 ){
-				this.bg_g_listScriptUnload[k].destructor();
-				this.bg_g_listObj.splice(index, 1);
-			}
+		else if(this.activeDragAndDropDelay < this.activeDragAndDropDelayCounter){
+			this.activeDragAndDropDelay++;
 		}
 		
 		this.bg_g_stat.setMouseClick(0);

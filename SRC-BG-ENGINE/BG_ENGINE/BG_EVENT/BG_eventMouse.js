@@ -61,7 +61,7 @@ class BG_eventMouse {
 			me.m2x = event.clientX;
 			me.m2y = event.clientY;
 			if( me.g_bg.bg_g_manualControl == true){
-				if( me.g_bg.mouseDownX != -1){
+				if( me.g_bg.mouseDownX != -1 && me.g_bg.activeDragAndDropDelay>=me.g_bg.activeDragAndDropDelayCounter){
 					me.g_bg.decX = (-me.g_bg.mouseDownX+event.clientX)/me.g_bg.zoomLevel;
 					me.g_bg.decY = (-me.g_bg.mouseDownY+event.clientY)/me.g_bg.zoomLevel;
 				}
