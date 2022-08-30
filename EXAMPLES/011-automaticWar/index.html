@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>C.CONIGLIO Project .js BG_engine</title>
+        <style>
+            * { margin:0; padding:0; }
+            #canvas{
+               float: left;
+               width: 100%;
+               height: 100vh;
+               background-color: rgb(197, 197, 226);
+            }
+        </style>
+        <!-- import de BG engine -->
+        <script type="text/javascript" src="../../SRC-BG-ENGINE/BG_EngineImport.js"></script>
+        <script type="text/javascript"> loadBGengine("../..")</script>
+        <script type="text/javascript" src="./script.js"></script>
+        <script type="text/javascript" src="./unity.js"></script>
+    </head>
+    <body >
+        <div class="conteneur">
+            <canvas id="canvas" >BG_engine need a browser canvas HTML5 compatible</canvas>
+        </div>
+    </body>
+    <script type="text/javascript">
+        
+        
+        
+        
+        //declaration de BG_engine
+        var bg_engine = new BG_engine("canvas",100,35);
+        var code = new script(bg_engine);
+        var stt = bg_engine.bg_g_stat;
+        
+
+        var dimX = 1080;
+        var dimY = 1920;
+        var counterX = 25;//25
+        var counterY = 50;//50
+        var arr = new Array(counterX);
+        for(var j = 0; j < counterX ; j++){
+            arr[j] =new Array(counterY);
+        }
+        var marging = 8;
+
+        var rect = new BG_rect (bg_engine,true,false,0,0,0,dimX,dimY,"#AAAAAA");
+
+        //
+        //init camerA position in center
+        //
+        var initZoom = stt.getScreenHeight()/dimY;
+        stt.setCameraPositionZoom(initZoom);
+        stt.setCameraPositionX((stt.getScreenWidth()-dimX)/2);
+        stt.setCameraPositionY((stt.getScreenHeight()-dimY)/2);
+
+        // 
+
+        //
+        // make rectangle
+        //
+        for(var j = 0; j < counterY ; j++){
+            for(var i = 0 ; i < counterX ; i++){
+
+                var rect = new unity (bg_engine,
+                                        true,false,1,
+                                        i*(dimX/counterX)+marging/2,
+                                        j*(dimY/counterY)+marging/2,
+                                        (dimX/counterX)-marging,
+                                        (dimY/counterY)-marging,
+                                        "#333333");
+                rect.initUnity(-1,0,i,j);
+                arr[i][j] = rect;
+            }
+        }
+
+        arr[12][12].changeCamp(-1,1);
+        arr[15][20].changeCamp(-1,2);
+
+       
+    </script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -103,13 +103,19 @@ class BG_circle extends BG_coreObjectBasic{
 		}
 		// end developement
 		
+
+
 		if( this.visible == true){
-			
+		
 			var info = this.getLocalInfo();
 			let px  = info[0];
 			let py  = info[1];
 			let pS  = info[2];
-			
+		
+			// to prevent bug or trace without real need
+			if( pS < 1 ) return;
+			//
+
 			//determine if form must be draw
 			if( px-pS > this.stat.getScreenWidth())	return;
 			if( py-pS > this.stat.getScreenHeight())	return;

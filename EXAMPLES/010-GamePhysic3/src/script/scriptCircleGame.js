@@ -7,9 +7,9 @@
                 this.enablemouseDonwDetector = 0;
             }
             enterFrame(){
-                if( this.inc < 30){
+                if( this.inc < 5){
                     this.inc++;
-                    var circle = new circleBall(this.p_bg,true,8,Math.random()*1000,-300,30+Math.random()*30,"#FF0000",this);
+                    var circle = new circleBall(this.p_bg,true,8,Math.random()*1000,-300,100+Math.random()*30,"#FF0000",this);
                     //circle.setPhysicEnable();
                 }
 

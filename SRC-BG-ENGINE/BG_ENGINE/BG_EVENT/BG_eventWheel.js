@@ -6,13 +6,16 @@ class BG_eventWheel {
 		this.g_canvasDoc.onwheel = function(event){ 
 			if( me.g_bg.bg_g_manualControl == true){
 				if( event.deltaY > 0 ) {
-					me.g_bg.zoomLevel-= 0.06;
+					//me.g_bg.zoomLevel-= 0.06;
+					me.g_bg.zoomLevel = me.g_bg.zoomLevel*0.97; 
 				}
 				if( event.deltaY < 0 ) {
-					me.g_bg.zoomLevel += 0.06;
+					//me.g_bg.zoomLevel += 0.06;
+					me.g_bg.zoomLevel = me.g_bg.zoomLevel*1.03; 
 				}
-				if( me.g_bg.zoomLevel> 6 )me.g_bg.zoomLevel = 6;
-				if( me.g_bg.zoomLevel< 0.4 )me.g_bg.zoomLevel = 0.4;	 
+				
+				/*if( me.g_bg.zoomLevel> 6 )me.g_bg.zoomLevel = 6;*/
+				if( me.g_bg.zoomLevel< 0 )me.g_bg.zoomLevel = 0	 
 			}
 		};
 	}
