@@ -7,11 +7,11 @@ class BG_eventWheel {
 			if( me.g_bg.bg_g_manualControl == true){
 				if( event.deltaY > 0 ) {
 					//me.g_bg.zoomLevel-= 0.06;
-					me.g_bg.zoomLevel = me.g_bg.zoomLevel*0.97; 
+					me.g_bg.zoomLevel = me.g_bg.zoomLevel*0.95; 
 				}
 				if( event.deltaY < 0 ) {
 					//me.g_bg.zoomLevel += 0.06;
-					me.g_bg.zoomLevel = me.g_bg.zoomLevel*1.03; 
+					me.g_bg.zoomLevel = me.g_bg.zoomLevel*1.05; 
 				}
 				
 				/*if( me.g_bg.zoomLevel> 6 )me.g_bg.zoomLevel = 6;*/
