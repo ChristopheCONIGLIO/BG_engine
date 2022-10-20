@@ -1,4 +1,4 @@
-v1.306
+v1.307
 
 Projet
 ------
@@ -65,6 +65,10 @@ Les caractéristiques du moteur 2D sont les suivantes :
 Change log
 ----------
 
+    20/10/2022 -- v1.307
+    -------------------
+    20/10/2022 -- Amélioration de la classe drawImage avec une optimisation de la fonction setImage
+    
     30/08/2022 -- v1.306
     -------------------
     30/08/2022 -- Amélioration du système de l'utilisation du zoom
