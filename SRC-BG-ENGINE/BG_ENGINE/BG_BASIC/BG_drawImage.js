@@ -5,6 +5,7 @@
 
 class BG_drawImage extends BG_coreObjectBasic{
 	constructor(bg,onBoard,fixed,layer,pX,pY,sX,sY,urlImage) {
+		
 		if( urlImage == undefined){
 			super(bg,onBoard,false,fixed,layer,pX,pY,sX,0);
 			this.img = document.createElement("img");
@@ -15,6 +16,7 @@ class BG_drawImage extends BG_coreObjectBasic{
 			this.img = document.createElement("img");
 			this.img.src = urlImage;
 		}
+		this.localURL = urlImage;
 		this.p_bg.addObject(this,this.p_layer);
 	}
 
@@ -31,9 +33,11 @@ class BG_drawImage extends BG_coreObjectBasic{
 	}
 	
 	getImageURL(){
-		return this.img.src;
+		return this.localURL;
 	}
 	setImageURL(url){
+		if( this.localURL == url) return;
+		this.localURL = url;
 		this.img.src = url;
 	}
 	setPos(pX,pY){
