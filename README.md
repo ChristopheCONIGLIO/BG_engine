@@ -1,4 +1,4 @@
-v1.307
+v1.308
 
 Projet
 ------
@@ -65,6 +65,11 @@ Les caractéristiques du moteur 2D sont les suivantes :
 Change log
 ----------
 
+    
+    24/10/2022 -- v1.308
+    -------------------
+    24/10/2022 -- Correction sur les textes
+    
     20/10/2022 -- v1.307
     -------------------
     20/10/2022 -- Amélioration de la classe drawImage avec une optimisation de la fonction setImage
@@ -177,6 +182,7 @@ Idées d'amélioration
     -- Ajouter un système de masque sur les objets
     -- Ne gere pas plus de deux doigts pour le mobile
     -- Ajouter des limites de déplacement max sur la partie drag and drop et zoom
+    -- Limite texte à revoir car ne fonctionne pas sur les grands format
     -- L'optimisation du rendu des tracés ne prend pas totalement en compte les modifications de dimensions à cause de la rotation (l'implémnetation actuelle favorise l'optimisation à l'l'exactitude)
     -- **Doc à créer**
     
