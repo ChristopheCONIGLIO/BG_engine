@@ -1,4 +1,4 @@
-v1.308
+v1.309
 
 Projet
 ------
@@ -65,6 +65,10 @@ Les caractéristiques du moteur 2D sont les suivantes :
 Change log
 ----------
 
+    06/04/2022 -- v1.309
+    -------------------
+    06/04/2022 -- Ajout d'une nouvelle forme -> Bordure de rectangle
+    06/04/2022 -- Ajout d'un fichier exemple pour les formes avec bordure
     
     24/10/2022 -- v1.308
     -------------------

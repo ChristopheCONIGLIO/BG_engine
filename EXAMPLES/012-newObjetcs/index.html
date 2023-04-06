@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>C.CONIGLIO Project .js BG_engine</title>
+        <style>
+            * { margin:0; padding:0; }
+            #canvas1{
+               float: left;
+               width: 100%;
+               height: 100vh;
+               background-color: rgb(197, 197, 226);
+            }
+        </style>
+        <!-- import de BG engine -->
+        <script type="text/javascript" src="../../SRC-BG-ENGINE/BG_EngineImport.js"></script>
+        <script type="text/javascript"> loadBGengine("../..")</script>
+    </head>
+    <body >
+        <div class="conteneur">
+            <canvas id="canvas1" >BG_engine need a browser canvas HTML5 compatible</canvas>
+        </div>
+    </body>
+    <script type="text/javascript">
+        
+       
+        // --------------------------------------------------- //
+        // --------------------------------------------------- //
+        
+        class monCode extends BG_script{
+            constructor(bg) {
+                super(bg);
+            }
+            enterFrame(){
+               
+                /*rectOnBoard.rotation++;
+                if( rectOnBoard.getMouseOver() == false)    rectOnBoard.setAlpha(1);
+                else                                        rectOnBoard.setAlpha(0.2); 
+                */
+                rectOnBoardB.rotation++;
+                if( rectOnBoardB.getMouseOver() == false)   rectOnBoardB.setAlpha(0.7);
+                else                                        rectOnBoardB.setAlpha(0.2); 
+                rectOnScreen.rotation++;
+                if( rectOnScreen.getMouseOver() == false)   rectOnScreen.setAlpha(0.7);
+                else                                        rectOnScreen.setAlpha(0.2); 
+                rectBoardFixed.rotation++;
+                if( rectBoardFixed.getMouseOver() == false)   rectBoardFixed.setAlpha(0.7);
+                else                                        rectBoardFixed.setAlpha(0.2); 
+                               
+            }
+        }
+
+
+
+        //declaration de BG_engine
+        var bg_engine = new BG_engine("canvas1",20,30);
+        var code =  new monCode(bg_engine);
+
+        
+        
+
+        
+        var rectOnBoardB    = new BG_rectBorder (bg_engine,true,10,500,500,200,100,"#6611FF",70);
+        var rectOnScreen    = new BG_rectBorder (bg_engine,false,19,200,500,50,100,"#6611FF",30);  
+        var rectBoardFixed  = new BG_rectBorder (bg_engine,true,true,11,800,550,100,50,"#6611FF",30);                  
+        
+
+
+        
+
+
+        // --------------------------------------------------- //
+        // --------------------------------------------------- //
+       
+    </script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
