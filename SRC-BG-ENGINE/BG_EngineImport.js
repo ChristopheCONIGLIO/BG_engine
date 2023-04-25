@@ -9,12 +9,14 @@ function loadBGengine(relativePathImport) {
     document.write("<script type='text/javascript' src='"+relativePathImport+"/SRC-BG-ENGINE/BG_ENGINE/BG_CORE/BG_coreStatistique.js'></script>");  
     // LOAD JS CODE = BASIC OBJECT  
     document.write("<script type='text/javascript' src='"+relativePathImport+"/SRC-BG-ENGINE/BG_ENGINE/BG_BASIC/BG_circle.js'></script>");
+    document.write("<script type='text/javascript' src='"+relativePathImport+"/SRC-BG-ENGINE/BG_ENGINE/BG_BASIC/BG_circleBorder.js'></script>");
     document.write("<script type='text/javascript' src='"+relativePathImport+"/SRC-BG-ENGINE/BG_ENGINE/BG_BASIC/BG_text.js'></script>");
     document.write("<script type='text/javascript' src='"+relativePathImport+"/SRC-BG-ENGINE/BG_engine/BG_BASIC/BG_rect.js'></script>");
     document.write("<script type='text/javascript' src='"+relativePathImport+"/SRC-BG-ENGINE/BG_engine/BG_BASIC/BG_rectBorder.js'></script>");
     document.write("<script type='text/javascript' src='"+relativePathImport+"/SRC-BG-ENGINE/BG_engine/BG_BASIC/BG_line.js'></script>");
     document.write("<script type='text/javascript' src='"+relativePathImport+"/SRC-BG-ENGINE/BG_engine/BG_BASIC/BG_script.js'></script>");
     document.write("<script type='text/javascript' src='"+relativePathImport+"/SRC-BG-ENGINE/BG_engine/BG_BASIC/BG_polygone.js'></script>");
+    document.write("<script type='text/javascript' src='"+relativePathImport+"/SRC-BG-ENGINE/BG_engine/BG_BASIC/BG_polygoneBorder.js'></script>");
     document.write("<script type='text/javascript' src='"+relativePathImport+"/SRC-BG-ENGINE/BG_engine/BG_BASIC/BG_roundRect.js'></script>");
     document.write("<script type='text/javascript' src='"+relativePathImport+"/SRC-BG-ENGINE/BG_engine/BG_BASIC/BG_drawImage.js'></script>");
     // LOAD JS CODE = EVENT

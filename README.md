@@ -1,69 +1,74 @@
-v1.309
+v1.310
 
 Projet
 ------
-BackGround engine (nommé [B]ack[G]ground_engine - BG_engine),
+BackGround engine (nommé [B]ack[G]ground_engine - BG_engine).
 
-constitue une application pour développer rapidement des solutions graphiques nécessitant de gérer le zoom et le drag and drop sur des images. 
-Par exemple la gestion d’une carte comme google map ou la réalisation d’un Dashboard. Le moteur interne propose aussi la gestion simplifié d’animation d’objet graphique.
+Cette application permet de développer rapidement des solutions graphiques nécessitant la gestion du zoom et du "drag and drop" sur des images, comme la création d'une carte similaire à Google Maps ou la réalisation d'un tableau de bord. Le moteur interne offre également une gestion simplifiée de l'animation des objets graphiques.
 
 Auteur et License
 -----------------
-Christophe CONIGLIO
-(License BSD, le code est libre d'accès copie, modif,... sans aucun retour attendu)
+Auteur : Christophe CONIGLIO
+License : License BSD
+Contact : christophe.coniglio@gmail.com
 
-Si questions ou bugs à remonter, contact <christophe.coniglio@gmail.com> 
+Le code est publié sous licence BSD, ce qui signifie qu'il est librement accessible et modifiable sans aucune restriction et sans qu'aucun retour ne soit attendu. Si vous avez des questions ou rencontrez des bugs, vous pouvez contacter l'auteur à l'adresse suivante : christophe.coniglio@gmail.com
+
 
 Description
 -----------
 
-Je propose un moteur de jeu 2D basé uniquement sur du Javascript sans bibliothèque externe. L'architecture est inspiré du "défunt" moteur Flash
+Je propose un moteur de jeu 2D basé uniquement sur du Javascript, sans recourir à des bibliothèques externes. L'architecture s'inspire du moteur Flash, qui est maintenant obsolète.
 
-L’idée est de proposer un outil facile de prise en main afin d'aboutir rapidement sur un jeu 
-mais efficace dans ses performances et sa robustesse
+L'objectif est de fournir un outil facile à utiliser, permettant de créer rapidement des jeux tout en assurant des performances optimales et une grande robustesse.
 
 
 Prise en main
 -------------
 
-Pour tester exporter le code sur votre machine et lancer le fichier index.html via votre navigateur
+Pour tester le code, exportez-le sur votre ordinateur et lancez le fichier "index.html" via votre navigateur web.
 
 Caractéristiques
 ----------------
 
 Les caractéristiques du moteur 2D sont les suivantes :
 
-•	Pensé pour afficher une carte en vue de dessus, gere le zoom et le drag and drop automatiquement
 
-•	Aucune dépendance (basé uniquement sur du HTML5), fonctionne directement coté client (pas besoin de serveur)
+• Conçu pour afficher une carte en vue de dessus, il gère automatiquement le zoom et le déplacement grâce à une fonctionnalité de "drag and drop".
 
-•	Gestion des scripts du jeu simplifié via deux fonctions « EnterFrame » et « DrawObject », pas d’autre fonction à implémenter
+• Aucune dépendance externe requise : il est basé uniquement sur du HTML5 et peut fonctionner directement côté client, sans besoin de serveur.
 
-•	Chargement et déchargement d’objet simplifiés
+• La gestion des scripts du jeu est simplifiée grâce à deux fonctions, "EnterFrame" et "DrawObject", qui éliminent le besoin d'implémenter d'autres fonctions.
 
-•	Disposition de formes basiques (rond rectangle,...) et de formats d'image (png,jpeg,...) clé en main
+• Le chargement et le déchargement d'objets sont simplifiés, tandis que les formes basiques (cercles, rectangles, etc.) et les formats d'image (PNG, JPEG, etc.) sont prêts à l'emploi.
 
-•	Trois mode d'affichage (1) sur le plateau, (2) sur plateau avec taile fixe ou (3) sur l'écran fixe
+• Il propose trois modes d'affichage : le mode plateau, le mode plateau avec une taille fixe et le mode écran fixe.
 
-•	Divers atributs pré-implémenté calque/rotation/visible/transparence/...
+• Plusieurs attributs sont pré-implémentés, tels que le calque, la rotation, la visibilité et la transparence.
 
-•	Affichage intelligent des formes tracées sur l’écran afin d’optimiser les temps de calcul
+• Les formes tracées sur l'écran sont affichées de manière intelligente pour optimiser les temps de calcul.
 
-•	Gestion des évènement souris
+• La gestion des événements souris est prise en charge automatiquement.
 
-•	Gestion automatique du survol souris sur toutes les formes implémentés
+• Le survol des formes est également pris en charge automatiquement et le rendu graphique est optimisé.
 
-•	Gestion automatique et rendu graphique et des temps morts (choisir uniquement le taux de rafraichissement <FPS> le moteur s'occupe du reste)
+• La gestion des temps morts et du taux de rafraîchissement est automatisée.
 
-•	Gestion automatique des couches d’affichage (choisir le nombre de couche le moteur so'ccupe du reste)
+• Le moteur gère automatiquement les couches d'affichage, avec la possibilité de choisir le nombre de couches.
 
-•	Integration d'un moteur physique 2d sur les objets de type cercle simple et rapide d'utilisation
+• Il intègre un moteur physique 2D pour les objets de type cercle, simple et rapide à utiliser.
 
-•	Proposition d'exemples d'usage faisant offcice de documentation
+• Il propose des exemples d'utilisation en guise de documentation.
 
 
 Change log
 ----------
+
+    25/04/2022 -- v1.310
+    -------------------
+    25/04/2022 -- Ajout d'une nouvelle forme -> Bordure de cercle
+    25/04/2022 -- Ajout d'une nouvelle forme -> Bordure de polygone
+    25/04/2022 -- Reformulation de ce fichier
 
     06/04/2022 -- v1.309
     -------------------
@@ -187,7 +192,9 @@ Idées d'amélioration
     -- Ne gere pas plus de deux doigts pour le mobile
     -- Ajouter des limites de déplacement max sur la partie drag and drop et zoom
     -- Limite texte à revoir car ne fonctionne pas sur les grands format
-    -- L'optimisation du rendu des tracés ne prend pas totalement en compte les modifications de dimensions à cause de la rotation (l'implémnetation actuelle favorise l'optimisation à l'l'exactitude)
-    -- **Doc à créer**
-    
+    -- L'optimisation du rendu des tracés ne prend pas totalement en compte les modifications de dimensions à cause de la rotation (l'implémentation actuelle favorise l'optimisation à l'exactitude)
+    -- Améliorer la fonction getMouseOver pour les objets polygones avec bordure
+    -- créer des objets avec bordure et intérieur configurables
+    -- Créer des fonctions de monotiring de performance
+     -- **Doc à créer**
 

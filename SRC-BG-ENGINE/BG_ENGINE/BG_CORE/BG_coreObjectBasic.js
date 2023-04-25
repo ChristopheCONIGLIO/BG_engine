@@ -118,7 +118,7 @@ class BG_coreObjectBasic {
 	}
 	//mouseOver
 	getMouseOver(){
-		return this.mouseOver;
+		return false;
 	}
 
 
@@ -155,7 +155,6 @@ class BG_coreObjectBasic {
 	}
 	tools_scalePointFromCenter (Mx,My, Ox,Oy, scale) {
 		var xM, yM, x, y;
-		
 		xM = (Mx - Ox)*scale;
 		yM = (My - Oy)*scale;
 		x = xM * Math.cos (0) + yM * Math.sin (0) + Ox;

@@ -4,15 +4,15 @@
 */
 
 class BG_rectBorder extends BG_coreObjectBasic{
-	constructor(bg,onBoard,fixed,layer,pX,pY,sX,sY,color,size) {
+	constructor(bg,onBoard,fixed,layer,pX,pY,sX,sY,color,border) {
 		
-		if( size == undefined){
+		if( border == undefined){
 			super(bg,onBoard,false,fixed,layer,pX,pY,sX,sY);
-			this.p_size = color;
+			this.p_border = color;
 		}
 		else{
 			super(bg,onBoard,fixed,layer,pX,pY,sX,sY,color);
-			this.p_size = size;
+			this.p_border = border;
 		}
 		this.p_bg.addObject(this,this.p_layer);
 	}
@@ -68,7 +68,7 @@ class BG_rectBorder extends BG_coreObjectBasic{
 			let py  = info[1];
 			let pSX = info[2];
 			let pSY = info[3];
-			let size= info[4];
+			let border= info[4];
 
 			//determine if form must be draw
 			if( px-pSX > this.stat.getScreenWidth())	return;
@@ -78,7 +78,7 @@ class BG_rectBorder extends BG_coreObjectBasic{
 			if( this.p_bg.debugContour == true) this.drawLimitContour(px-pSX*0.20,py-pSY*0.20,pSX+pSX*0.40,pSY+pSX*0.40);
 			
 			// draw the form
-			this.drawRect(px,py,pSX,pSY,this.p_color,size);
+			this.drawRect(px,py,pSX,pSY,this.p_color,border);
 			this.stat.setRenderEngineObject( this.stat.getRenderEngineObject() + 1 );
 		}
 	}
@@ -87,7 +87,7 @@ class BG_rectBorder extends BG_coreObjectBasic{
 		local function
 
 	*/
-	drawRect(x, y, width, height ,color,size) {
+	drawRect(x, y, width, height ,color,border) {
 		
 		if( this.rotation != 0){
 			this.p_ctx.translate(x+width/2,y+height/2);
@@ -98,7 +98,7 @@ class BG_rectBorder extends BG_coreObjectBasic{
 		this.p_ctx.globalAlpha = this.alpha;
 		this.p_ctx.beginPath();
 		this.p_ctx.strokeStyle = color;
-		this.p_ctx.lineWidth = size;
+		this.p_ctx.lineWidth = border;
 		this.p_ctx.stroke();
 		this.p_ctx.rect(x,y ,width,height);
 		this.p_ctx.stroke();
@@ -114,14 +114,14 @@ class BG_rectBorder extends BG_coreObjectBasic{
 		let decX = this.p_bg.decXwithZoom;
 		let decY = this.p_bg.decYwithZoom;
 		let zoom = this.p_bg.zoomLevel;
-		let px,py,pSX,pSY,size;
+		let px,py,pSX,pSY,border;
 		
 		if( this.p_fixedSize == true){
 			px = decX+this.p_pX*zoom-this.p_sX/2;
 			py = decY+this.p_pY*zoom-this.p_sY/2;
 			pSX = this.p_sX;
 			pSY = this.p_sY;
-			size = this.p_size;
+			border = this.p_border;
 		}
 		else if( this.p_onBoard == true){
 			// calcul limit of form
@@ -129,7 +129,7 @@ class BG_rectBorder extends BG_coreObjectBasic{
 			py = decY+this.p_pY*zoom;
 			pSX = this.p_sX*zoom;
 			pSY = this.p_sY*zoom;
-			size = this.p_size*zoom;
+			border = this.p_border*zoom;
 		}
 		else{
 			// calcul limit of form
@@ -137,9 +137,9 @@ class BG_rectBorder extends BG_coreObjectBasic{
 			py = this.p_pY;
 			pSX = this.p_sX;
 			pSY = this.p_sY;
-			size = this.p_size;
+			border = this.p_border;
 		}
-		return [px,py,pSX,pSY,size];
+		return [px,py,pSX,pSY,border];
 	}
 
 	getMouseOver(){
@@ -148,19 +148,64 @@ class BG_rectBorder extends BG_coreObjectBasic{
 		let py  = info[1];
 		let pSX = info[2];
 		let pSY = info[3];
-		let size =info[4];
+		let border =info[4];
 		let array4points = new Array([0,0],[0,0],[0,0],[0,0]); //limit position
 		//calcul 4 points
 		let cx = px+pSX/2;
 		let cy = py+pSY/2;
-		array4points[0][0] =  cx + pSX/2 + size/2;
-		array4points[0][1] =  cy + pSY/2 + size/2;
-		array4points[1][0] =  cx - pSX/2 - size/2;
-		array4points[1][1] =  cy + pSY/2 + size/2;
-		array4points[3][0] =  cx + pSX/2 + size/2;
-		array4points[3][1] =  cy - pSY/2 - size/2;
-		array4points[2][0] =  cx - pSX/2 - size/2;
-		array4points[2][1] =  cy - pSY/2 - size/2;
+		array4points[0][0] =  cx + pSX/2 + border/2;
+		array4points[0][1] =  cy + pSY/2 + border/2;
+		array4points[1][0] =  cx - pSX/2 - border/2;
+		array4points[1][1] =  cy + pSY/2 + border/2;
+		array4points[3][0] =  cx + pSX/2 + border/2;
+		array4points[3][1] =  cy - pSY/2 - border/2;
+		array4points[2][0] =  cx - pSX/2 - border/2;
+		array4points[2][1] =  cy - pSY/2 - border/2;
+		var tab = this.tools_rotatePointFromCenter (array4points[0][0],array4points[0][1], cx,cy, this.rotation);
+		array4points[0][0] = tab[0];
+		array4points[0][1] = tab[1];
+		tab = this.tools_rotatePointFromCenter (array4points[1][0],array4points[1][1], cx,cy, this.rotation);
+		array4points[1][0] = tab[0];
+		array4points[1][1] = tab[1];
+		tab = this.tools_rotatePointFromCenter (array4points[2][0],array4points[2][1], cx,cy, this.rotation);
+		array4points[2][0] = tab[0];
+		array4points[2][1] = tab[1];
+		tab = this.tools_rotatePointFromCenter (array4points[3][0],array4points[3][1], cx,cy, this.rotation);
+		array4points[3][0] = tab[0];
+		array4points[3][1] = tab[1];
+		
+		//this.tools_drawExactContour(array4points);
+
+		this.mouseOver = this.tools_pointInsidePolygone(
+				array4points,
+				this.p_bg.mouseX,
+				this.p_bg.mouseY
+				);
+		return this.mouseOver;
+	}
+	/*getMouseOverBorder(){ // 
+
+		//
+		// experimental
+		//
+		var info = this.getLocalInfo();
+		let px  = info[0];
+		let py  = info[1];
+		let pSX = info[2];
+		let pSY = info[3];
+		let border =info[4];
+		let array4points = new Array([0,0],[0,0],[0,0],[0,0]); //limit position
+		//calcul 4 points
+		let cx = px+pSX/2;
+		let cy = py+pSY/2;
+		array4points[0][0] =  cx + pSX/2 + border/2;
+		array4points[0][1] =  cy + pSY/2 + border/2;
+		array4points[1][0] =  cx - pSX/2 - border/2;
+		array4points[1][1] =  cy + pSY/2 + border/2;
+		array4points[3][0] =  cx + pSX/2 + border/2;
+		array4points[3][1] =  cy - pSY/2 - border/2;
+		array4points[2][0] =  cx - pSX/2 - border/2;
+		array4points[2][1] =  cy - pSY/2 - border/2;
 		var tab = this.tools_rotatePointFromCenter (array4points[0][0],array4points[0][1], cx,cy, this.rotation);
 		array4points[0][0] = tab[0];
 		array4points[0][1] = tab[1];
@@ -188,19 +233,19 @@ class BG_rectBorder extends BG_coreObjectBasic{
 			let py  = info[1];
 			let pSX = info[2];
 			let pSY = info[3];
-			let size =info[4];
+			let border =info[4];
 			let array4points = new Array([0,0],[0,0],[0,0],[0,0]); //limit position
 			//calcul 4 points
 			let cx = px+pSX/2;
 			let cy = py+pSY/2;
-			array4points[0][0] =  cx + pSX/2 - size/2;
-			array4points[0][1] =  cy + pSY/2 - size/2;
-			array4points[1][0] =  cx - pSX/2 + size/2;
-			array4points[1][1] =  cy + pSY/2 - size/2;
-			array4points[3][0] =  cx + pSX/2 - size/2;
-			array4points[3][1] =  cy - pSY/2 + size/2;
-			array4points[2][0] =  cx - pSX/2 + size/2;
-			array4points[2][1] =  cy - pSY/2 + size/2;
+			array4points[0][0] =  cx + pSX/2 - border/2;
+			array4points[0][1] =  cy + pSY/2 - border/2;
+			array4points[1][0] =  cx - pSX/2 + border/2;
+			array4points[1][1] =  cy + pSY/2 - border/2;
+			array4points[3][0] =  cx + pSX/2 - border/2;
+			array4points[3][1] =  cy - pSY/2 + border/2;
+			array4points[2][0] =  cx - pSX/2 + border/2;
+			array4points[2][1] =  cy - pSY/2 + border/2;
 			var tab = this.tools_rotatePointFromCenter (array4points[0][0],array4points[0][1], cx,cy, this.rotation);
 			array4points[0][0] = tab[0];
 			array4points[0][1] = tab[1];
@@ -227,7 +272,7 @@ class BG_rectBorder extends BG_coreObjectBasic{
 
 		}
 		return this.mouseOver;
-	}
+	}*/
 
 	tools_drawExactContour(arr){	 //arr = tab of X points	
 		this.p_ctx.beginPath();
