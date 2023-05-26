@@ -3,16 +3,20 @@
 	Author Christophe CONIGLIO Mars/2022
 */
 
-class BG_roundRect extends BG_coreObjectBasic{
+class BG_roundRectBorder extends BG_coreObjectBasic{
 			 
-	constructor(bg,onBoard,fixed,layer,pX,pY,sX,sY,round,color) {
-		if( color == undefined){
-			super(bg,onBoard,false,fixed,layer,pX,pY,sX,round);
-			this.p_round	= sY;
+	constructor(bg,onBoard,fixed,layer,pX,pY,sX,sY,round,color,border,fillcolor) {
+		if( border != undefined){
+			super(bg,onBoard,fixed,layer,pX,pY,sX,sY,color);
+			this.p_round	= round;
+			this.p_border = border;
+			this.p_fillcolor = fillcolor;
 		}
 		else{
 			super(bg,onBoard,fixed,layer,pX,pY,sX,sY,color);
 			this.p_round	= round;
+			this.p_border = border;
+			this.p_fillcolor = undefined;
 		}
 		this.p_bg.addObject(this,this.p_layer);
 	}
@@ -71,6 +75,7 @@ class BG_roundRect extends BG_coreObjectBasic{
 			let pSX = info[2];
 			let pSY = info[3];
 			let radius = info[4];
+			let border = info[5];
 
 			//determine if form must be draw
 			if( px-pSX > this.stat.getScreenWidth())	return;
@@ -80,7 +85,7 @@ class BG_roundRect extends BG_coreObjectBasic{
 			if( this.p_bg.debugContour == true) this.drawLimitContour(px,py,pSX,pSY);
 
 			// draw the form
-			this.roundRect(px,py,pSX,pSY, radius, true, false,this.p_color);
+			this.roundRect(px,py,pSX,pSY, radius,this.p_color,border);
 			this.stat.setRenderEngineObject( this.stat.getRenderEngineObject() + 1 );
 
 		}
@@ -93,7 +98,7 @@ class BG_roundRect extends BG_coreObjectBasic{
 		local function
 
 	*/
-	roundRect(x, y, width, height, radius, fill, stroke,color) {
+	roundRect(x, y, width, height, radius,color,border) {
 		
 		if( this.rotation != 0){
 			this.p_ctx.translate(x+width/2,y+height/2);
@@ -101,12 +106,12 @@ class BG_roundRect extends BG_coreObjectBasic{
 			this.p_ctx.translate(-x-width/2,-y-height/2);
 		}
 		
-		if (typeof stroke == 'undefined') {
+		/*if (typeof stroke == 'undefined') {
 		stroke = true;
 		}
 		if (typeof radius === 'undefined') {
 		radius = 5;
-		}
+		}*/
 		if (typeof radius === 'number') {
 		radius = {tl: radius, tr: radius, br: radius, bl: radius};
 		} else {
@@ -116,8 +121,11 @@ class BG_roundRect extends BG_coreObjectBasic{
 		}
 		}
 		this.p_ctx.globalAlpha = this.alpha;
-		this.p_ctx.fillStyle = color;
+		//this.p_ctx.fillStyle = color;
 		this.p_ctx.beginPath();
+		this.p_ctx.strokeStyle = color;
+		this.p_ctx.lineWidth = border;
+		this.p_ctx.stroke();
 		this.p_ctx.moveTo(x + radius.tl, y);
 		this.p_ctx.lineTo(x + width - radius.tr, y);
 		this.p_ctx.quadraticCurveTo(x + width, y, x + width, y + radius.tr);
@@ -128,12 +136,12 @@ class BG_roundRect extends BG_coreObjectBasic{
 		this.p_ctx.lineTo(x, y + radius.tl);
 		this.p_ctx.quadraticCurveTo(x, y, x + radius.tl, y);
 		this.p_ctx.closePath();
-		if (fill) {
-			this.p_ctx.fill();
+		if( this.p_fillcolor){
+			
+			this.p_ctx.fillStyle = this.p_fillcolor;
+			this.p_ctx.fill(); 
 		}
-		if (stroke) {
-			this.p_ctx.stroke();
-		}
+		this.p_ctx.stroke();
 		this.p_ctx.globalAlpha = 1;
 
 		if( this.rotation != 0){
@@ -144,7 +152,7 @@ class BG_roundRect extends BG_coreObjectBasic{
 		let decX = this.p_bg.decXwithZoom;
 		let decY = this.p_bg.decYwithZoom;
 		let zoom = this.p_bg.zoomLevel;
-		let px,py,pSX,pSY,radius;
+		let px,py,pSX,pSY,radius,border;
 		
 		if( this.p_fixedSize == true){
 			px = decX+this.p_pX*zoom-this.p_sX/2;
@@ -152,6 +160,7 @@ class BG_roundRect extends BG_coreObjectBasic{
 			pSX = this.p_sX;
 			pSY = this.p_sY;
 			radius = this.p_round;
+			border = this.p_border;
 		}
 		else if( this.p_onBoard == true){
 			// calcul limit of form
@@ -160,6 +169,7 @@ class BG_roundRect extends BG_coreObjectBasic{
 			pSX = this.p_sX*zoom;
 			pSY = this.p_sY*zoom;
 			radius = this.p_round*zoom;
+			border = this.p_border*zoom;
 		}
 		else{
 			// calcul limit of form
@@ -168,8 +178,9 @@ class BG_roundRect extends BG_coreObjectBasic{
 			pSX = this.p_sX;
 			pSY = this.p_sY;
 			radius = this.p_round;
+			border = this.p_border;
 		}
-		return [px,py,pSX,pSY,radius];
+		return [px,py,pSX,pSY,radius,border];
 	}
 
 	getMouseOver(){
@@ -178,18 +189,19 @@ class BG_roundRect extends BG_coreObjectBasic{
 		let py  = info[1];
 		let pSX = info[2];
 		let pSY = info[3];
+		let border =info[5];
 		let array4points = new Array([0,0],[0,0],[0,0],[0,0]); //limit position
 		//calcul 4 points
 		let cx = px+pSX/2;
 		let cy = py+pSY/2;
-		array4points[0][0] =  cx + pSX/2;
-		array4points[0][1] =  cy + pSY/2;
-		array4points[1][0] =  cx - pSX/2;
-		array4points[1][1] =  cy + pSY/2;
-		array4points[3][0] =  cx + pSX/2;
-		array4points[3][1] =  cy - pSY/2;
-		array4points[2][0] =  cx - pSX/2;
-		array4points[2][1] =  cy - pSY/2;
+		array4points[0][0] =  cx + pSX/2 + border/2;
+		array4points[0][1] =  cy + pSY/2 + border/2;
+		array4points[1][0] =  cx - pSX/2 - border/2;
+		array4points[1][1] =  cy + pSY/2 + border/2;
+		array4points[3][0] =  cx + pSX/2 + border/2;
+		array4points[3][1] =  cy - pSY/2 - border/2;
+		array4points[2][0] =  cx - pSX/2 - border/2;
+		array4points[2][1] =  cy - pSY/2 - border/2;
 		var tab = this.tools_rotatePointFromCenter (array4points[0][0],array4points[0][1], cx,cy, this.rotation);
 		array4points[0][0] = tab[0];
 		array4points[0][1] = tab[1];
@@ -203,6 +215,8 @@ class BG_roundRect extends BG_coreObjectBasic{
 		array4points[3][0] = tab[0];
 		array4points[3][1] = tab[1];
 		
+		//this.tools_drawExactContour(array4points);
+
 		this.mouseOver = this.tools_pointInsidePolygone(
 				array4points,
 				this.p_bg.mouseX,

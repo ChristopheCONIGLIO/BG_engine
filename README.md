@@ -1,4 +1,4 @@
-v1.310
+v1.311
 
 Projet
 ------
@@ -64,31 +64,36 @@ Les caractéristiques du moteur 2D sont les suivantes :
 Change log
 ----------
 
-    25/04/2022 -- v1.310
-    -------------------
-    25/04/2022 -- Ajout d'une nouvelle forme -> Bordure de cercle
-    25/04/2022 -- Ajout d'une nouvelle forme -> Bordure de polygone
-    25/04/2022 -- Reformulation de ce fichier
+    26/05/2023 -- v1.311
+    --------------------
+    25/04/2023 -- Ajout d'une nouvelle forme -> Bordure de rectangle arrondis
+    25/04/2023 -- Ajout du mot peinture intérieur pour les forme avec contours
+    
+    25/04/2023 -- v1.310
+    --------------------
+    25/04/2023 -- Ajout d'une nouvelle forme -> Bordure de cercle
+    25/04/2023 -- Ajout d'une nouvelle forme -> Bordure de polygone
+    25/04/2023 -- Reformulation de ce fichier
 
-    06/04/2022 -- v1.309
-    -------------------
-    06/04/2022 -- Ajout d'une nouvelle forme -> Bordure de rectangle
-    06/04/2022 -- Ajout d'un fichier exemple pour les formes avec bordure
+    06/04/2023 -- v1.309
+    --------------------
+    06/04/2023 -- Ajout d'une nouvelle forme -> Bordure de rectangle
+    06/04/2023 -- Ajout d'un fichier exemple pour les formes avec bordure
     
     24/10/2022 -- v1.308
-    -------------------
+    --------------------
     24/10/2022 -- Correction sur les textes
     
     20/10/2022 -- v1.307
-    -------------------
+    --------------------
     20/10/2022 -- Amélioration de la classe drawImage avec une optimisation de la fonction setImage
     
     30/08/2022 -- v1.306
-    -------------------
+    --------------------
     30/08/2022 -- Amélioration du système de l'utilisation du zoom
 
     20-21/07/2022 - v1.303-v1.304-v1.305
-    -------------------
+    ------------------------------------
     03/08/2022 -- Ajout de la configuration d'un retard sur le drag and drop 
     21/07/2022 -- Multiples mineurs améliorations + ajouts d'interface
     20/07/2022 -- Multiples mineurs améliorations + ajouts d'interface
@@ -194,7 +199,7 @@ Idées d'amélioration
     -- Limite texte à revoir car ne fonctionne pas sur les grands format
     -- L'optimisation du rendu des tracés ne prend pas totalement en compte les modifications de dimensions à cause de la rotation (l'implémentation actuelle favorise l'optimisation à l'exactitude)
     -- Améliorer la fonction getMouseOver pour les objets polygones avec bordure
-    -- créer des objets avec bordure et intérieur configurables
+    -- Amléiorer les forme avec bordures pour pas voir la délimitation en alpah <1
     -- Créer des fonctions de monotiring de performance
      -- **Doc à créer**
 

@@ -4,15 +4,17 @@
 */
 
 class BG_rectBorder extends BG_coreObjectBasic{
-	constructor(bg,onBoard,fixed,layer,pX,pY,sX,sY,color,border) {
+	constructor(bg,onBoard,fixed,layer,pX,pY,sX,sY,color,border,fillcolor) {
 		
-		if( border == undefined){
-			super(bg,onBoard,false,fixed,layer,pX,pY,sX,sY);
-			this.p_border = color;
+		if( fillcolor != undefined){
+			super(bg,onBoard,fixed,layer,pX,pY,sX,sY,color);
+			this.p_border = border;
+			this.p_fillcolor = fillcolor;
 		}
 		else{
 			super(bg,onBoard,fixed,layer,pX,pY,sX,sY,color);
 			this.p_border = border;
+			this.p_fillcolor = undefined;
 		}
 		this.p_bg.addObject(this,this.p_layer);
 	}
@@ -97,11 +99,17 @@ class BG_rectBorder extends BG_coreObjectBasic{
 		
 		this.p_ctx.globalAlpha = this.alpha;
 		this.p_ctx.beginPath();
+		this.p_ctx.rect(x,y ,width,height);
+		if( this.p_fillcolor){
+			
+			this.p_ctx.fillStyle = this.p_fillcolor;
+			this.p_ctx.fill(); 
+		}
+		this.p_ctx.rect(x,y ,width,height);
 		this.p_ctx.strokeStyle = color;
 		this.p_ctx.lineWidth = border;
 		this.p_ctx.stroke();
-		this.p_ctx.rect(x,y ,width,height);
-		this.p_ctx.stroke();
+		
 		this.p_ctx.globalAlpha = 1;
 					
 		if( this.rotation != 0){

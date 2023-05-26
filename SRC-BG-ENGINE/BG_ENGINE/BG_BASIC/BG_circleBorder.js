@@ -4,14 +4,17 @@
 */
 
 class BG_circleBorder extends BG_coreObjectBasic{
-	constructor(bg,onBoard,fixed,layer,pX,pY,size,color,border) {
-		if( border == undefined){
-			super(bg,onBoard,false,fixed,layer,pX,pY,pY,size);
-			this.p_border = color;
+	constructor(bg,onBoard,fixed,layer,pX,pY,size,color,border,fillcolor) {
+		
+		if( fillcolor != undefined){
+			super(bg,onBoard,fixed,layer,pX,pY,size,size,color);
+			this.p_border = border;
+			this.p_fillcolor = fillcolor;
 		}
 		else{
 			super(bg,onBoard,fixed,layer,pX,pY,size,size,color);
 			this.p_border = border;
+			this.p_fillcolor = undefined;
 		}
 
 		
@@ -249,9 +252,16 @@ class BG_circleBorder extends BG_coreObjectBasic{
 		this.p_ctx.beginPath();
 		this.p_ctx.arc(x+size/2, y+size/2, size/2, 0, 2*Math.PI, 0);
 		this.p_ctx.lineWidth = border;
+		
+
+		if( this.p_fillcolor){
+			this.p_ctx.fillStyle = this.p_fillcolor;
+			this.p_ctx.fill(); 
+		}
 		this.p_ctx.strokeStyle = color;
 		this.p_ctx.stroke();
 		this.p_ctx.globalAlpha = 1;
+		//
 	}
 	
 		

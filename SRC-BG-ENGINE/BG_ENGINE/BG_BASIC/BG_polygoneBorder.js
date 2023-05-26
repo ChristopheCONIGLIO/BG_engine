@@ -4,12 +4,13 @@
 */
 
 class BG_polygoneBorder extends BG_coreObjectBasic{
-	constructor(bg,onBoard,fixed,layer,arrayPoint,color,border) {
+	constructor(bg,onBoard,fixed,layer,arrayPoint,color,border,fillcolor) {
 		//super(bg,onBoard,layer,0,0,0,0,color);
-		if( border == undefined){
-			super(bg,onBoard,false,fixed,0,0,0,0,arrayPoint);
-			this.setArrayPoint(layer);
-			this.p_border = color;
+		if( border != undefined){
+			super(bg,onBoard,fixed,layer,0,0,0,0,color);
+			this.setArrayPoint(arrayPoint);
+			this.p_border = border;
+			this.p_fillcolor = fillcolor;
 		}
 		else{
 			super(bg,onBoard,fixed,layer,0,0,0,0,color);
@@ -150,6 +151,13 @@ class BG_polygoneBorder extends BG_coreObjectBasic{
 			}
 			this.p_ctx.lineWidth = border;
 			this.p_ctx.strokeStyle = this.p_color;
+
+			if( this.p_fillcolor){
+			
+				this.p_ctx.fillStyle = this.p_fillcolor;
+				this.p_ctx.fill(); 
+			}
+
 			this.p_ctx.stroke();
 			this.p_ctx.globalAlpha = 1;
 			

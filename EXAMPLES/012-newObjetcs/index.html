@@ -37,14 +37,26 @@
                 else                                        rectOnBoard.setAlpha(0.2); 
                 */
                 rectOnBoardB.rotation++;
-                if( rectOnBoardB.getMouseOver() == false)     rectOnBoardB.setAlpha(0.7);
+                if( rectOnBoardB.getMouseOver() == false)     rectOnBoardB.setAlpha(1);
                 else                                                rectOnBoardB.setAlpha(0.2); 
                 rectOnScreen.rotation++;
-                if( rectOnScreen.getMouseOver() == false)     rectOnScreen.setAlpha(0.7);
+                if( rectOnScreen.getMouseOver() == false)     rectOnScreen.setAlpha(1);
                 else                                                rectOnScreen.setAlpha(0.2); 
                 rectBoardFixed.rotation++;
-                if( rectBoardFixed.getMouseOver() == false)   rectBoardFixed.setAlpha(0.7);
+                if( rectBoardFixed.getMouseOver() == false)   rectBoardFixed.setAlpha(1);
                 else                                                rectBoardFixed.setAlpha(0.2); 
+
+                roundrectOnBoardB.rotation++;
+                if( roundrectOnBoardB.getMouseOver() == false)     roundrectOnBoardB.setAlpha(1);
+                else                                                roundrectOnBoardB.setAlpha(0.2); 
+                roundrectOnScreen.rotation++;
+                if( roundrectOnScreen.getMouseOver() == false)     roundrectOnScreen.setAlpha(1);
+                else                                                roundrectOnScreen.setAlpha(0.2); 
+                roundrectBoardFixed.rotation++;
+                if( roundrectBoardFixed.getMouseOver() == false)   roundrectBoardFixed.setAlpha(1);
+                else                                                roundrectBoardFixed.setAlpha(0.2); 
+                
+
 
                 if( circleOnBoard.getMouseOver() == false)    circleOnBoard.setAlpha(1);
                 else                                        circleOnBoard.setAlpha(0.2); 
@@ -73,17 +85,25 @@
         var code =  new monCode(bg_engine);
         
     
-        var rectOnBoardB    = new BG_rectBorder (bg_engine,true,10,500,500,200,100,"#6611FF",70);
-        var rectOnScreen    = new BG_rectBorder (bg_engine,false,19,200,500,50,100,"#6611FF",30);  
-        var rectBoardFixed  = new BG_rectBorder (bg_engine,true,true,11,800,550,100,50,"#6611FF",30);                  
+        var rectOnBoardB    = new BG_rectBorder (bg_engine,true,false,10,500,500,200,100,"#6611FF",70,"#FF0000");
+        var rectOnScreen    = new BG_rectBorder (bg_engine,false,false,19,200,500,50,100,"#6611FF",30,"#FF0000");  
+        var rectBoardFixed  = new BG_rectBorder (bg_engine,true,true,11,800,550,100,50,"#6611FF",30,"#FF0000");    
+        
+        
+        var roundrectOnBoardB= new BG_roundRectBorder (bg_engine,true,false,10,300,100,200,100,20,"#6611FF",10,"#FF0000");
+        var roundrectOnScreen    = new BG_roundRectBorder (bg_engine,false,false,19,100,100,50,100,20,"#6611FF",10,"#FF0000");  
+        var roundrectBoardFixed  = new BG_roundRectBorder (bg_engine,true,true,11,500,100,100,50,20,"#6611FF",10,"#FF0000");    
+	
 
-        var circleOnBoard   = new BG_circleBorder   (bg_engine,true,10,500,200,200,"#FF0000",30);
-        var circleBoardFixed= new BG_circleBorder   (bg_engine,true,true,11,800,300,100,"#00FF00",30);
-        var circleOnScreen  = new BG_circleBorder   (bg_engine,false,19,200,200,50,"#0000FF",25);
+        var circleOnBoard   = new BG_circleBorder   (bg_engine,true,false,10,500,200,200,"#FF0000",30,"#6611FF");
+        var circleBoardFixed= new BG_circleBorder   (bg_engine,true,true,11,800,300,100,"#00FF00",30,"#00FF00");
+        var circleOnScreen  = new BG_circleBorder   (bg_engine,false,false,19,200,200,50,"#0000FF",25,"#6611FF");
 
-        var polyOnBoard     = new BG_polygoneBorder(bg_engine,true,9,[[1200,200],[1500,250],[1200,300],[1300,250]],"#884444",30);
-        var polyBoardFixed  = new BG_polygoneBorder(bg_engine,true,true,12,[[1200,400],[1500,450],[1200,500],[1300,450]],"#00FF00",30);
-        var polyOnScreen    = new BG_polygoneBorder(bg_engine,false,19,[[400,200],[500,250],[350,300]],"#0000FF",30);
+        var positionPoint = [[1200, 200], [1300, 150], [1400, 200], [1400, 300], [1300, 350], [1200, 300]];
+        var bordure = 30;
+        var polyOnBoard     = new BG_polygoneBorder(bg_engine,true,false,9,positionPoint,"#884444",bordure,"#6611FF");
+        var polyBoardFixed  = new BG_polygoneBorder(bg_engine,true,true,12,[[1200,400],[1500,450],[1200,500],[1300,450]],"#00FF00",30,"#6611FF");
+        var polyOnScreen    = new BG_polygoneBorder(bg_engine,false,false,19,[[400,200],[500,250],[350,300]],"#0000FF",30,"#6611FF");
 
         // --------------------------------------------------- //
         // --------------------------------------------------- //

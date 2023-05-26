@@ -18,6 +18,7 @@ function loadBGengine(relativePathImport) {
     document.write("<script type='text/javascript' src='"+relativePathImport+"/SRC-BG-ENGINE/BG_engine/BG_BASIC/BG_polygone.js'></script>");
     document.write("<script type='text/javascript' src='"+relativePathImport+"/SRC-BG-ENGINE/BG_engine/BG_BASIC/BG_polygoneBorder.js'></script>");
     document.write("<script type='text/javascript' src='"+relativePathImport+"/SRC-BG-ENGINE/BG_engine/BG_BASIC/BG_roundRect.js'></script>");
+    document.write("<script type='text/javascript' src='"+relativePathImport+"/SRC-BG-ENGINE/BG_engine/BG_BASIC/BG_roundRectBorder.js'></script>");
     document.write("<script type='text/javascript' src='"+relativePathImport+"/SRC-BG-ENGINE/BG_engine/BG_BASIC/BG_drawImage.js'></script>");
     // LOAD JS CODE = EVENT
     document.write("<script type='text/javascript' src='"+relativePathImport+"/SRC-BG-ENGINE/BG_ENGINE/BG_EVENT/BG_eventMouse.js'></script>");
