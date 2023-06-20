@@ -5,8 +5,13 @@
 
 class BG_roundRectBorder extends BG_coreObjectBasic{
 			 
-	constructor(bg,onBoard,fixed,layer,pX,pY,sX,sY,round,color,border,fillcolor) {
-		if( border != undefined){
+	constructor(bg,onBoard,fixed,layer,pX,pY,sX,sY,round,color,border,colorBorder,fond) {
+		super(bg,onBoard,fixed,layer,pX,pY,sX,sY,color);
+		this.p_round	= round;
+		this.p_border 	= border;
+		this.p_colorBorder = colorBorder;
+		this.p_fond		=  fond;
+		/*if( border != undefined){
 			super(bg,onBoard,fixed,layer,pX,pY,sX,sY,color);
 			this.p_round	= round;
 			this.p_border = border;
@@ -17,7 +22,7 @@ class BG_roundRectBorder extends BG_coreObjectBasic{
 			this.p_round	= round;
 			this.p_border = border;
 			this.p_fillcolor = undefined;
-		}
+		}*/
 		this.p_bg.addObject(this,this.p_layer);
 	}
 	
@@ -98,6 +103,16 @@ class BG_roundRectBorder extends BG_coreObjectBasic{
 		local function
 
 	*/
+	setFond(value){
+		this.p_fond = value;
+	}
+	setColorBorder(value){
+		this.p_colorBorder = value;
+	}
+	setBorder(value){
+		this.p_border = value;
+		
+	}
 	roundRect(x, y, width, height, radius,color,border) {
 		
 		if( this.rotation != 0){
@@ -123,7 +138,7 @@ class BG_roundRectBorder extends BG_coreObjectBasic{
 		this.p_ctx.globalAlpha = this.alpha;
 		//this.p_ctx.fillStyle = color;
 		this.p_ctx.beginPath();
-		this.p_ctx.strokeStyle = color;
+		this.p_ctx.strokeStyle = this.p_colorBorder;
 		this.p_ctx.lineWidth = border;
 		this.p_ctx.stroke();
 		this.p_ctx.moveTo(x + radius.tl, y);
@@ -136,9 +151,10 @@ class BG_roundRectBorder extends BG_coreObjectBasic{
 		this.p_ctx.lineTo(x, y + radius.tl);
 		this.p_ctx.quadraticCurveTo(x, y, x + radius.tl, y);
 		this.p_ctx.closePath();
-		if( this.p_fillcolor){
-			
-			this.p_ctx.fillStyle = this.p_fillcolor;
+		
+		
+		if( this.p_fond){
+			this.p_ctx.fillStyle = color;
 			this.p_ctx.fill(); 
 		}
 		this.p_ctx.stroke();

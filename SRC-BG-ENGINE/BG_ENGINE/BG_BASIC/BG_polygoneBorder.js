@@ -4,8 +4,14 @@
 */
 
 class BG_polygoneBorder extends BG_coreObjectBasic{
-	constructor(bg,onBoard,fixed,layer,arrayPoint,color,border,fillcolor) {
-		//super(bg,onBoard,layer,0,0,0,0,color);
+	constructor(bg,onBoard,fixed,layer,arrayPoint,color,border,colorBorder,fond) {
+		
+		super(bg,onBoard,fixed,layer,0,0,0,0,color);
+		this.setArrayPoint(arrayPoint);
+		this.p_border 	= border;
+		this.p_colorBorder = colorBorder;
+		this.p_fond		=  fond;
+		/*
 		if( border != undefined){
 			super(bg,onBoard,fixed,layer,0,0,0,0,color);
 			this.setArrayPoint(arrayPoint);
@@ -16,7 +22,7 @@ class BG_polygoneBorder extends BG_coreObjectBasic{
 			super(bg,onBoard,fixed,layer,0,0,0,0,color);
 			this.setArrayPoint(arrayPoint);
 			this.p_border = border;
-		}
+		}*/
 		
 		this.p_bg.addObject(this,this.p_layer);
 		
@@ -90,6 +96,15 @@ class BG_polygoneBorder extends BG_coreObjectBasic{
 		local function
 
 	*/
+	setFond(value){
+		this.p_fond = value;
+	}
+	setColorBorder(value){
+		this.p_colorBorder = value;
+	}
+	setBorder(value){
+		this.p_border = value;
+	}
 	drawPoly(decX,decY,zoom,border) {
 		
 			var x = decX+this.p_pX*zoom;
@@ -150,11 +165,10 @@ class BG_polygoneBorder extends BG_coreObjectBasic{
 				if( pts1save )this.p_ctx.lineTo(pts1save[0],pts1save[1]); // ? how to better optimize ???
 			}
 			this.p_ctx.lineWidth = border;
-			this.p_ctx.strokeStyle = this.p_color;
+			this.p_ctx.strokeStyle = this.p_colorBorder;
 
-			if( this.p_fillcolor){
-			
-				this.p_ctx.fillStyle = this.p_fillcolor;
+			if( this.p_fond){
+				this.p_ctx.fillStyle = this.p_color;
 				this.p_ctx.fill(); 
 			}
 
@@ -165,7 +179,6 @@ class BG_polygoneBorder extends BG_coreObjectBasic{
 				this.p_ctx.setTransform(1, 0, 0, 1, 0, 0);
 			}
 			
-
 	}
 	//info locales
 	getLocalInfo(){
@@ -256,7 +269,6 @@ class BG_polygoneBorder extends BG_coreObjectBasic{
 		return arrayXpoints;		
 	}
 
-
 	getMouseOver(){
 		
 		var arrayXpoints = this.getInfoPoints();
@@ -286,7 +298,7 @@ class BG_polygoneBorder extends BG_coreObjectBasic{
 		}
 
 		//this.tools_drawExactContour(enveloppeArr);
-
+		
 		this.mouseOver = this.tools_pointInsidePolygone(
 				enveloppeArr,
 				this.p_bg.mouseX,
