@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>C.CONIGLIO Project .js BG_engine</title>
+        <style>
+            * { margin:0; padding:0; }
+            #canvas1{
+               float: left;
+               width: 100%;
+               height: 100vh;
+               background-color: rgba(40,113,164,255);
+            }
+        </style>
+        <!-- import de BG engine -->
+        <script type="text/javascript" src="../../SRC-BG-ENGINE/BG_EngineImport.js"></script>
+        <script type="text/javascript"> loadBGengine("../..")</script>
+    </head>
+    <body >
+        <div class="conteneur">
+            <canvas id="canvas1" >BG_engine need a browser canvas HTML5 compatible</canvas>
+        </div>
+    </body>
+    <script type="text/javascript">
+        
+       
+        // --------------------------------------------------- //
+        // --------------------------------------------------- //
+        
+        class monCode extends BG_script{
+            
+            
+            constructor(bg) {
+                super(bg);
+
+                this.lineOnBoardArr = new Array();
+                for(var k =0 ; k < 100 ;k++){
+                    this.lineOnBoardArr.push( new BG_line(bg_engine,true,false,6,1200,900,1500,700,1,"#4499c6") );
+                }
+            }
+            enterFrame(){
+                var diferentielX = 100;
+                var diferentielY = 100;
+
+                for(var k =0 ; k < 50 ;k++){
+                    var difX = bg_engine.bg_g_stat.convertPointScreenToBoardX(0) % diferentielX;
+                    difX = -difX + bg_engine.bg_g_stat.convertPointScreenToBoardX(0);
+                    var px1 = difX + diferentielX*k;
+                    var py1 = bg_engine.bg_g_stat.convertPointScreenToBoardY(0);
+                    var px2 = difX + diferentielX*k;
+                    var py2 = bg_engine.bg_g_stat.convertPointScreenToBoardY(bg_engine.bg_g_stat.getScreenHeight());
+                    this.lineOnBoardArr[k].setPoint(px1,py1,px2,py2);
+                }
+                
+                for(var k =0 ; k < 50 ;k++){
+                    var difY = bg_engine.bg_g_stat.convertPointScreenToBoardY(0) % diferentielY;
+                    difY = -difY + bg_engine.bg_g_stat.convertPointScreenToBoardY(0);
+                    var px1 = bg_engine.bg_g_stat.convertPointScreenToBoardX(0);
+                    var py1 = difY + diferentielY*k;;
+                    var px2 = bg_engine.bg_g_stat.convertPointScreenToBoardX(bg_engine.bg_g_stat.getScreenWidth());
+                    var py2 = difY + diferentielY*k;;
+                    this.lineOnBoardArr[k+50].setPoint(px1,py1,px2,py2);
+                }
+                
+                /*
+                console.log("screen_height="+bg_engine.bg_g_stat.getScreenHeight());
+                console.log("screen_width="+bg_engine.bg_g_stat.getScreenWidth());
+                console.log("camera_x="+bg_engine.bg_g_stat.getCameraPositionX());
+                console.log("camera_y="+bg_engine.bg_g_stat.getCameraPositionY());
+                */
+            }
+        }
+
+
+
+        //declaration de BG_engine
+        var bg_engine = new BG_engine("canvas1",20,30);
+        var code =  new monCode(bg_engine);
+        this.cicleTestGreen = new BG_circle(bg_engine,true,8,150,150,50,"#FF0000");
+        // --------------------------------------------------- //
+        // --------------------------------------------------- //
+       
+    </script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

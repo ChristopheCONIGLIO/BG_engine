@@ -1,4 +1,4 @@
-v1.311
+v1.312
 
 Projet
 ------
@@ -64,10 +64,15 @@ Les caractéristiques du moteur 2D sont les suivantes :
 Change log
 ----------
 
+    21/06/2023 -- v1.312
+    --------------------
+    21/06/2023 -- Revue des 3 formes avec bordures
+    21/06/2023 -- Préparation d'un nouveau projet de démo
+
     26/05/2023 -- v1.311
     --------------------
     25/04/2023 -- Ajout d'une nouvelle forme -> Bordure de rectangle arrondis
-    25/04/2023 -- Ajout du mot peinture intérieur pour les forme avec contours
+    25/04/2023 -- Ajout du fond pour les forme avec contours
     
     25/04/2023 -- v1.310
     --------------------
