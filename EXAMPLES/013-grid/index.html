@@ -8,7 +8,7 @@
                float: left;
                width: 100%;
                height: 100vh;
-               background-color: rgba(40,113,164,255);
+               background-color: rgba(14,113,179,255);/*rgba(40,113,164,255)*/
             }
         </style>
         <!-- import de BG engine -->
@@ -26,55 +26,122 @@
         // --------------------------------------------------- //
         // --------------------------------------------------- //
         
-        class monCode extends BG_script{
+        class traceBluePrint extends BG_script{
             
+            makeLine(epaisseur,color){
+                return new BG_line(this._bg,true,true,0,0,0,0,0,epaisseur,color);//"#4499c6"
+            }
             
+            traceXLine(difPETIT,epaisseur,color){
+                //
+                // sur X
+                //
+                var lScreen = this._bg.bg_g_stat.convertPointScreenToBoardX(this._bg.bg_g_stat.getScreenWidth());
+                var count = 0;
+                while(true){
+                    var dif = this._bg.bg_g_stat.convertPointScreenToBoardX(0) % difPETIT;
+                    dif = -dif + this._bg.bg_g_stat.convertPointScreenToBoardX(0);
+                    var px1 = dif + difPETIT*count;
+                    var py1 = this._bg.bg_g_stat.convertPointScreenToBoardY(0)-this._bg.bg_g_stat.getScreenHeight()*this._bg.bg_g_stat.getCameraPositionZoom();
+                    var px2 = dif + difPETIT*count;
+                    var py2 = this._bg.bg_g_stat.convertPointScreenToBoardY(this._bg.bg_g_stat.getScreenHeight())+this._bg.bg_g_stat.getScreenHeight()*this._bg.bg_g_stat.getCameraPositionZoom();
+                    if( this.lineOnBoardArr.length <= this.countGlobal){
+                        this.lineOnBoardArr.push( this.makeLine(epaisseur,color) );
+                    }
+                    else{
+                        this.lineOnBoardArr[this.countGlobal].setPoint(px1,py1,px2,py2);
+                        this.lineOnBoardArr[this.countGlobal].setColor(color);
+                        this.lineOnBoardArr[this.countGlobal].setThickness(epaisseur);
+                    }
+                    count++;
+                    this.countGlobal++;
+                    if( px1 > lScreen) break;
+                }
+                //
+                //
+                //
+            }
+            traceYLine(difPETIT,epaisseur,color){
+                //
+                // sur Y
+                //
+                var lScreen = this._bg.bg_g_stat.convertPointScreenToBoardY(this._bg.bg_g_stat.getScreenHeight());
+                var count = 0;
+                while(true){
+                    var dif = this._bg.bg_g_stat.convertPointScreenToBoardY(0) % difPETIT;
+                    dif = -dif + this._bg.bg_g_stat.convertPointScreenToBoardY(0);
+                    var px1 = this._bg.bg_g_stat.convertPointScreenToBoardX(0)-this._bg.bg_g_stat.getScreenWidth()*this._bg.bg_g_stat.getCameraPositionZoom();
+                    var py1 = dif + difPETIT*count;
+                    var px2 = this._bg.bg_g_stat.convertPointScreenToBoardX(this._bg.bg_g_stat.getScreenWidth())+this._bg.bg_g_stat.getScreenWidth()*this._bg.bg_g_stat.getCameraPositionZoom();
+                    var py2 = dif + difPETIT*count
+                    if( this.lineOnBoardArr.length <= this.countGlobal){
+                        this.lineOnBoardArr.push( this.makeLine(epaisseur,color) );
+                    }
+                    else{
+                        this.lineOnBoardArr[this.countGlobal].setPoint(px1,py1,px2,py2);
+                        this.lineOnBoardArr[this.countGlobal].setColor(color);
+                        this.lineOnBoardArr[this.countGlobal].setThickness(epaisseur);
+                    }
+                    count++;
+                    this.countGlobal++;
+                    if( py1 > lScreen) break;
+                }
+                //
+                //
+                //
+            }
             constructor(bg) {
                 super(bg);
-
+                this._bg = bg;
                 this.lineOnBoardArr = new Array();
-                for(var k =0 ; k < 100 ;k++){
-                    this.lineOnBoardArr.push( new BG_line(bg_engine,true,false,6,1200,900,1500,700,1,"#4499c6") );
-                }
+                this.countGlobal = 0;    
             }
-            enterFrame(){
-                var diferentielX = 100;
-                var diferentielY = 100;
 
-                for(var k =0 ; k < 50 ;k++){
-                    var difX = bg_engine.bg_g_stat.convertPointScreenToBoardX(0) % diferentielX;
-                    difX = -difX + bg_engine.bg_g_stat.convertPointScreenToBoardX(0);
-                    var px1 = difX + diferentielX*k;
-                    var py1 = bg_engine.bg_g_stat.convertPointScreenToBoardY(0);
-                    var px2 = difX + diferentielX*k;
-                    var py2 = bg_engine.bg_g_stat.convertPointScreenToBoardY(bg_engine.bg_g_stat.getScreenHeight());
-                    this.lineOnBoardArr[k].setPoint(px1,py1,px2,py2);
-                }
+            enterFrame(){
+                this.countGlobal = 0;
+
+                //
+                // petite ligne
+                //
+                this.traceXLine(25 ,1,"#4499c6");
+                this.traceYLine(25 ,1,"#4499c6");
+                this.traceXLine(100 ,2,"#A1CCE2");
+                this.traceYLine(100 ,2,"#A1CCE2");
+                this.traceXLine(500,4,"#ECF4F9");
+                this.traceYLine(500,4,"#ECF4F9");
                 
-                for(var k =0 ; k < 50 ;k++){
-                    var difY = bg_engine.bg_g_stat.convertPointScreenToBoardY(0) % diferentielY;
-                    difY = -difY + bg_engine.bg_g_stat.convertPointScreenToBoardY(0);
-                    var px1 = bg_engine.bg_g_stat.convertPointScreenToBoardX(0);
-                    var py1 = difY + diferentielY*k;;
-                    var px2 = bg_engine.bg_g_stat.convertPointScreenToBoardX(bg_engine.bg_g_stat.getScreenWidth());
-                    var py2 = difY + diferentielY*k;;
-                    this.lineOnBoardArr[k+50].setPoint(px1,py1,px2,py2);
+
+                //
+                // update du tableau
+                //
+                var nbToDelete = this.lineOnBoardArr.length-this.countGlobal;
+                var p = 0;
+                for( var j = this.lineOnBoardArr.length-1; j >=this.lineOnBoardArr.length-nbToDelete ; j--){
+                    this._bg.deleteObject(this.lineOnBoardArr[j]);
+                    p++;
                 }
+                this.lineOnBoardArr.splice(-nbToDelete, nbToDelete);
+               
+            
                 
                 /*
-                console.log("screen_height="+bg_engine.bg_g_stat.getScreenHeight());
-                console.log("screen_width="+bg_engine.bg_g_stat.getScreenWidth());
-                console.log("camera_x="+bg_engine.bg_g_stat.getCameraPositionX());
-                console.log("camera_y="+bg_engine.bg_g_stat.getCameraPositionY());
+                console.log("screen_height="+this._bg.bg_g_stat.getScreenHeight());
+                console.log("screen_width="+this._bg.bg_g_stat.getScreenWidth());
+                console.log("camera_x="+this._bg.bg_g_stat.getCameraPositionX());
+                console.log("camera_y="+this._bg.bg_g_stat.getCameraPositionY());
                 */
+                
+                //console.log("render="+this._bg.bg_g_stat.getRenderEngineTimeLisse()+"ms");
+                //console.log("object="+this._bg.bg_g_stat.getRenderEngineObject());
+                //console.log("zoom ="+this._bg.bg_g_stat.getCameraPositionZoom());
             }
         }
 
 
 
         //declaration de BG_engine
-        var bg_engine = new BG_engine("canvas1",20,30);
-        var code =  new monCode(bg_engine);
+        var bg_engine = new BG_engine("canvas1",60,60);
+        var code =  new traceBluePrint(bg_engine);
         this.cicleTestGreen = new BG_circle(bg_engine,true,8,150,150,50,"#FF0000");
         // --------------------------------------------------- //
         // --------------------------------------------------- //

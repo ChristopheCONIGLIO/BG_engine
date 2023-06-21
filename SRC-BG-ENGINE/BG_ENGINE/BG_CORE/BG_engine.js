@@ -154,6 +154,8 @@ class BG_engine{
 				this.bg_g_listObj.splice(index, 1);
 			}
 		}
+
+		this.bg_g_stat.setRenderEngineObject(0);
 		
 		
 		
@@ -221,9 +223,8 @@ class BG_engine{
 		}
 		
 		this.bg_g_stat.setMouseClick(0);
-		
 		this.bg_g_stat.setRenderEngineTime( (new Date() - processingTimeEngine) );
-		this.bg_g_stat.setRenderEngineObject(0);
+		
 		
 		var me = this;
 		if( this.bg_g_stopEnterFrame == false){

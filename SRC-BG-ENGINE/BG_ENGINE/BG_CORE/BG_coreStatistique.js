@@ -111,7 +111,7 @@ class BG_coreStatistique {
 	}
 
 	getRenderEngineTimeLisse(){
-		return this.bg_g_renderEngineTimeLisse;
+		return Math.floor(this.bg_g_renderEngineTimeLisse);
 	}
 	setRenderEngineTimeLisse(value){
 		this.bg_g_renderEngineTimeLisse = value;
