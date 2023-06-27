@@ -118,7 +118,7 @@ class BG_coreStatistique {
 	}
 
 	getRenderEngineFpsLisse(){
-		return this.bg_g_renderEngineFpsLisse;
+		return Math.floor(this.bg_g_renderEngineFpsLisse);
 	}
 	setRenderEngineFpsLisse(value){
 		this.bg_g_renderEngineFpsLisse = value;

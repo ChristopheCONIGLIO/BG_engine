@@ -32,6 +32,7 @@ class BG_engine{
 		this.bg_g_listScriptUnload = new Array();
 		this.bg_g_stat = new BG_coreStatistique(this);
 		this.bg_g_targetFps = nombreDeFPS;
+		this.bg_g_evaluateRealDate = new Date(); // do not use just its PRIVATE
 		this.bg_g_stopEnterFrame = false;
 		this.bg_g_manualControl = true;
 
@@ -74,6 +75,7 @@ class BG_engine{
 		//-----------------------------------------------------------------------------------//
 		//-----------------------------------------------------------------------------------//
 		this.launchEnterFrame();
+		//requestAnimationFrame(this.launchEnterFrame.bind(this));
 	}
 	//----------------------------------
 
@@ -123,7 +125,9 @@ class BG_engine{
 		this.bg_g_stopEnterFrame = true;
 	}
 	//----------------------------------
+	
 	launchEnterFrame(){
+		
 		var processingTimeEngine = new Date();
 		this.bg_g_context.canvas.width  = this.g_canvasDoc.clientWidth;
 		this.bg_g_context.canvas.height = this.g_canvasDoc.clientHeight;
@@ -223,18 +227,24 @@ class BG_engine{
 		}
 		
 		this.bg_g_stat.setMouseClick(0);
+		// capermet de calculer le temps de rendu reel sans blocage du naviateur
 		this.bg_g_stat.setRenderEngineTime( (new Date() - processingTimeEngine) );
+		// ca permet de MAJ les FPS prenant en compte les ralentissement du navigateur
+		var realTimeDiff = new Date() - this.bg_g_evaluateRealDate;
+		this.bg_g_stat.setRenderEngineFps(1/(realTimeDiff/1000) );
+		// peut aussi etre appeler manulement ou bloqué/ralenti par le navigateur
+		this.bg_g_evaluateRealDate = new Date();// j'initialise avant le rappel
 		
-		
+
 		var me = this;
 		if( this.bg_g_stopEnterFrame == false){
 			if( this.bg_g_stat.getRenderEngineTime() < 1000/this.bg_g_targetFps ){
-				this.bg_g_stat.setRenderEngineFps(this.bg_g_targetFps);
-				setTimeout(function () {me.launchEnterFrame()}, (1000/this.bg_g_targetFps)-this.bg_g_stat.getRenderEngineTime() );
+				var pauseTime = (1000/this.bg_g_targetFps)-this.bg_g_stat.getRenderEngineTime();
+				//le 0.87 est chiant
+				setTimeout(function () {me.launchEnterFrame()}, pauseTime*0.87 );
 			}
 			else{	// cas ou le rendu 2d est surchargé, on ajoute un délai de 10ms pour ne pas bloquer le navigateur
-				this.bg_g_stat.setRenderEngineFps(1000/(10+this.bg_g_stat.getRenderEngineTime()));
-				setTimeout(function () {me.launchEnterFrame()}, 10);
+				setTimeout(function () {me.launchEnterFrame()}, 5);
 			}
 		}
 	}

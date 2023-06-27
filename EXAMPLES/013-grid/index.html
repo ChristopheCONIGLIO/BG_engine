@@ -8,14 +8,15 @@
                float: left;
                width: 100%;
                height: 100vh;
-               background-color: rgba(14,113,179,255);/*rgba(40,113,164,255)*/
+               background-color: rgb(14,113,179);/*rgba(40,113,164,255)*/
             }
         </style>
         <!-- import de BG engine -->
         <script type="text/javascript" src="../../SRC-BG-ENGINE/BG_EngineImport.js"></script>
         <script type="text/javascript"> loadBGengine("../..")</script>
+        <script type="text/javascript" src="./src/blueprint.js"></script>
     </head>
-    <body >
+    <body>
         <div class="conteneur">
             <canvas id="canvas1" >BG_engine need a browser canvas HTML5 compatible</canvas>
         </div>
@@ -26,123 +27,51 @@
         // --------------------------------------------------- //
         // --------------------------------------------------- //
         
-        class traceBluePrint extends BG_script{
-            
-            makeLine(epaisseur,color){
-                return new BG_line(this._bg,true,true,0,0,0,0,0,epaisseur,color);//"#4499c6"
-            }
-            
-            traceXLine(difPETIT,epaisseur,color){
-                //
-                // sur X
-                //
-                var lScreen = this._bg.bg_g_stat.convertPointScreenToBoardX(this._bg.bg_g_stat.getScreenWidth());
-                var count = 0;
-                while(true){
-                    var dif = this._bg.bg_g_stat.convertPointScreenToBoardX(0) % difPETIT;
-                    dif = -dif + this._bg.bg_g_stat.convertPointScreenToBoardX(0);
-                    var px1 = dif + difPETIT*count;
-                    var py1 = this._bg.bg_g_stat.convertPointScreenToBoardY(0)-this._bg.bg_g_stat.getScreenHeight()*this._bg.bg_g_stat.getCameraPositionZoom();
-                    var px2 = dif + difPETIT*count;
-                    var py2 = this._bg.bg_g_stat.convertPointScreenToBoardY(this._bg.bg_g_stat.getScreenHeight())+this._bg.bg_g_stat.getScreenHeight()*this._bg.bg_g_stat.getCameraPositionZoom();
-                    if( this.lineOnBoardArr.length <= this.countGlobal){
-                        this.lineOnBoardArr.push( this.makeLine(epaisseur,color) );
-                    }
-                    else{
-                        this.lineOnBoardArr[this.countGlobal].setPoint(px1,py1,px2,py2);
-                        this.lineOnBoardArr[this.countGlobal].setColor(color);
-                        this.lineOnBoardArr[this.countGlobal].setThickness(epaisseur);
-                    }
-                    count++;
-                    this.countGlobal++;
-                    if( px1 > lScreen) break;
-                }
-                //
-                //
-                //
-            }
-            traceYLine(difPETIT,epaisseur,color){
-                //
-                // sur Y
-                //
-                var lScreen = this._bg.bg_g_stat.convertPointScreenToBoardY(this._bg.bg_g_stat.getScreenHeight());
-                var count = 0;
-                while(true){
-                    var dif = this._bg.bg_g_stat.convertPointScreenToBoardY(0) % difPETIT;
-                    dif = -dif + this._bg.bg_g_stat.convertPointScreenToBoardY(0);
-                    var px1 = this._bg.bg_g_stat.convertPointScreenToBoardX(0)-this._bg.bg_g_stat.getScreenWidth()*this._bg.bg_g_stat.getCameraPositionZoom();
-                    var py1 = dif + difPETIT*count;
-                    var px2 = this._bg.bg_g_stat.convertPointScreenToBoardX(this._bg.bg_g_stat.getScreenWidth())+this._bg.bg_g_stat.getScreenWidth()*this._bg.bg_g_stat.getCameraPositionZoom();
-                    var py2 = dif + difPETIT*count
-                    if( this.lineOnBoardArr.length <= this.countGlobal){
-                        this.lineOnBoardArr.push( this.makeLine(epaisseur,color) );
-                    }
-                    else{
-                        this.lineOnBoardArr[this.countGlobal].setPoint(px1,py1,px2,py2);
-                        this.lineOnBoardArr[this.countGlobal].setColor(color);
-                        this.lineOnBoardArr[this.countGlobal].setThickness(epaisseur);
-                    }
-                    count++;
-                    this.countGlobal++;
-                    if( py1 > lScreen) break;
-                }
-                //
-                //
-                //
-            }
-            constructor(bg) {
-                super(bg);
-                this._bg = bg;
-                this.lineOnBoardArr = new Array();
-                this.countGlobal = 0;    
-            }
+        
 
-            enterFrame(){
-                this.countGlobal = 0;
-
-                //
-                // petite ligne
-                //
-                this.traceXLine(25 ,1,"#4499c6");
-                this.traceYLine(25 ,1,"#4499c6");
-                this.traceXLine(100 ,2,"#A1CCE2");
-                this.traceYLine(100 ,2,"#A1CCE2");
-                this.traceXLine(500,4,"#ECF4F9");
-                this.traceYLine(500,4,"#ECF4F9");
-                
-
-                //
-                // update du tableau
-                //
-                var nbToDelete = this.lineOnBoardArr.length-this.countGlobal;
-                var p = 0;
-                for( var j = this.lineOnBoardArr.length-1; j >=this.lineOnBoardArr.length-nbToDelete ; j--){
-                    this._bg.deleteObject(this.lineOnBoardArr[j]);
-                    p++;
-                }
-                this.lineOnBoardArr.splice(-nbToDelete, nbToDelete);
-               
+        class objGame extends BG_circleBorder{
+            // ---------------------
             
+            constructor(velX,velY,bg,onBoard,fixed,layer,pX,pY,size,color,border,colorborder,fond) {
+                super(bg,onBoard,fixed,layer,pX,pY,size,color,border,colorborder,fond);
+                this.velX = velX;
+                this.velY = velY;
+                nbObj++;
+            }
+            drawObj(decX,decY,zoom){
                 
-                /*
-                console.log("screen_height="+this._bg.bg_g_stat.getScreenHeight());
-                console.log("screen_width="+this._bg.bg_g_stat.getScreenWidth());
-                console.log("camera_x="+this._bg.bg_g_stat.getCameraPositionX());
-                console.log("camera_y="+this._bg.bg_g_stat.getCameraPositionY());
-                */
-                
-                //console.log("render="+this._bg.bg_g_stat.getRenderEngineTimeLisse()+"ms");
-                //console.log("object="+this._bg.bg_g_stat.getRenderEngineObject());
-                //console.log("zoom ="+this._bg.bg_g_stat.getCameraPositionZoom());
+                super.drawObj(decX,decY,zoom);
+                this.p_pX += this.velX;
+                this.p_pY += this.velY;
+                this.velX/=1.1;
+                this.velY/=1.1;
+                if( this.velX< 0.01 && this.velY < 0.01){
+                    nbObj--;
+                    this.p_bg.deleteObject(this);
+                    var polyOnBoard     = new objGame(Math.random()*50-25,Math.random()*50-25,bg_engine,true,false,9,this.p_pX,this.p_pY,200,"#0e71b3",30,"#FFFFFF",true);
+                    if( nbObj < 500)var polyOnBoard     = new objGame(Math.random()*50-100,Math.random()*200-100,bg_engine,true,false,9,this.p_pX,this.p_pY,200,"#0e71b3",30,"#FFFFFF",true);
+                    //var polyOnBoard     = new objGame(Math.random()*200-100,Math.random()*200-100,bg_engine,true,false,9,this.p_pX,this.p_pY,200,"#0e71b3",bordure,"#FFFFFF",true);
+                }
             }
         }
 
-
-
         //declaration de BG_engine
-        var bg_engine = new BG_engine("canvas1",60,60);
+        var FPSTARGET = 30;
+        var bg_engine = new BG_engine("canvas1",60,FPSTARGET);
         var code =  new traceBluePrint(bg_engine);
-        this.cicleTestGreen = new BG_circle(bg_engine,true,8,150,150,50,"#FF0000");
+        //this.cicleTestGreen = new BG_circle(bg_engine,true,8,150,150,50,"#FF0000");
+        var nbObj = 0;
+        var polyOnBoard     = new objGame(100,50,bg_engine,true,false,9,0,0,200,"#0e71b3",30,"#FFFFFF",true);
+        /*for(var k = 0 ;k < 1500;k++){
+            //var obj     = new BG_circleBorder(bg_engine,true,false,9,0,0,200,"#0e71b3",30,"#FFFFFF",true);
+            var obj     = new BG_circle(bg_engine,true,false,9,0,0,200,"#FF0000");
+        
+        }*/
+        var map1     = new BG_drawImage(bg_engine,true,false,3,100,0,437,571,"./map2.png");
+        var map2     = new BG_drawImage(bg_engine,true,false,3,-300,-50,263,339,"./map1.png");
+        
+        map2.setRotation(45);
+        
         // --------------------------------------------------- //
         // --------------------------------------------------- //
        
