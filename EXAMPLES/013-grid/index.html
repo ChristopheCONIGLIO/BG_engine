@@ -14,7 +14,7 @@
         <!-- import de BG engine -->
         <script type="text/javascript" src="../../SRC-BG-ENGINE/BG_EngineImport.js"></script>
         <script type="text/javascript"> loadBGengine("../..")</script>
-        <script type="text/javascript" src="./src/blueprint.js"></script>
+        <script type="text/javascript" src="./src/BluePrint.js"></script>
     </head>
     <body>
         <div class="conteneur">
@@ -29,48 +29,92 @@
         
         
 
-        class objGame extends BG_circleBorder{
+        class objFolowTarget extends BG_circleBorder{
             // ---------------------
             
-            constructor(velX,velY,bg,onBoard,fixed,layer,pX,pY,size,color,border,colorborder,fond) {
+            constructor(velX,velY,next_pts,bg,onBoard,fixed,layer,pX,pY,size,color,border,colorborder,fond) {
                 super(bg,onBoard,fixed,layer,pX,pY,size,color,border,colorborder,fond);
                 this.velX = velX;
                 this.velY = velY;
-                nbObj++;
+                this.next_pts = next_pts;
+                TOTAL_OBJ++;
             }
             drawObj(decX,decY,zoom){
                 
                 super.drawObj(decX,decY,zoom);
                 this.p_pX += this.velX;
                 this.p_pY += this.velY;
+                
                 this.velX/=1.1;
                 this.velY/=1.1;
-                if( this.velX< 0.01 && this.velY < 0.01){
-                    nbObj--;
+
+
+                let velo = 2;
+                let sgX = Math.sign(this.p_pX - LIST_PTS_TARGET[this.next_pts][0] );
+                let sgY = Math.sign(this.p_pY - LIST_PTS_TARGET[this.next_pts][1] );
+                let disX = Math.abs( this.p_pX - LIST_PTS_TARGET[this.next_pts][0] );
+                let disY = Math.abs( this.p_pY - LIST_PTS_TARGET[this.next_pts][1] );
+                let pcX = disX/(disX+disY);
+                let pcY = disY/(disX+disY);
+                this.velX += -sgX*velo*pcX;
+                this.velY += -sgY*velo*pcY;
+                
+                
+                let geofunc = new Geometry();
+
+                if( geofunc.distance(this.p_pX,this.p_pY,LIST_PTS_TARGET[this.next_pts][0],LIST_PTS_TARGET[this.next_pts][1]) < 15){
+                    this.next_pts++;
+                    if( this.next_pts >= LIST_PTS_TARGET.length) this.next_pts = 0;
+
+                    if( this.getDim() > 3){
+                        if(Math.random() > 0.5 )var polyOnBoard     = new objFolowTarget( Math.random()*40-20+this.velX, Math.random()*20-10+this.velY,this.next_pts,BG_ENGINE,true,false,9,this.p_pX,this.p_pY,this.getDim()/1.5,"#0e71b3",2,"#FFFFFF",true);
+                        if(Math.random() > 0.5 )var polyOnBoard     = new objFolowTarget( Math.random()*40-20+this.velX, Math.random()*20-10+this.velY,this.next_pts,BG_ENGINE,true,false,9,this.p_pX,this.p_pY,this.getDim()/1.5,"#0e71b3",2,"#FFFFFF",true);
+                        if(Math.random() > 0.5 )var polyOnBoard     = new objFolowTarget( Math.random()*40-20+this.velX, Math.random()*20-10+this.velY,this.next_pts,BG_ENGINE,true,false,9,this.p_pX,this.p_pY,this.getDim()/1.5,"#0e71b3",2,"#FFFFFF",true);
+                        if(Math.random() > 0.5 )var polyOnBoard     = new objFolowTarget( Math.random()*40-20+this.velX, Math.random()*20-10+this.velY,this.next_pts,BG_ENGINE,true,false,9,this.p_pX,this.p_pY,this.getDim()/1.5,"#0e71b3",2,"#FFFFFF",true);
+                        if(Math.random() > 0.5 )var polyOnBoard     = new objFolowTarget( Math.random()*40-20+this.velX, Math.random()*20-10+this.velY,this.next_pts,BG_ENGINE,true,false,9,this.p_pX,this.p_pY,this.getDim()/1.5,"#0e71b3",2,"#FFFFFF",true);
+                    }
                     this.p_bg.deleteObject(this);
-                    var polyOnBoard     = new objGame(Math.random()*50-25,Math.random()*50-25,bg_engine,true,false,9,this.p_pX,this.p_pY,200,"#0e71b3",30,"#FFFFFF",true);
-                    if( nbObj < 500)var polyOnBoard     = new objGame(Math.random()*50-100,Math.random()*200-100,bg_engine,true,false,9,this.p_pX,this.p_pY,200,"#0e71b3",30,"#FFFFFF",true);
-                    //var polyOnBoard     = new objGame(Math.random()*200-100,Math.random()*200-100,bg_engine,true,false,9,this.p_pX,this.p_pY,200,"#0e71b3",bordure,"#FFFFFF",true);
+                    TOTAL_OBJ--;
+                    if( TOTAL_OBJ < 2){
+                        var polyOnBoard     = new objFolowTarget( Math.random()*20-10+this.velX, Math.random()*20-10+this.velY,this.next_pts,BG_ENGINE,true,false,9,this.p_pX,this.p_pY,15,"#0e71b3",2,"#FFFFFF",true);
+                        var polyOnBoard     = new objFolowTarget( Math.random()*20-10+this.velX, Math.random()*20-10+this.velY,this.next_pts,BG_ENGINE,true,false,9,this.p_pX,this.p_pY,15,"#0e71b3",2,"#FFFFFF",true);
+                    }
                 }
             }
         }
+        
 
         //declaration de BG_engine
         var FPSTARGET = 30;
-        var bg_engine = new BG_engine("canvas1",60,FPSTARGET);
-        var code =  new traceBluePrint(bg_engine);
+        var BG_ENGINE = new BG_engine("canvas1",60,FPSTARGET);
+        var CODE = new BluePrint(BG_ENGINE,true);
         //this.cicleTestGreen = new BG_circle(bg_engine,true,8,150,150,50,"#FF0000");
-        var nbObj = 0;
-        var polyOnBoard     = new objGame(100,50,bg_engine,true,false,9,0,0,200,"#0e71b3",30,"#FFFFFF",true);
-        /*for(var k = 0 ;k < 1500;k++){
-            //var obj     = new BG_circleBorder(bg_engine,true,false,9,0,0,200,"#0e71b3",30,"#FFFFFF",true);
-            var obj     = new BG_circle(bg_engine,true,false,9,0,0,200,"#FF0000");
+        var TOTAL_OBJ = 0;
+        var polyOnBoard     = new objFolowTarget(0,0,0,BG_ENGINE,true,false,9,0,0,15,"#0e71b3",2,"#FFFFFF",true);
+        var polyOnBoard     = new objFolowTarget(0,0,4,BG_ENGINE,true,false,9,0,0,15,"#0e71b3",2,"#FFFFFF",true);
+        /*for(var k = 0 ;k < 100;k++){
+           var polyOnBoard     = new objFolowTarget(Math.random()*100,Math.random()*100,0,BG_ENGINE,true,false,9,0,0,15,"#0e71b3",2,"#FFFFFF",true);
         
         }*/
-        var map1     = new BG_drawImage(bg_engine,true,false,3,100,0,437,571,"./map2.png");
-        var map2     = new BG_drawImage(bg_engine,true,false,3,-300,-50,263,339,"./map1.png");
-        
+
+        //
+        // visuel cartograhie
+        //
+        var map1     = new BG_drawImage(BG_ENGINE,true,false,3,100,0,437,571,"./map2.png");
+        var map2     = new BG_drawImage(BG_ENGINE,true,false,3,-300,-50,263,339,"./map1.png");
         map2.setRotation(45);
+
+        //
+        // les Points 
+        //
+        var LIST_PTS_TARGET = new Array([222,440],[-229,156],[-102,95],[434,76],[419,261],[271,272]);
+        for(var k = 0 ;k < LIST_PTS_TARGET.length ;k++){
+            var obj     = new BG_circle(BG_ENGINE,true,false,4,LIST_PTS_TARGET[k][0],LIST_PTS_TARGET[k][1],50,"#00FF00");
+            obj.setAlpha(0.5);
+        }
+
+        
+
         
         // --------------------------------------------------- //
         // --------------------------------------------------- //
