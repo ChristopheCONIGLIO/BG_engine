@@ -9,8 +9,11 @@ class BluePrint extends BG_script{
 
         this.p_debug = debug;
         this.text = undefined;
+        this.rectangleText = undefined;
         if( this.p_debug){
-            this.text = new BG_text(bg,false,false,10,5,5,20,"#FF0000");
+            this.rectangleText = new BG_roundRect(bg,false,false,10,-1000,-1000,100,35,15,"#000000");
+            this.rectangleText.setAlpha(0.7);
+            this.text = new BG_text(bg,false,false,10,5,20,20,"#FFFFFF");
         }
         
         
@@ -113,12 +116,22 @@ class BluePrint extends BG_script{
         // info text
         //
         if( this.text ) {
-            this.text.setText(  this._bg.bg_g_stat.getRenderEngineFpsLisse()+"FPS "+
-                                this._bg.bg_g_stat.getRenderEngineTimeLisse()+"ms " +
-                                this._bg.bg_g_stat.getRenderEngineObject()+"OBJ "+
-                                Math.round(this._bg.bg_g_stat.getMouseXBoard())+"x "+
-                                Math.round(this._bg.bg_g_stat.getMouseYBoard())+"y "+
-                                Math.round(this._bg.bg_g_stat.getCameraPositionZoom()*100)/100+"zoom"); 
+            this.text.setText(  "[B]ack[G]round Engine            "+
+                                this._bg.bg_g_stat.getRenderEngineFpsLisse()+"FPS   "+
+                                /*this._bg.bg_g_stat.getRenderEngineTimeLisse()+"ms " +*/
+                                this._bg.bg_g_stat.getRenderEngineObject()+"obj   "+
+                                Math.round(this._bg.bg_g_stat.getMouseXBoard())+"x/"+
+                                Math.round(this._bg.bg_g_stat.getMouseYBoard())+"y   Camera"+
+                                Math.round(this._bg.bg_g_stat.getCameraPositionX())+ "X/" +
+                                Math.round(this._bg.bg_g_stat.getCameraPositionY())+ "Y/"+
+                                Math.round(this._bg.bg_g_stat.getCameraPositionZoom()*100)/100+"Z"); 
+            let sizeTextX = this.text.getWidthText();
+            this.text.p_pX = this._bg.bg_g_stat.getScreenWidth()/2-sizeTextX/2;
+            
+            this.rectangleText.setDimX(sizeTextX+50);
+            this.rectangleText.p_pX = this._bg.bg_g_stat.getScreenWidth()/2-(sizeTextX+50)/2;
+
+            this.rectangleText.p_pY = this.text.p_pY-4;
         }
         //
     }

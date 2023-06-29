@@ -4,6 +4,8 @@ Projet
 ------
 BackGround engine (nommé [B]ack[G]ground_engine - BG_engine).
 
+<v1 en 2015 au début du HTML5 et de la balise canvas>
+
 Cette application permet de développer rapidement des solutions graphiques nécessitant la gestion du zoom et du "drag and drop" sur des images, comme la création d'une carte similaire à Google Maps ou la réalisation d'un tableau de bord. Le moteur interne offre également une gestion simplifiée de l'animation des objets graphiques.
 
 Auteur et License
@@ -65,7 +67,8 @@ Change log
 ----------
     27/06/2023 -- v1.313
     --------------------
-    27/06/2023 -- Mineurs améliorations      
+    27/06/2023 -- Mineurs améliorations dont amélioration du monitoring des performances en FPS     
+    27/06/2023 -- finalisation de la démo 013-GRID
     
     21/06/2023 -- v1.312
     --------------------
@@ -193,10 +196,15 @@ Change log
     15/02/2022 -- Ajout de la transparence sur les objets avec la fonction setAlpha
     15/02/2022 -- Ajout des paramètre elementHTML, nombre de couche et nombre de FPS dans l'appel principal du moteur
    
-    > /XX/2015 - v0.001
+    2015 - 2022 - v1.000
     -------------------
-    > /XX/2015 -- Originel HTML5 2d engine - Christophe CONIGLIO
-    > /XX/2013 -- Originel flash code 2d pcircle physic engine - Christophe CONIGLIO 
+    2015       -- Originel HTML5 2d engine - Christophe CONIGLIO
+    2015       -- Expérimentation premeirs débuts sur les capacités du HTML5
+    2015       -- Expérimentation premeurs débuts de la balise canvas permetant de faire du rendu 2D
+
+    2013       - v0.000 Creation du moteur physique 2d dans Flash qui sera intégré ici plus tard
+    -------------------     
+    2013       -- Originel flash code 2d pcircle physic engine - Christophe CONIGLIO 
 
 Idées d'amélioration
 --------------------
@@ -207,7 +215,6 @@ Idées d'amélioration
     -- Limite texte à revoir car ne fonctionne pas sur les grands format
     -- L'optimisation du rendu des tracés ne prend pas totalement en compte les modifications de dimensions à cause de la rotation (l'implémentation actuelle favorise l'optimisation à l'exactitude)
     -- Améliorer la fonction getMouseOver pour les objets polygones avec bordure
-    -- Amléiorer les forme avec bordures pour pas voir la délimitation en alpah <1
-    -- Créer des fonctions de monotiring de performance
+    -- Amléiorer les forme avec bordures pour pas voir la délimitation en alpha 
      -- **Doc à créer**
 

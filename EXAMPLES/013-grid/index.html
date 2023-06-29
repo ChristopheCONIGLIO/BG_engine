@@ -27,7 +27,12 @@
         // --------------------------------------------------- //
         // --------------------------------------------------- //
         
-        
+        function makebille(){
+            let rd = Math.floor(Math.random()*(LIST_PTS_TARGET.length-1));
+            let rd2 = rd++;
+            if( rd2 >=  LIST_PTS_TARGET.length ) rd2 = 0;
+            var polyOnBoard     = new objFolowTarget(Math.random()*10-5,Math.random()*10-5,rd,BG_ENGINE,true,false,9,LIST_PTS_TARGET[rd2][0],LIST_PTS_TARGET[rd2][1],15,"#0e71b3",2,"#FFFFFF",true);
+        }
 
         class objFolowTarget extends BG_circleBorder{
             // ---------------------
@@ -38,9 +43,14 @@
                 this.velY = velY;
                 this.next_pts = next_pts;
                 TOTAL_OBJ++;
+
+                this.velo = 0.2;
+                let veloPlus = Math.random();
+                this.setDim(this.getDim()*(1-veloPlus));
+                this.velo += veloPlus;
+                this.setColor(LIST_PTS_TARGET_COLOR[this.next_pts]);
             }
             drawObj(decX,decY,zoom){
-                
                 super.drawObj(decX,decY,zoom);
                 this.p_pX += this.velX;
                 this.p_pY += this.velY;
@@ -49,15 +59,16 @@
                 this.velY/=1.1;
 
 
-                let velo = 2;
+
+                
                 let sgX = Math.sign(this.p_pX - LIST_PTS_TARGET[this.next_pts][0] );
                 let sgY = Math.sign(this.p_pY - LIST_PTS_TARGET[this.next_pts][1] );
                 let disX = Math.abs( this.p_pX - LIST_PTS_TARGET[this.next_pts][0] );
                 let disY = Math.abs( this.p_pY - LIST_PTS_TARGET[this.next_pts][1] );
                 let pcX = disX/(disX+disY);
                 let pcY = disY/(disX+disY);
-                this.velX += -sgX*velo*pcX;
-                this.velY += -sgY*velo*pcY;
+                this.velX += -sgX*this.velo*pcX;
+                this.velY += -sgY*this.velo*pcY;
                 
                 
                 let geofunc = new Geometry();
@@ -65,20 +76,25 @@
                 if( geofunc.distance(this.p_pX,this.p_pY,LIST_PTS_TARGET[this.next_pts][0],LIST_PTS_TARGET[this.next_pts][1]) < 15){
                     this.next_pts++;
                     if( this.next_pts >= LIST_PTS_TARGET.length) this.next_pts = 0;
+                    this.setColor(LIST_PTS_TARGET_COLOR[this.next_pts]);
+                    
+                    this.velX *=2.5;
+                    this.velY *=2.5;
+                    this.velX += Math.random()*20-10;
+                    this.velY += Math.random()*20-10;
 
-                    if( this.getDim() > 3){
-                        if(Math.random() > 0.5 )var polyOnBoard     = new objFolowTarget( Math.random()*40-20+this.velX, Math.random()*20-10+this.velY,this.next_pts,BG_ENGINE,true,false,9,this.p_pX,this.p_pY,this.getDim()/1.5,"#0e71b3",2,"#FFFFFF",true);
-                        if(Math.random() > 0.5 )var polyOnBoard     = new objFolowTarget( Math.random()*40-20+this.velX, Math.random()*20-10+this.velY,this.next_pts,BG_ENGINE,true,false,9,this.p_pX,this.p_pY,this.getDim()/1.5,"#0e71b3",2,"#FFFFFF",true);
-                        if(Math.random() > 0.5 )var polyOnBoard     = new objFolowTarget( Math.random()*40-20+this.velX, Math.random()*20-10+this.velY,this.next_pts,BG_ENGINE,true,false,9,this.p_pX,this.p_pY,this.getDim()/1.5,"#0e71b3",2,"#FFFFFF",true);
-                        if(Math.random() > 0.5 )var polyOnBoard     = new objFolowTarget( Math.random()*40-20+this.velX, Math.random()*20-10+this.velY,this.next_pts,BG_ENGINE,true,false,9,this.p_pX,this.p_pY,this.getDim()/1.5,"#0e71b3",2,"#FFFFFF",true);
-                        if(Math.random() > 0.5 )var polyOnBoard     = new objFolowTarget( Math.random()*40-20+this.velX, Math.random()*20-10+this.velY,this.next_pts,BG_ENGINE,true,false,9,this.p_pX,this.p_pY,this.getDim()/1.5,"#0e71b3",2,"#FFFFFF",true);
+                    if( this.p_bg.bg_g_stat.getRenderEngineFpsLisse() >= FPSTARGET &&
+                        Math.random() > 0.1){
+                        makebille();
                     }
-                    this.p_bg.deleteObject(this);
-                    TOTAL_OBJ--;
-                    if( TOTAL_OBJ < 2){
-                        var polyOnBoard     = new objFolowTarget( Math.random()*20-10+this.velX, Math.random()*20-10+this.velY,this.next_pts,BG_ENGINE,true,false,9,this.p_pX,this.p_pY,15,"#0e71b3",2,"#FFFFFF",true);
-                        var polyOnBoard     = new objFolowTarget( Math.random()*20-10+this.velX, Math.random()*20-10+this.velY,this.next_pts,BG_ENGINE,true,false,9,this.p_pX,this.p_pY,15,"#0e71b3",2,"#FFFFFF",true);
+                    if( this.p_bg.bg_g_stat.getRenderEngineFpsLisse() < FPSTARGET &&
+                        TOTAL_OBJ>100){
+                        this.p_bg.deleteObject(this);
+                        TOTAL_OBJ--;
                     }
+
+
+
                 }
             }
         }
@@ -88,14 +104,6 @@
         var FPSTARGET = 30;
         var BG_ENGINE = new BG_engine("canvas1",60,FPSTARGET);
         var CODE = new BluePrint(BG_ENGINE,true);
-        //this.cicleTestGreen = new BG_circle(bg_engine,true,8,150,150,50,"#FF0000");
-        var TOTAL_OBJ = 0;
-        var polyOnBoard     = new objFolowTarget(0,0,0,BG_ENGINE,true,false,9,0,0,15,"#0e71b3",2,"#FFFFFF",true);
-        var polyOnBoard     = new objFolowTarget(0,0,4,BG_ENGINE,true,false,9,0,0,15,"#0e71b3",2,"#FFFFFF",true);
-        /*for(var k = 0 ;k < 100;k++){
-           var polyOnBoard     = new objFolowTarget(Math.random()*100,Math.random()*100,0,BG_ENGINE,true,false,9,0,0,15,"#0e71b3",2,"#FFFFFF",true);
-        
-        }*/
 
         //
         // visuel cartograhie
@@ -108,13 +116,24 @@
         // les Points 
         //
         var LIST_PTS_TARGET = new Array([222,440],[-229,156],[-102,95],[434,76],[419,261],[271,272]);
+        var LIST_PTS_TARGET_COLOR = new Array("#0e71b3","#e0173b","#FF71b3","#0eFFb3","#0e0940","#FeF1b3");
         for(var k = 0 ;k < LIST_PTS_TARGET.length ;k++){
-            var obj     = new BG_circle(BG_ENGINE,true,false,4,LIST_PTS_TARGET[k][0],LIST_PTS_TARGET[k][1],50,"#00FF00");
+            var obj     = new BG_circle(BG_ENGINE,true,false,4,LIST_PTS_TARGET[k][0]-25,LIST_PTS_TARGET[k][1]-25,50,LIST_PTS_TARGET_COLOR[k]);
             obj.setAlpha(0.5);
         }
 
-        
+        var TOTAL_OBJ = 0;
 
+        for(var k = 0 ;k < 100 ;k++){
+            makebille();
+        }
+        
+        //
+        // CAMERA init
+        //
+        BG_ENGINE.bg_g_stat.setCameraPositionX(545);
+        BG_ENGINE.bg_g_stat.setCameraPositionY(145);
+        BG_ENGINE.bg_g_stat.setCameraPositionZoom(1.4);
         
         // --------------------------------------------------- //
         // --------------------------------------------------- //
