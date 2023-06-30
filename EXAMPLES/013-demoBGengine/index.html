@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>C.CONIGLIO Project .js BG_engine</title>
+        <style>
+            * { margin:0; padding:0; }
+            #canvas1{
+               float: left;
+               width: 100%;
+               height: 100vh;
+               background-color: rgb(14,113,179);/*rgba(40,113,164,255)*/
+            }
+            
+        </style>
+        <!-- import de BG engine -->
+        <script type="text/javascript" src="../../SRC-BG-ENGINE/BG_EngineImport.js"></script>
+        <script type="text/javascript"> loadBGengine("../..")</script>
+        <script type="text/javascript" src="./src/BluePrint.js"></script>
+        <script type="text/javascript" src="./src/objFolowTarget.js?p=2"></script>
+    </head>
+    <body>
+        <div class="conteneur">
+            <canvas id="canvas1" >BG_engine need a browser canvas HTML5 compatible</canvas>
+        </div>
+    </body>
+    <script type="text/javascript">
+        
+       
+        // --------------------------------------------------- //
+        // --------------------------------------------------- //
+        
+        //
+        // fonction pour cree une bille
+        function makebille(){
+            let rd = Math.floor(Math.random()*(LIST_PTS_TARGET.length-1));
+            let rd2 = rd++;
+            if( rd2 >=  LIST_PTS_TARGET.length ) rd2 = 0;
+            var polyOnBoard     = new objFolowTarget(Math.random()*10-5,Math.random()*10-5,rd,BG_ENGINE,true,false,9,LIST_PTS_TARGET[rd2][0],LIST_PTS_TARGET[rd2][1],15,"#0e71b3",2,"#FFFFFF",true);
+        }
+
+        //
+        // enterframe globale permettant de piloter le nombre de bille
+        class enterFrameGlobal extends BG_script{
+            constructor(bg,debug) {
+                super(bg);
+            }
+            enterFrame(){
+                if( this.p_bg.bg_g_stat.getRenderEngineFpsLisse() >= FPSTARGET ){
+                    makebille();
+                }
+            }
+        }
+        
+
+        //declaration de BG_engine
+        var FPSTARGET = 30;
+        var BG_ENGINE = new BG_engine("canvas1",60,FPSTARGET);
+        var enterFrame1 = new BluePrint(BG_ENGINE,true);
+        var enterFrame2 = new enterFrameGlobal(BG_ENGINE,true);
+
+        //
+        // visuel cartograhie
+        //
+        var map1     = new BG_drawImage(BG_ENGINE,true,false,3,100,0,437,571,"./map2.png");
+        var map2     = new BG_drawImage(BG_ENGINE,true,false,3,-300,-50,263,339,"./map1.png");
+        map2.setRotation(45);
+
+        //
+        // les Points 
+        //
+        var LIST_PTS_TARGET = new Array([222,440],[-229,156],[-102,95],[434,76],[419,261],[271,272]);
+        var LIST_PTS_TARGET_COLOR = new Array("#0e71b3","#e0173b","#FF71b3","#0eFFb3","#0e0940","#FeF1b3");
+        for(var k = 0 ;k < LIST_PTS_TARGET.length ;k++){
+            var obj     = new BG_circle(BG_ENGINE,true,false,4,LIST_PTS_TARGET[k][0]-25,LIST_PTS_TARGET[k][1]-25,50,LIST_PTS_TARGET_COLOR[k]);
+            obj.setAlpha(0.5);
+        }
+
+        var TOTAL_OBJ = 0;
+
+        for(var k = 0 ;k < 200 ;k++){
+            makebille();
+        }
+        
+        //
+        // CAMERA init
+        //
+        BG_ENGINE.bg_g_stat.setCameraPositionX(545);
+        BG_ENGINE.bg_g_stat.setCameraPositionY(145);
+        BG_ENGINE.bg_g_stat.setCameraPositionZoom(1.4);
+        
+        // --------------------------------------------------- //
+        // --------------------------------------------------- //
+       
+    </script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
