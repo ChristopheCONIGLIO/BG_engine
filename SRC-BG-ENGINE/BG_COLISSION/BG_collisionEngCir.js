@@ -37,6 +37,7 @@ class BG_collisionEngCir {
 			this._vx				= 0;
 			this._vy				= 0;
 			this._initPosition		= true;
+			this._boolUniqueNumberFrame = true; // attention à prendre aussi en compte l'init
 			/*-- error aproximation --*/
 			this._numError			= 1.0;
 			/*-- taille --*/
@@ -67,7 +68,7 @@ class BG_collisionEngCir {
 			this._initPosition = true;
 			this._radius = 10;
 			this._mass = 1;
-			this._gravityZ = 0.2; //original 0.4
+			this._gravityZ = 0.4; //original 0.4
 			//this.mouseEventDebug();
 			this._gravityX = 0;
 			this._gravityY = 0.9; //simule de base la pomme qui tombe !
@@ -161,7 +162,76 @@ class BG_collisionEngCir {
 		}
 		/*------------------------------------------------*/
 		/*------------------------------------------------*/
+		collision(d1x, d1y, d1m, d1vx, d1vy, d2x, d2y, d2m, d2vx, d2vy, e) {
+			let nx = d2x - d1x;
+			let ny = d2y - d1y;
+			let tx = ny;
+			let ty = -nx;
+			let A = [
+				[d1m, 0, d2m, 0],
+				[0, d1m, 0, d2m],
+				[tx, ty, 0, 0],
+				[nx, ny, -nx, -ny]
+			];
+			let B = [
+				d1m * d1vx + d2m * d2vx,
+				d1m * d1vy + d2m * d2vy,
+				d1vx * tx + d1vy * ty,
+				-e * ((d1vx - d2vx) * nx + (d1vy - d2vy) * ny)
+			];
+			let s = this.solve(A, B);
+			return s;
+		}
+
+		solve(A, B) {
+			let n = A.length;
+		  
+			// Étape 1 : Conversion de la matrice A en une matrice triangulaire supérieure
+			for (let i = 0; i < n; i++) {
+			  if (A[i][i] === 0) {
+				// Échange de lignes pour éviter les divisions par zéro
+				for (let j = i + 1; j < n; j++) {
+				  if (A[j][i] !== 0) {
+					[A[i], A[j]] = [A[j], A[i]];
+					[B[i], B[j]] = [B[j], B[i]];
+					break;
+				  }
+				}
+			  }
+		  
+			  if (A[i][i] === 0) {
+				throw new Error("Le système d'équations n'a pas de solution unique.");
+			  }
+		  
+			  for (let j = i + 1; j < n; j++) {
+				let ratio = A[j][i] / A[i][i];
+				for (let k = i; k < n; k++) {
+				  A[j][k] -= ratio * A[i][k];
+				}
+				B[j] -= ratio * B[i];
+			  }
+			}
+		  
+			// Étape 2 : Résolution du système d'équations à partir de la matrice triangulaire supérieure
+			let x = new Array(n);
+			for (let i = n - 1; i >= 0; i--) {
+			  let sum = 0;
+			  for (let j = i + 1; j < n; j++) {
+				sum += A[i][j] * x[j];
+			  }
+			  x[i] = (B[i] - sum) / A[i][i];
+			}
+		  
+			return x;
+		  }
+		   
+		  
+		  
+
 		collisionAndMove(){
+			// on maj la variable qui permet de savoir si on a traiter ou pas
+			this._boolUniqueNumberFrame = this._world._boolUniqueNumberFrame;
+
 			var npx = this._px+this._vx;
 			var npy = this._py+this._vy;
 			var tabCollision = new Array();
@@ -183,6 +253,7 @@ class BG_collisionEngCir {
 				this._vy = -this._vy/this._coefShockabsorb;
 			}
 			var posTabX = Math.floor((npx-this._radius)/this._stpSize);
+			
 			var posTabXend = posTabX + this._nbBlock;
 			if( posTabXend > Math.ceil(this._sizeWidth/this._stpSize) ) posTabXend = Math.ceil(this._sizeWidth/this._stpSize);
 			var posTabY = Math.floor((npy-this._radius)/this._stpSize);
@@ -191,6 +262,7 @@ class BG_collisionEngCir {
 			var i,j,m,l;
 			var here;
 			var counterContact = 0;
+			
 			for( i=posTabX ; i<posTabXend;i++){
 				for( j=posTabY;j<posTabYend;j++){
 					for( m = 0 ; m < this._tabGrid[i][j].length ;m++){
@@ -207,7 +279,7 @@ class BG_collisionEngCir {
 								var distance = this.squareDistance(this._tabGrid[i][j][m]._px,this._tabGrid[i][j][m]._py,npx,npy);
 								if( distance < (this._tabGrid[i][j][m]._radius + this._radius)*(this._tabGrid[i][j][m]._radius + this._radius) ){
 									tabCollision.push( [this._tabGrid[i][j][m]._px,this._tabGrid[i][j][m]._py,this._tabGrid[i][j][m]._radius,this._tabGrid[i][j][m],distance] );
-									this._bg.p_physicListLastContact.push(this._tabGrid[i][j][m]._bg);
+									//this._bg.p_physicListLastContact.push(this._tabGrid[i][j][m]._bg);
 								}
 							}
 						}
@@ -218,8 +290,14 @@ class BG_collisionEngCir {
 			var k = 0;
 			if( this._debug )
 				this._world.setNbTestContact( counterContact );
-			// gere la difusion d'energie entre les items
-			
+			// 1 
+ 			// gere la difusion d'energie entre les items
+			//
+			/*if( tabCollision.length > 0){
+				var npx = this._px;
+				var npy = this._py;
+			}*/
+
 			if( tabCollision.length > 0){
 				var vx = this._vx;
 				var vy = this._vy;
@@ -239,6 +317,7 @@ class BG_collisionEngCir {
 						var powerC = Math.sqrt((vx*vx)+(vy*vy));
 						this._vx += (Math.cos(angleC) * powerC)/div;
 						this._vy += (Math.sin(angleC) * powerC)/div;
+						
 					}
 					else{
 						var d = Math.sqrt(obj[4]);
@@ -247,25 +326,86 @@ class BG_collisionEngCir {
 							//trace("Probleme 2 disque à la même position en ",npx,npy);
 						}
 						else{
-							var nx = (m2._px - npx) / d;
-							var ny = (m2._py - npy) / d;
+							//
+							// Modifie par rapport a l'original
+							// nx et ny utilise que le signe plus précis et meilleure reproduction meme si dans 
+							// les fait nx et ny tendent vers 1
+							// Surtout mise en place d'un check dans la frame pour pas calculer deux fois 
+							// Arrive quand 1 gros et 2 petit suivant le sens d'apparition vX du gros peut 
+							// etre claulcer deux fois
+							// --> Pas sur que ca regle tous les problemes
+							// TODO la formule p semble est complexe mais extrement importante
+							// pour reproduire cet effet "réel" dans les fait elle occisile entre 0.001 et 0.005
+							//
+							// voir aussi
+							// this._coefShockabsorb est appliqué ensuite (tout à la fin) mais vaut 1 ques que ca chnage en réel ?
+							
+							if( m2._boolUniqueNumberFrame != this._world._boolUniqueNumberFrame){
+								
+								
+								/*
+								
+								//
+								// Dans ce ca son est le premeir object a traiter la collision (et le seul...)
+								//
+								var nx = Math.sign((m2._px - npx) / d);
+								var ny = Math.sign((m2._py - npy) / d);
+								// a quoi sert le 2 dans la formule ???? a par donner un effet réel ?
+								var p = 2.0 * (vx * nx + vy * ny - m2._vx * nx - m2._vy * ny) / (this._mass + m2._mass);
+								//p = 0.003;
+								this._vx += (vx - p * m2._mass * nx)/div;
+								this._vy += (vy - p * m2._mass * ny)/div;
+								m2._vx = (m2._vx + p * this._mass * nx)/div;
+								m2._vy = (m2._vy + p * this._mass * ny)/div;
+								*/
+								var arr = this.collision(	this._px,this._py,this._mass,vx,vy,
+												m2._px,m2._py,m2._mass,m2._vx,m2._vy,1);
+								//console.log(vx,m2._vx);
+								this._vx = arr[0];
+								this._vy = arr[1];
+								m2._vx = arr[2];
+								m2._vy = arr[3];
+/*
+								this._vx = 0;
+								this._vy = 0;
+								m2._vx = 0;
+								m2._vy = 0;
+*/								
+							}
+							else{ 
+								// dans ce cas le clacul a déjà été fait par l'obj précédent
+								// donc on fait rien
+								// possible que sur du multi contact ca donne un truc bizare...
+								this._vx = vx;
+								this._vy = vy;
+							}
+						}
+						/*
+
+							!!!! Ancienne method: présente pluseiurs problème !!!!
+
+							ar nx = Math.sign((m2._px - npx) / d);
+							var ny = Math.sign((m2._py - npy) / d);
 							var p = 2 * (vx * nx + vy * ny - m2._vx * nx - m2._vy * ny) / (this._mass + m2._mass);
 							this._vx += (vx - p * m2._mass * nx)/div;
 							this._vy += (vy - p * m2._mass * ny)/div;
 							m2._vx = (m2._vx + p * this._mass * nx)/div;
 							m2._vy = (m2._vy + p * this._mass * ny)/div;
-						}
+						*/
 					}
 				}
 			}
 			//var
 			var d1;
 			var d2;
-			// 3 part of circle collision
+			// 2
+			// gere les replacmeent pour enpecher les collisions
+			//
 			if( tabCollision.length == 1){
 				var angle = Math.atan2( npy-tabCollision[0][1],npx-tabCollision[0][0]);
-				npx = tabCollision[0][0] + Math.cos(angle) * (this._radius+tabCollision[0][2]);
-				npy = tabCollision[0][1] + Math.sin(angle) * (this._radius+tabCollision[0][2]);
+				npx = tabCollision[0][0] + Math.cos(angle) * (this._radius+tabCollision[0][2]) * 1.00;
+				npy = tabCollision[0][1] + Math.sin(angle) * (this._radius+tabCollision[0][2]) * 1.00;
+				//if( this._radius == 5 )	console.log("0011",npx);
 			}
 			else if( tabCollision.length == 2){
 				d1 = new BG_collisionParametricLine(tabCollision[0][0],tabCollision[0][1],tabCollision[1][0],tabCollision[1][1]); 

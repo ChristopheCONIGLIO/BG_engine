@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>C.CONIGLIO Project .js BG_engine</title>
+        <style>
+            * { margin:0; padding:0; }
+            #canvas1{
+               float: left;
+               width: 100%;
+               height: 100vh;
+               background-color: rgb(14,113,179);
+            }
+        </style>
+        <!-- import de BG engine -->
+        <script type="text/javascript" src="../../SRC-BG-ENGINE/BG_EngineImport.js"></script>
+        <script type="text/javascript"> loadBGengine("../..")</script>
+        <script type="text/javascript" src="./src/BluePrint.js"></script>
+        <script type="text/javascript" src="./src/InfoText.js"></script>
+        <script type="text/javascript" src="./src/exp0.js"></script>
+        <script type="text/javascript" src="./src/exp1.js"></script>
+        <script type="text/javascript" src="./src/exp2.js"></script>
+        <script type="text/javascript" src="./src/exp3.js"></script>
+        <script type="text/javascript" src="./src/exp4.js"></script>
+        <script type="text/javascript" src="./src/exp5.js"></script>
+        <script type="text/javascript" src="./src/exp6.js"></script>
+
+    </head>
+    <body >
+        <div class="conteneur">
+            <canvas id="canvas1" >BG_engine need a browser canvas HTML5 compatible</canvas>
+        </div>
+    </body>
+    <script type="text/javascript">
+        // --------------------------------------------------- //
+        // --------------------------------------------------- //
+        // --------------------------------------------------- //
+        // --------------------------------------------------- //
+        // var obj = new BG_circleExemple(<gx>,<gy>,bg,onBoard,layer,pX,pY,size,color)
+        class disquePhysic extends BG_circleBorder{//2222EE
+            constructor(gx,gy,vx,vy,movable,bg,onBoard,fix,layer,pX,pY,size,color) {
+                super(bg,onBoard,fix,layer,pX,pY,size-3,color,3,"#FFFFFF",true);
+                this.setPhysicEnable();
+                this.pGXY(gx,gy);
+                this.pVX(vx);
+                this.pVY(vy);
+                this.setPhysicMovable(!movable);
+            }
+        }
+        /*class disquePhysic extends BG_circle{//2222EE
+            constructor(gx,gy,vx,vy,movable,bg,onBoard,fix,layer,pX,pY,size,color) {
+                super(bg,onBoard,fix,layer,pX,pY,size,color);
+                this.setPhysicEnable();
+                this.pGXY(gx,gy);
+                this.pVX(vx);
+                this.pVY(vy);
+                this.setPhysicMovable(!movable);
+            }
+        }*/
+        //(bg,onBoard,fixed,layer,pX,pY,size,color,border,colorborder,fond)
+        // --------------------------------------------------- //
+        // --------------------------------------------------- //
+        
+        // --------------------------------------------------- //
+        // --------------------------------------------------- //
+        
+         //declaration de BG_engine
+        var bg_engine = new BG_engine("canvas1",21,30);
+        //ajout du script via la classe précédente
+        var enterFrame1 = new BluePrint(bg_engine,0,50,true);
+        var enterFrame2 = new InfoText(bg_engine,15);
+        
+        var enterFrame_exp3 = new exp3(bg_engine,0,0,10);
+        var enterFrame_exp4 = new exp4(bg_engine,500,0,10);
+        var enterFrame_exp5 = new exp5(bg_engine,1000,0,10);
+        var enterFrame_exp1 = new exp1(bg_engine,-500,0,10);
+        var enterFrame_exp6 = new exp6(bg_engine,-1000,0,10);
+
+
+        var enterFrame_exp0 = new exp0(bg_engine,0,0,12);
+
+        // --------------------------------------------------- //
+        // --------------------------------------------------- //
+
+        //
+        // CAMERA init
+        //
+        bg_engine.bg_g_stat.setCameraPositionX(561);
+        bg_engine.bg_g_stat.setCameraPositionY(339);
+        bg_engine.bg_g_stat.setCameraPositionZoom(1.34);
+       
+    </script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

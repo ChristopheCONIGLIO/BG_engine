@@ -44,6 +44,9 @@ class BG_coreObjectBasic {
 		// appeler quand l'objet est détruit
 		// (permet de supprimer d'autre objet graphique compris dans l'objet lui meme)
 	}
+	remove(){
+		this.p_bg.deleteObject(this);
+	}
 	
 	//
 	// Manipuler l'aspect graphique générique à tout les objets

@@ -44,7 +44,7 @@ class BG_engine{
 		this.bg_g_collisionEngine;
 		this.bg_g_collisionEngineOffSetX;
 		this.bg_g_collisionEngineOffSetY;
-		this.initCollisionEngine(6000,6000,30);
+		this.initCollisionEngine(6000,6000,50);
 	 	this.setOffSetCollisionengine(-2000,-2000);
 		//-----------------------------------------------------------------------------------//
 		//-----------------------------------------------------------------------------------//
@@ -139,8 +139,10 @@ class BG_engine{
 		var decYs = (-this.decY+this.bg_g_height/2) * (1-this.zoomLevel);
 		this.decXwithZoom = decXs+this.decX;
 		this.decYwithZoom = decYs+this.decY;
+		//
+		// partie collision
 		if( this.debugCollisionContour ) this.bg_g_collisionEngine.drawDebug(decXs+this.decX, decYs+this.decY,this.zoomLevel);
-		
+		this.bg_g_collisionEngine.updateboolUniqueNumberFrame();//rotation d'un bool insignifiant si collision non activé
 		
 		//handle script
 		for(var k = 0 ; k < this.bg_g_listScript.length ; k++){
@@ -263,6 +265,9 @@ class BG_engine{
 		this.bg_g_collisionEngineOffSetX = offSetX;
 		this.bg_g_collisionEngineOffSetY = offSetY;	
 	}	
+	pTerrainFree(npx,npy,radius){
+		return this.bg_g_collisionEngine.pTerrainFree(npx,npy,radius);
+	}
 	//----------------------------------
 
 

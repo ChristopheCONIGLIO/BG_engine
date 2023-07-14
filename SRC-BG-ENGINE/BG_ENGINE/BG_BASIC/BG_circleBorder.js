@@ -35,8 +35,6 @@ class BG_circleBorder extends BG_coreObjectBasic{
 		this.p_physicListLastContact 	= new Array();
 		this.p_physicVx 				= 0;
 		this.p_physicVy 				= 0;
-
-		
 		
 	}
 	destructor(){
@@ -104,14 +102,14 @@ class BG_circleBorder extends BG_coreObjectBasic{
 	drawObj(decX,decY,zoom){
 		// in developement
 		if( this.p_physicEnable == true){
-			this.p_physicListLastContact = new Array();
-			this.p_physicObjet._vx = this.p_physicVx;
-			this.p_physicObjet._vy = this.p_physicVy;
+			//this.p_physicListLastContact = new Array();
+			//this.p_physicObjet._vx = this.p_physicVx;
+			//this.p_physicObjet._vy = this.p_physicVy;
 			this.p_physicObjet.enterFrame();
 			this.p_pX = this.p_physicObjet._px - this.p_sX/2 + this.p_bg.bg_g_collisionEngineOffSetX;
 			this.p_pY = this.p_physicObjet._py - this.p_sX/2 + this.p_bg.bg_g_collisionEngineOffSetY;
-			this.p_physicVx = this.p_physicObjet._vx;
-			this.p_physicVy = this.p_physicObjet._vy;
+			//this.p_physicVx = this.p_physicObjet._vx;
+			//this.p_physicVy = this.p_physicObjet._vy;
 		}
 		// end developement
 		
@@ -297,8 +295,9 @@ class BG_circleBorder extends BG_coreObjectBasic{
 	}
 	setPhysicEnable(){
 		this.p_physicObjet = new BG_collisionEngCir(this.p_bg.bg_g_collisionEngine,this);
-		this.p_physicObjet._radius = this.p_sX/2;
-		this.p_physicObjet._mass = this.p_sX/2*this.p_sX/2;
+		let size = this.p_sX/2 + this.p_border/2;
+		this.p_physicObjet._radius = size;
+		this.p_physicObjet._mass = Math.PI*size*size; // formule surface
 		this.p_physicObjet._static = this.p_physicStatic;
 		this.p_physicObjet.initDataArray();
 		this.p_physicObjet.setPosition(	this.p_pX-this.p_bg.bg_g_collisionEngineOffSetX,
@@ -309,9 +308,31 @@ class BG_circleBorder extends BG_coreObjectBasic{
 		this.p_physicStatic = value;
 		this.p_physicObjet._static = this.p_physicStatic;
 	}
-	setPhysicGravity(gX,gY){
+	pGXY(gX,gY){	//set gravity
 		this.p_physicObjet._gravityX = gX;
 		this.p_physicObjet._gravityY = gY;
+	}
+	pGX(gX){//set gravity
+		this.p_physicObjet._gravityX = gX;
+	}
+	pGY(gY){//set gravity
+		this.p_physicObjet._gravityY = gY;
+	}
+	pVXY(vX,vY){ //set velocity
+		this.p_physicObjet._vx = vX;
+		this.p_physicObjet._vy = vY;
+	}
+	pVX(vX){//set velocity
+		this.p_physicObjet._vx = vX;
+	}
+	pVY(vY){//set velocity
+		this.p_physicObjet._vy = vY;
+	}
+
+
+	remove(){
+		if( this.p_physicEnable = true) this.setPhysicDisable();
+		this.p_bg.deleteObject(this);
 	}
 
 }

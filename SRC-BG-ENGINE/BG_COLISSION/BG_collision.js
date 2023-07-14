@@ -39,6 +39,8 @@ class BG_collision {
 				// new implementation : 3d array
 			this._stpSize			= 1;
 			this._listOfShip		= null; 
+			this._boolUniqueNumberFrame = true; // variable permettant de synchroniser le sobet traité et non traité
+			// cette donné est MAJ aavant le enterframe des obets afin d'abtenir un nouveau ID
 				// --> original implemantion :Vector.<EngCir>
 				// new implementation : 1d array
 			
@@ -64,6 +66,16 @@ class BG_collision {
 				this.initDebug();
 			}
 		}
+		
+		/*------------------------------------------------*/
+		/*------------------------------------------------*/
+		updateboolUniqueNumberFrame(){
+			if( this._boolUniqueNumberFrame ) 	this._boolUniqueNumberFrame = false;
+			else								this._boolUniqueNumberFrame = true;
+			//un roulement binaire suffit puisque en théory tous les obet on leur enterframe d'executer
+			// ici le but c'est de séaprer ceux déjà executer de ceux a traiter
+			// via un id ici cette variable this._boolUniqueNumberFrame
+		}
 		/*------------------------------------------------*/
 		/*------------------------------------------------*/
 		addElemListOfShip(elem){
@@ -85,6 +97,51 @@ class BG_collision {
 		deleteObjAt($i){
 			this._listOfShip[$i].destroyMe();
 			this._listOfShip.splice( $i,1 );
+		}
+		/*------------------------------------------------*/
+		/*------------------------------------------------*/
+		// return true or false if terrain is free to add circle
+		pTerrainFree(npx,npy,radius){
+			npx -= this._BG_engine.bg_g_collisionEngineOffSetX;
+			npy -= this._BG_engine.bg_g_collisionEngineOffSetY;
+			var tabCollision = new Array();
+			var nbBlock = Math.ceil((radius*2)/this._stpSize)+1;
+			if( nbBlock < 2 )	nbBlock = 2;
+			var posTabX = Math.floor((npx-radius)/this._stpSize);
+			var posTabXend = posTabX + nbBlock;
+			if( posTabXend > Math.ceil(this._sizeWidth/this._stpSize) ) posTabXend = Math.ceil(this._sizeWidth/this._stpSize);
+			var posTabY = Math.floor((npy-radius)/this._stpSize);
+			var posTabYend = posTabY + nbBlock;
+			if( posTabYend > Math.ceil(this._sizeHeight/this._stpSize) ) posTabYend = Math.ceil(this._sizeHeight/this._stpSize);
+			var i,j,m,l;
+			var here;
+			var counterContact = 0;
+			for( i=posTabX ; i<posTabXend;i++){
+				for( j=posTabY;j<posTabYend;j++){
+					for( m = 0 ; m < this._tabGrid[i][j].length ;m++){
+						if( this._tabGrid[i][j][m] != this){
+							here = true;
+							for( l = 0 ; l < tabCollision.length ; l++){
+								if( this._tabGrid[i][j][m] == tabCollision[l][3] ){
+									here = false;
+									//break ???
+								}
+							}
+							if( here ){
+								counterContact++;
+								var distance = this.squareDistance(this._tabGrid[i][j][m]._px,this._tabGrid[i][j][m]._py,npx,npy);
+								if( distance < (this._tabGrid[i][j][m]._radius + radius)*(this._tabGrid[i][j][m]._radius + radius) ){
+									return false;
+								}
+							}
+						}
+					}
+				}
+			}
+			return true;
+		}
+		squareDistance($c1Px,$c1Py,$c2Px,$c2Py){
+			return (($c1Px-$c2Px)*($c1Px-$c2Px))+(($c1Py-$c2Py)*($c1Py-$c2Py));
 		}
 		/*------------------------------------------------*/
 		/*------------------------------------------------*/
