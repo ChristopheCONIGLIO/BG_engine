@@ -69,7 +69,6 @@ class BG_collisionEngCir {
 			this._radius = 10;
 			this._mass = 1;
 			this._gravityZ = 0.4; //original 0.4
-			//this.mouseEventDebug();
 			this._gravityX = 0;
 			this._gravityY = 0.9; //simule de base la pomme qui tombe !
 
@@ -231,6 +230,7 @@ class BG_collisionEngCir {
 		collisionAndMove(){
 			// on maj la variable qui permet de savoir si on a traiter ou pas
 			this._boolUniqueNumberFrame = this._world._boolUniqueNumberFrame;
+			
 
 			var npx = this._px+this._vx;
 			var npy = this._py+this._vy;
@@ -293,11 +293,6 @@ class BG_collisionEngCir {
 			// 1 
  			// gere la difusion d'energie entre les items
 			//
-			/*if( tabCollision.length > 0){
-				var npx = this._px;
-				var npy = this._py;
-			}*/
-
 			if( tabCollision.length > 0){
 				var vx = this._vx;
 				var vy = this._vy;
@@ -343,41 +338,20 @@ class BG_collisionEngCir {
 							if( m2._boolUniqueNumberFrame != this._world._boolUniqueNumberFrame){
 								
 								
-								/*
-								
-								//
-								// Dans ce ca son est le premeir object a traiter la collision (et le seul...)
-								//
-								var nx = Math.sign((m2._px - npx) / d);
-								var ny = Math.sign((m2._py - npy) / d);
-								// a quoi sert le 2 dans la formule ???? a par donner un effet réel ?
-								var p = 2.0 * (vx * nx + vy * ny - m2._vx * nx - m2._vy * ny) / (this._mass + m2._mass);
-								//p = 0.003;
-								this._vx += (vx - p * m2._mass * nx)/div;
-								this._vy += (vy - p * m2._mass * ny)/div;
-								m2._vx = (m2._vx + p * this._mass * nx)/div;
-								m2._vy = (m2._vy + p * this._mass * ny)/div;
-								*/
-								var arr = this.collision(	this._px,this._py,this._mass,vx,vy,
+								var arr = this.collision(	this._px,this._py,this._mass/div,vx,vy,
 												m2._px,m2._py,m2._mass,m2._vx,m2._vy,1);
-								//console.log(vx,m2._vx);
-								this._vx = arr[0];
-								this._vy = arr[1];
+								this._vx += arr[0];
+								this._vy += arr[1];
 								m2._vx = arr[2];
 								m2._vy = arr[3];
-/*
-								this._vx = 0;
-								this._vy = 0;
-								m2._vx = 0;
-								m2._vy = 0;
-*/								
+							
 							}
 							else{ 
 								// dans ce cas le clacul a déjà été fait par l'obj précédent
 								// donc on fait rien
 								// possible que sur du multi contact ca donne un truc bizare...
-								this._vx = vx;
-								this._vy = vy;
+								this._vx += vx/div;
+								this._vy += vy/div;
 							}
 						}
 						/*
@@ -395,6 +369,7 @@ class BG_collisionEngCir {
 					}
 				}
 			}
+			
 			//var
 			var d1;
 			var d2;

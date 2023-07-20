@@ -25,7 +25,7 @@ class exp4 extends BG_script{
     enterFrame(){
         
         if( this.arrObj.length < 60){
-            this.addObjMouvable1();
+            //this.addObjMouvable1();
             this.addObjMouvable2();
         }
         

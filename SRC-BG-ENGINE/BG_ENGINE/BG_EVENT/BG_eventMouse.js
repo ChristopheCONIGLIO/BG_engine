@@ -27,10 +27,14 @@ class BG_eventMouse {
 		this.g_canvasDoc.addEventListener("mouseout",function(event){
 			me.g_bg.mouseDownX = -1;
 			me.g_bg.bg_g_stat.setMouseDown(0);
+			me.g_bg.mouseX = -1000;
+			me.g_bg.mouseY = -1000;
 		});
 		this.g_canvasDoc.addEventListener("mouseleave",function(event){
 			me.g_bg.mouseDownX = -1;
 			me.g_bg.bg_g_stat.setMouseDown(0);
+			me.g_bg.mouseX = -1000;
+			me.g_bg.mouseY = -1000;
 		});
 		this.g_canvasDoc.addEventListener("click",function(event){
 			var dis = me.rootSquareDistance(me.m1x,
