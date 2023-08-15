@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>C.CONIGLIO Project .js BG_engine</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:400,700&display=swap">
+        <style>
+            * { margin:0; padding:0; }
+            #canvas1{
+               float: left;
+               width: 100%;
+               height: 100vh;
+               background-color: rgb(255,255,255);
+            }
+        </style>
+        <!-- import de BG engine -->
+        <script type="text/javascript" src="../../SRC-BG-ENGINE/BG_EngineImport.js"></script>
+        <script type="text/javascript"> loadBGengine("../..")</script>
+        <script type="text/javascript" src="./src/BluePrint.js"></script>
+        <script type="text/javascript" src="./src/InfoText.js"></script>
+        <script type="text/javascript" src="./src/menuPopUp.js"></script>
+
+    </head>
+    <body >
+        <div class="conteneur">
+            <canvas id="canvas1" >BG_engine need a browser canvas HTML5 compatible</canvas>
+        </div>
+    </body>
+    <script type="text/javascript">
+        
+        //
+        //
+        //
+        class manageInteractionProgram extends BG_script{
+            constructor(bg) {
+                super(bg);
+
+                this.menuPopUp = undefined;
+            }
+            enterFrame(){
+                
+                if( this.p_bg.bg_g_stat.getMouseClick() == 1 && this.menuPopUp == undefined){
+                    this.menuPopUp = new MenuPopUp(bg_engine,
+                    this.p_bg.bg_g_stat.getMouseXScreen(),this.p_bg.bg_g_stat.getMouseYScreen(),
+                    5,
+                                    [["Ouvrir","label1"],["Renommer","label2"],["Dupliquer","label3"]],
+                                    15,false);
+                }
+
+                if( this.menuPopUp != undefined && this.menuPopUp.getAlive() == false){
+                    var item = this.menuPopUp.getItemSelected();
+                    if( item != undefined)  textItem.setText("Item selected = "+item[0]);
+                    else                    textItem.setText("No item selected");
+                    this.menuPopUp = undefined;
+                }
+            }
+        }
+        //
+        //
+        //
+        // --------------------------------------------------- //
+        // --------------------------------------------------- //
+        
+         //declaration de BG_engine
+        var bg_engine = new BG_engine("canvas1",21,24);
+        var enterFrame1 = new BluePrint(bg_engine,0,50,true);
+        var enterFrame2 = new InfoText(bg_engine,15);
+        var interact = new manageInteractionProgram(bg_engine);
+
+        // --------------------------------------------------- //
+        // --------------------------------------------------- //
+
+        //
+        // CAMERA init
+        //
+        bg_engine.bg_g_stat.setCameraPositionX(561);
+        bg_engine.bg_g_stat.setCameraPositionY(339);
+        bg_engine.bg_g_stat.setCameraPositionZoom(1.34);
+       
+
+        
+        var text1 = new BG_text(bg_engine,true,false,3,50,50,50,"#00FF00");
+        text1.setText("Arial (50x/50y/S50)/ p L");
+        text1.setFont("Arial");
+        var text2 = new BG_text(bg_engine,true,false,3,50,100,50,"#00FF00");
+        text2.setText("Roboto (50x/100y/S50)/ p L");
+        text2.setFont("Roboto");
+        var text3 = new BG_text(bg_engine,true,false,3,50,150,50,"#00FF00");
+        text3.setText("Nunito (50x/150y/S50)/ p L");
+        text3.setFont("Nunito");
+
+        var text12 = new BG_text(bg_engine,true,false,3,50,250,50,"#00FF00");
+        text12.setText("Arial (50x/250y/S50)/ p L Bold");
+        text12.setFont("Arial");
+        text12.setBold(true);
+        var text22 = new BG_text(bg_engine,true,false,3,50,300,50,"#00FF00");
+        text22.setText("Roboto (50x/300y/S50)/ p L Bold");
+        text22.setFont("Roboto");
+        text22.setBold(true);
+        var text32 = new BG_text(bg_engine,true,false,3,50,350,50,"#00FF00");
+        text32.setText("Nunito (50x/350y/S50)/ p L Bold");
+        text32.setFont("Nunito");
+        text32.setBold(true);
+
+        var textItem = new BG_text(bg_engine,true,false,3,50,450,50,"#882211");
+        textItem.setText("No item selected");
+        textItem.setBold(true);
+
+    </script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

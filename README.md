@@ -1,4 +1,4 @@
-v1.313
+v1.500
 
 Projet
 ------
@@ -65,6 +65,15 @@ Les caractéristiques du moteur 2D sont les suivantes :
 
 Change log
 ----------
+    06/08/2023 -- v1.500 Modifications majeures touchant tout le moteur (compatibles avec version <1.5)
+    --------------------
+    06/08/2023 -- Le zoom est focalisé sur la position souris
+    06/08/2023 -- Ajout de la configuration d'un mode "gras" sur le texte
+    06/08/2023 -- Ajout d'un projet qui expérimente le texte en balise canvas via le BG_engine
+    06/08/2023 -- Correction sur la destruction des BG_script
+    06/08/2023 -- Ajout d'un champ p_alive sur les objets et les scripts
+    08/08/2023 -- Correction d'un bug avec le zoom est la position "souris plateau" qui n'était pas à jour
+
     27/06/2023 -- v1.313
     --------------------
     27/06/2023 -- Mineurs améliorations dont amélioration du monitoring des performances en FPS     

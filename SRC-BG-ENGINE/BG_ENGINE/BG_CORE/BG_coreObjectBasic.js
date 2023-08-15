@@ -25,6 +25,8 @@ class BG_coreObjectBasic {
 		this.visible 		= true;
 		this.rotation 		= 0;	
 		this.mouseOver		= false;
+		this.p_alive 		= true;
+		
 	}
 	
 	/* 
@@ -46,6 +48,7 @@ class BG_coreObjectBasic {
 	}
 	remove(){
 		this.p_bg.deleteObject(this);
+		this.p_alive = false;
 	}
 	
 	//
@@ -122,6 +125,10 @@ class BG_coreObjectBasic {
 	//mouseOver
 	getMouseOver(){
 		return false;
+	}
+	//info alive
+	getAlive(){
+		return this.p_alive;
 	}
 
 

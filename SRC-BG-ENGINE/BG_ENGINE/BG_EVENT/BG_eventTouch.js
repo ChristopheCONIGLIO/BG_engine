@@ -70,9 +70,19 @@ class BG_eventTouch {
 			
 			
 			
-			
+			//
+			//
+			//
 			event.preventDefault();
 			
+			//
+			//
+			//
+			me.g_bg.bg_g_stat.setMouseDown(0); // a revoir 
+
+			//
+			//
+			//
 			let disTouch1;
 			if( me.touch1X == -1 ){
 				disTouch1 = 100000;
@@ -133,6 +143,7 @@ class BG_eventTouch {
 
 		this.g_canvasDoc.addEventListener('touchstart', function(event) {
 			event.preventDefault();
+			me.g_bg.bg_g_stat.setMouseDown(1);
 			if (event.targetTouches.length == 1) {
 				me.g_bg.mouseDownX = (-me.g_bg.decX*me.g_bg.zoomLevel+ event.changedTouches[0].pageX );
 				me.g_bg.mouseDownY = (-me.g_bg.decY*me.g_bg.zoomLevel+ event.changedTouches[0].pageY );

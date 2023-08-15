@@ -29,6 +29,7 @@ class BG_collisionEngCir {
 			/*-- intrinsic parameters --*/
 			this._coefShockabsorb	= 1;	//facteur d'absoption du choc --> valeur par defaut = 1
 			this._static			= false;
+			this._crossable 		= false;
 			this._gravityZ			= 0;
 			this._mass				= 0;
 			this._radius			= 0;
@@ -37,7 +38,10 @@ class BG_collisionEngCir {
 			this._vx				= 0;
 			this._vy				= 0;
 			this._initPosition		= true;
-			this._boolUniqueNumberFrame = true; // attention à prendre aussi en compte l'init
+			this._boolUniqueNumberFrame = false; // attention à prendre aussi en compte l'init
+			this._contactFrameList 	= new Array(); // stocke les contacts géré dans la frame courante
+			this._successive_contact = 0;
+			this._consider_static	= false;
 			/*-- error aproximation --*/
 			this._numError			= 1.0;
 			/*-- taille --*/
@@ -61,6 +65,7 @@ class BG_collisionEngCir {
 			this._stpSize = $engWorld._stpSize;
 			this._debug = $engWorld._debugMode;
 			this._static = false;
+			this._crossable = false;
 			this._dragShip = false;
 			this._sizeWidth = $engWorld._sizeWidth;
 			this._sizeHeight = $engWorld._sizeHeight;
@@ -230,7 +235,7 @@ class BG_collisionEngCir {
 		collisionAndMove(){
 			// on maj la variable qui permet de savoir si on a traiter ou pas
 			this._boolUniqueNumberFrame = this._world._boolUniqueNumberFrame;
-			
+			this._contactFrameList = new Array();
 
 			var npx = this._px+this._vx;
 			var npy = this._py+this._vy;
@@ -277,9 +282,8 @@ class BG_collisionEngCir {
 							if( here ){
 								counterContact++;
 								var distance = this.squareDistance(this._tabGrid[i][j][m]._px,this._tabGrid[i][j][m]._py,npx,npy);
-								if( distance < (this._tabGrid[i][j][m]._radius + this._radius)*(this._tabGrid[i][j][m]._radius + this._radius) ){
+								if( !(this._tabGrid[i][j][m]._crossable) && distance < (this._tabGrid[i][j][m]._radius + this._radius)*(this._tabGrid[i][j][m]._radius + this._radius) ){
 									tabCollision.push( [this._tabGrid[i][j][m]._px,this._tabGrid[i][j][m]._py,this._tabGrid[i][j][m]._radius,this._tabGrid[i][j][m],distance] );
-									//this._bg.p_physicListLastContact.push(this._tabGrid[i][j][m]._bg);
 								}
 							}
 						}
@@ -293,6 +297,7 @@ class BG_collisionEngCir {
 			// 1 
  			// gere la difusion d'energie entre les items
 			//
+			//if( )
 			if( tabCollision.length > 0){
 				var vx = this._vx;
 				var vy = this._vy;
@@ -307,12 +312,19 @@ class BG_collisionEngCir {
 				//for each(var obj:* in tabCollision){
 					
 					var m2 = obj[3];
-					if( m2._static == true){
+					if( m2._static == true || m2._consider_static == true){
 						var angleC = Math.atan2( npy-m2._py,npx-m2._px);
 						var powerC = Math.sqrt((vx*vx)+(vy*vy));
-						this._vx += (Math.cos(angleC) * powerC)/div;
-						this._vy += (Math.sin(angleC) * powerC)/div;
+						var puisX = (Math.cos(angleC) * powerC)/div;
+						var puisY = (Math.sin(angleC) * powerC)/div;
+						this._vx += puisX;
+						this._vy += puisY;
+						this._contactFrameList.push(m2);
 						
+						//on test
+						m2._vx += puisX/2;	// je divise par deux pour aténuer juste pour sigifier l'imoulstion
+						m2._vy += puisY/2;
+
 					}
 					else{
 						var d = Math.sqrt(obj[4]);
@@ -334,8 +346,20 @@ class BG_collisionEngCir {
 							//
 							// voir aussi
 							// this._coefShockabsorb est appliqué ensuite (tout à la fin) mais vaut 1 ques que ca chnage en réel ?
+							//console.log(m2._boolUniqueNumberFrame , this._world._boolUniqueNumberFrame);
 							
-							if( m2._boolUniqueNumberFrame != this._world._boolUniqueNumberFrame){
+							//on check la condition pour savori si on doit calculer le contact
+							var caculContact = false;
+							// === condition1 si il sont pas sur la meme référence de frame 
+							//c'est que l'obejt m2 n'a pas encore été traité
+							// === condition 2 si m2 a déjà été traité mais que la colistion avec this n'a pas été anticipé
+							// On check le tableau de colitions
+							if( m2._boolUniqueNumberFrame != this._world._boolUniqueNumberFrame) caculContact = true;
+							else{
+								if( !m2._contactFrameList.includes(this))caculContact = true;
+							}
+
+							if( caculContact){
 								
 								
 								var arr = this.collision(	this._px,this._py,this._mass/div,vx,vy,
@@ -344,7 +368,11 @@ class BG_collisionEngCir {
 								this._vy += arr[1];
 								m2._vx = arr[2];
 								m2._vy = arr[3];
-							
+								//console.log("------");
+								/*console.log(this._px,this._py,this._mass/div,vx,vy,
+								m2._px,m2._py,m2._mass,m2._vx,m2._vy,1)*/
+								//console.log(arr);
+								this._contactFrameList.push(m2);
 							}
 							else{ 
 								// dans ce cas le clacul a déjà été fait par l'obj précédent
@@ -352,6 +380,7 @@ class BG_collisionEngCir {
 								// possible que sur du multi contact ca donne un truc bizare...
 								this._vx += vx/div;
 								this._vy += vy/div;
+								//console.log("bizare");
 							}
 						}
 						/*
@@ -457,6 +486,29 @@ class BG_collisionEngCir {
 				npy = this._sizeHeight-this._radius;
 				this._vy = -this._vy/this._coefShockabsorb;
 			}
+			//
+			//
+			//
+			//
+			if( this._contactFrameList.length >= 2 ){
+				this._successive_contact++;
+				if( this._successive_contact >= 2){
+					this._consider_static = true;
+					npx = this._px;
+					npy = this._py;
+					this._vx = 0;
+					this._vy = 0;
+				}
+			}
+			else{
+				this._successive_contact = 0;
+				this._consider_static = false;
+			}	
+
+			// ce bloc suivant ne sert a rien
+			// frenchement je ne comprend plus sont utilisé 
+			// et il emepche le fonctionne des objet crossable
+			// ?!
 			posTabX = Math.floor((npx-this._radius)/this._stpSize);
 			posTabXend = posTabX + this._nbBlock;
 			if( posTabXend > Math.ceil(this._sizeWidth/this._stpSize) ) posTabXend = Math.ceil(this._sizeWidth/this._stpSize);
@@ -468,7 +520,7 @@ class BG_collisionEngCir {
 					for( m = 0 ; m < this._tabGrid[i][j].length ;m++){
 						if( this._tabGrid[i][j][m] != this){
 							var distance2 = this.squareDistance(this._tabGrid[i][j][m]._px,this._tabGrid[i][j][m]._py,npx,npy);
-							if( distance2 < (this._tabGrid[i][j][m]._radius + this._radius-this._numError)*(this._tabGrid[i][j][m]._radius + this._radius-this._numError) ){
+							if( !(this._tabGrid[i][j][m]._crossable) && distance2 < (this._tabGrid[i][j][m]._radius + this._radius-this._numError)*(this._tabGrid[i][j][m]._radius + this._radius-this._numError) ){
 								return;
 							}
 						}
@@ -477,6 +529,8 @@ class BG_collisionEngCir {
 			}
 			
 			this._initPosition = false;
+				
+
 			this.setPosition(npx,npy);
 		}
 		/*------------------------------------------------*/

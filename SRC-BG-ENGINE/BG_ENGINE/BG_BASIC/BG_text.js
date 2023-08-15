@@ -19,6 +19,7 @@ class BG_text extends BG_coreObjectBasic{
 
 		this.font = "Arial";
 		this.text = "";
+		this.bold = false;
 
 	}
 	
@@ -31,6 +32,13 @@ class BG_text extends BG_coreObjectBasic{
 	}
 	getFont(){
 		return this.font;
+	}
+	setBold(value){
+		if( value != true && value != false) this.bold = false;
+		this.bold = value; 
+	}
+	getBold(){
+		return this.bold;
 	}
 
 	setPos(pX,pY){
@@ -64,11 +72,11 @@ class BG_text extends BG_coreObjectBasic{
 		return this.text;
 	}
 	getWidthText(){	//la taille sans le zoom
-		this.p_ctx.font = (this.p_size) +"px "+this.font;
+		this.p_ctx.font = this.macroTraceCssText(1);
 		return this.p_ctx.measureText(this.text).width;
 	}
 	getWidthTextWithZoom(zoom){	//la taille dépend du zoom de la carte !!!!!
-		this.p_ctx.font = (zoom*this.p_size) +"px "+this.font;
+		this.p_ctx.font = this.macroTraceCssText(zoom);
 		return this.p_ctx.measureText(this.text).width;
 	}
  	//----------------------------------
@@ -106,6 +114,10 @@ class BG_text extends BG_coreObjectBasic{
 	/* 
 		locales functions 
 	*/
+	macroTraceCssText(zoom){
+		if( this.bold == true)	return "bold "+(zoom*this.p_size) +"px "+this.font;
+		else					return (zoom*this.p_size) +"px "+this.font;
+	}
 	drawText(x,y,width,height,zoom){
 		if( this.rotation != 0){
 			this.p_ctx.translate(x+width/2,y-height/2);
@@ -120,11 +132,13 @@ class BG_text extends BG_coreObjectBasic{
 
 		this.p_ctx.globalAlpha = this.alpha;
 		this.p_ctx.beginPath();
-		this.p_ctx.font = (zoom*this.p_size) +"px "+this.font;
+		this.p_ctx.font = this.macroTraceCssText(zoom);
 		this.p_ctx.fillStyle = this.p_color;
 		this.p_ctx.fillText(this.text,x,y);
 		
+		
 		this.p_ctx.fill(); 
+		
 		this.stat.setRenderEngineObject( this.stat.getRenderEngineObject() + 1 );
 		this.p_ctx.globalAlpha = 1;
 

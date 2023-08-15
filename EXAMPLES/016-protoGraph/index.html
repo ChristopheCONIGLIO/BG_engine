@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>C.CONIGLIO Project .js BG_engine</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:400,700&display=swap">
+        <style>
+            * { margin:0; padding:0; }
+            #canvas1{
+               float: left;
+               width: 100%;
+               height: 100vh;
+               background-color: rgb(255,255,255);
+            }
+        </style>
+        <!-- import de BG engine -->
+        <script type="text/javascript" src="../../SRC-BG-ENGINE/BG_EngineImport.js"></script>
+        <script type="text/javascript"> loadBGengine("../..")</script>
+        <script type="text/javascript" src="./src/tools/BluePrint.js"></script>
+        <script type="text/javascript" src="./src/tools/InfoText.js"></script>
+        <script type="text/javascript" src="./src/tools/menuPopUp.js"></script>
+        <script type="text/javascript" src="./src/g_object/g_particule_prototype.js"></script>
+        <script type="text/javascript" src="./src/g_object/g_prototype.js"></script>
+        <script type="text/javascript" src="./src/g_object/g_block.js"></script>
+        <script type="text/javascript" src="./src/g_object/g_particule_gravity.js"></script>
+        <script type="text/javascript" src="./src/g_object/g_background.js"></script>
+        <script type="text/javascript" src="./src/g_object/g_generator.js"></script>
+        
+
+    </head>
+    <body >
+        <div class="conteneur">
+            <canvas id="canvas1" >BG_engine need a browser canvas HTML5 compatible</canvas>
+        </div>
+    </body>
+    <script type="text/javascript">
+        
+        //
+        //
+        //
+        class manageInteractionProgram extends BG_script{
+            constructor(bg) {
+                super(bg);
+                this.p_bg = bg;
+                this.objCourant = undefined;
+                // TODO gere les pronfondeurs en terme d'archi
+
+            }
+            enterFrame(){
+                
+
+
+
+                //
+                // ici on gere ce qui pourrait ajouter des choses à
+                // la liste d'actions
+                //
+                // cas du clic
+                if( this.objCourant == undefined ){
+
+
+                    // layer background
+                    if( this.p_bg.bg_g_stat.getMouseClick() == 1 ){
+                        
+                        //
+                        // on check si ya un objetc sur la souris
+                        // cela chek aussi si l'obejt est clicbale 
+                        // (tout n'est pas cliquable)
+                        //
+                        var obj = this.p_bg.pTerrainFreeObject(
+                                    this.p_bg.bg_g_stat.getMouseXBoard(),
+                                    this.p_bg.bg_g_stat.getMouseYBoard(),
+                                    1);
+                        if( obj != undefined && 
+                            obj._bg != undefined && 
+                            obj._bg.g_parent != undefined &&
+                            obj._bg.g_parent.p_mode == 10 ){
+                            this.objCourant = obj._bg.g_parent;
+                            this.objCourant.p_mode = 5;
+                        }
+
+                        //
+                        // ici si rien n'a été cliqué
+                        //
+                        if( this.objCourant == undefined ) {
+                            this.objCourant = new g_background(
+                                bg_engine,
+                                this.p_bg.bg_g_stat.getMouseXScreen(),
+                                this.p_bg.bg_g_stat.getMouseYScreen(),
+                                12);
+                        }
+                        
+                    
+                    
+                    }
+                }
+
+                //
+                // ici on gere les actions
+                //
+                if (this.objCourant != undefined && this.objCourant.getAlive() == false) {
+                    this.objCourant = undefined;
+                }
+                if (this.objCourant != undefined && this.objCourant.p_mode == 10) {
+                    this.objCourant = undefined;
+                }
+
+                // on gere le hightlight
+                if (this.objCourant == undefined && this.p_bg.bg_g_stat.getMouseClick() == 0) {
+                    var obj = this.p_bg.pTerrainFreeObject(
+                                        this.p_bg.bg_g_stat.getMouseXBoard(),
+                                        this.p_bg.bg_g_stat.getMouseYBoard(),
+                                        1);
+                    if( obj != undefined && obj._bg != undefined && obj._bg.g_parent != undefined){
+                        obj._bg.g_parent.highlight();
+                    }
+                    
+                }
+                
+                
+                
+                
+
+                
+            }
+        }
+
+       
+        //
+        //
+        // --------------------------------------------------- //
+        // --------------------------------------------------- //
+        
+         //declaration de BG_engine
+        var bg_engine = new BG_engine("canvas1",21,24);
+        //bg_engine.debugCollisionContour = true;
+        var enterFrame1 = new BluePrint(bg_engine,0,50,true);
+        var enterFrame2 = new InfoText(bg_engine,15);
+        var interact = new manageInteractionProgram(bg_engine);
+        //var node = new g_node(bg_engine,0,0,12);
+
+        
+        // --------------------------------------------------- //
+        // --------------------------------------------------- //
+
+        //
+        // CAMERA init
+        //
+        bg_engine.bg_g_stat.setCameraPositionX(561);
+        bg_engine.bg_g_stat.setCameraPositionY(339);
+        bg_engine.bg_g_stat.setCameraPositionZoom(1.34);
+       
+
+        
+        
+        /*var textItem = new BG_text(bg_engine,true,false,3,0,-25,20,"#AAAAAA");
+        textItem.setText("No item selected");*/
+
+    </script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

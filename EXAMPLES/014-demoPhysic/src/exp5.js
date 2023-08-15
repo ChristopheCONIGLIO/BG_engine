@@ -12,7 +12,7 @@ class exp5 extends BG_script{
         // affichage text
         this.text = undefined;
         this.text = new BG_text(bg,true,false,this.p_layer+1,this.decX+20,this.decY+20,18,"#FFFFFF");
-        this.text.setText("Expérience 1: ");
+        this.text.setText("Experience 5: ");
 
         // timer
         this.time = 0;

@@ -42,10 +42,12 @@ class BG_engine{
 		//-----------------------------------------------------------------------------------//
 		//-----------------------------------------------------------------------------------//
 		this.bg_g_collisionEngine;
-		this.bg_g_collisionEngineOffSetX;
-		this.bg_g_collisionEngineOffSetY;
-		this.initCollisionEngine(6000,6000,50);
-	 	this.setOffSetCollisionengine(-2000,-2000);
+		this.bg_g_collisionEngineOffSetX = -2000;
+		this.bg_g_collisionEngineOffSetY = -2000;
+		this.bg_g_collisionEngineSizeX = 6000;
+		this.bg_g_collisionEngineSizeY = 6000;
+		this.initCollisionEngine(this.bg_g_collisionEngineSizeX,this.bg_g_collisionEngineSizeY,50);
+	 	this.setOffSetCollisionengine(this.bg_g_collisionEngineOffSetX,this.bg_g_collisionEngineOffSetY);
 		//-----------------------------------------------------------------------------------//
 		//-----------------------------------------------------------------------------------//
 		// gestion evenement
@@ -117,7 +119,7 @@ class BG_engine{
 		this.bg_g_listScript.push( obj );
 	}
 	//----------------------------------
-	deleteScript(obg){
+	deleteScript(obj){
 		this.bg_g_listScriptUnload.push(obj);
 	}
 	//----------------------------------
@@ -157,14 +159,11 @@ class BG_engine{
 			}
 			if( index != -1 ){
 				this.bg_g_listScriptUnload[k].destructor();
-				this.bg_g_listObj.splice(index, 1);
+				this.bg_g_listScript.splice(index, 1);
 			}
 		}
 
 		this.bg_g_stat.setRenderEngineObject(0);
-		
-		
-		
 		// handle objetc
 		for(var i = 0 ; i < this.bg_g_nbLayer ; i++){
 			for(var k = 0 ; k < this.bg_g_listObj[i].length ; k++){
@@ -256,17 +255,31 @@ class BG_engine{
 	//----------------------------------
 	//----------------------------------
 	// Method for handle specific 2d collision engine
+	// il faudrait les mettre dans un bg stat spéciique pour la collsision
 	//----------------------------------
 	//----------------------------------
 	initCollisionEngine(sizeX,sizeY,incrementArray){
 		this.bg_g_collisionEngine = new BG_collision(this,true,sizeX,sizeY,incrementArray);
+		this.bg_g_collisionEngineSizeX = sizeX;
+		this.bg_g_collisionEngineSizeY = sizeY;
 	}
 	setOffSetCollisionengine(offSetX,offSetY){
 		this.bg_g_collisionEngineOffSetX = offSetX;
 		this.bg_g_collisionEngineOffSetY = offSetY;	
 	}	
+	getMinXColission(){	return this.bg_g_collisionEngineOffSetX;	}
+	getMinYColission(){	return this.bg_g_collisionEngineOffSetY;	}
+	getMaxXColission(){	return this.bg_g_collisionEngineOffSetX+this.bg_g_collisionEngineSizeX;	}
+	getMaxYColission(){	return this.bg_g_collisionEngineOffSetY+this.bg_g_collisionEngineSizeY;	}
+	
 	pTerrainFree(npx,npy,radius){
 		return this.bg_g_collisionEngine.pTerrainFree(npx,npy,radius);
+	}
+	pTerrainFreeCrossable(npx,npy,radius){
+		return this.bg_g_collisionEngine.pTerrainFreeCrossable(npx,npy,radius);
+	}
+	pTerrainFreeObject(npx,npy,radius){
+		return this.bg_g_collisionEngine.pTerrainFreeObject(npx,npy,radius);
 	}
 	//----------------------------------
 

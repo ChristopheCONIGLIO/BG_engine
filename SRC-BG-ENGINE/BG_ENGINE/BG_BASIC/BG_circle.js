@@ -227,6 +227,10 @@ class BG_circle extends BG_coreObjectBasic{
 		this.p_physicStatic = value;
 		this.p_physicObjet._static = this.p_physicStatic;
 	}
+	pCrossable(value){
+		if( value == true || value ==false) this.p_physicObjet._crossable = value;
+		else								this.p_physicObjet._crossable = false;
+	}
 	pGXY(gX,gY){	//set gravity
 		this.p_physicObjet._gravityX = gX;
 		this.p_physicObjet._gravityY = gY;

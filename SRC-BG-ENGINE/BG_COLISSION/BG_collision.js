@@ -109,15 +109,17 @@ class BG_collision {
 			if( nbBlock < 2 )	nbBlock = 2;
 			var posTabX = Math.floor((npx-radius)/this._stpSize);
 			var posTabXend = posTabX + nbBlock;
-			if( posTabXend > Math.ceil(this._sizeWidth/this._stpSize) ) posTabXend = Math.ceil(this._sizeWidth/this._stpSize);
+			//if( posTabXend > Math.ceil(this._sizeWidth/this._stpSize) ) posTabXend = Math.ceil(this._sizeWidth/this._stpSize);
 			var posTabY = Math.floor((npy-radius)/this._stpSize);
 			var posTabYend = posTabY + nbBlock;
-			if( posTabYend > Math.ceil(this._sizeHeight/this._stpSize) ) posTabYend = Math.ceil(this._sizeHeight/this._stpSize);
+			//if( posTabYend > Math.ceil(this._sizeHeight/this._stpSize) ) posTabYend = Math.ceil(this._sizeHeight/this._stpSize);
 			var i,j,m,l;
 			var here;
 			var counterContact = 0;
 			for( i=posTabX ; i<posTabXend;i++){
 				for( j=posTabY;j<posTabYend;j++){
+					if( i < 0 || j < 0 ) continue;
+					if( i >= this._tabGrid.length || j >= this._tabGrid[i].length) continue;
 					for( m = 0 ; m < this._tabGrid[i][j].length ;m++){
 						if( this._tabGrid[i][j][m] != this){
 							here = true;
@@ -139,6 +141,88 @@ class BG_collision {
 				}
 			}
 			return true;
+		}
+		pTerrainFreeCrossable(npx,npy,radius){
+			npx -= this._BG_engine.bg_g_collisionEngineOffSetX;
+			npy -= this._BG_engine.bg_g_collisionEngineOffSetY;
+			var tabCollision = new Array();
+			var nbBlock = Math.ceil((radius*2)/this._stpSize)+1;
+			if( nbBlock < 2 )	nbBlock = 2;
+			var posTabX = Math.floor((npx-radius)/this._stpSize);
+			var posTabXend = posTabX + nbBlock;
+			//if( posTabXend > Math.ceil(this._sizeWidth/this._stpSize) ) posTabXend = Math.ceil(this._sizeWidth/this._stpSize);
+			var posTabY = Math.floor((npy-radius)/this._stpSize);
+			var posTabYend = posTabY + nbBlock;
+			//if( posTabYend > Math.ceil(this._sizeHeight/this._stpSize) ) posTabYend = Math.ceil(this._sizeHeight/this._stpSize);
+			var i,j,m,l;
+			var here;
+			var counterContact = 0;
+			for( i=posTabX ; i<posTabXend;i++){
+				for( j=posTabY;j<posTabYend;j++){
+					if( i < 0 || j < 0 ) continue;
+					if( i >= this._tabGrid.length || j >= this._tabGrid[i].length) continue;
+					for( m = 0 ; m < this._tabGrid[i][j].length ;m++){
+						if( this._tabGrid[i][j][m] != this){
+							here = true;
+							for( l = 0 ; l < tabCollision.length ; l++){
+								if( this._tabGrid[i][j][m] == tabCollision[l][3] ){
+									here = false;
+									//break ???
+								}
+							}
+							if( here ){
+								counterContact++;
+								var distance = this.squareDistance(this._tabGrid[i][j][m]._px,this._tabGrid[i][j][m]._py,npx,npy);
+								if( !(this._tabGrid[i][j][m]._crossable) && distance < (this._tabGrid[i][j][m]._radius + radius)*(this._tabGrid[i][j][m]._radius + radius) ){
+									return false;
+								}
+							}
+						}
+					}
+				}
+			}
+			return true;
+		}
+		pTerrainFreeObject(npx,npy,radius){
+			npx -= this._BG_engine.bg_g_collisionEngineOffSetX;
+			npy -= this._BG_engine.bg_g_collisionEngineOffSetY;
+			var tabCollision = new Array();
+			var nbBlock = Math.ceil((radius*2)/this._stpSize)+1;
+			if( nbBlock < 2 )	nbBlock = 2;
+			var posTabX = Math.floor((npx-radius)/this._stpSize);
+			var posTabXend = posTabX + nbBlock;
+			//if( posTabXend > Math.ceil(this._sizeWidth/this._stpSize) ) posTabXend = Math.ceil(this._sizeWidth/this._stpSize);
+			var posTabY = Math.floor((npy-radius)/this._stpSize);
+			var posTabYend = posTabY + nbBlock;
+			//if( posTabYend > Math.ceil(this._sizeHeight/this._stpSize) ) posTabYend = Math.ceil(this._sizeHeight/this._stpSize);
+			var i,j,m,l;
+			var here;
+			var counterContact = 0;
+			for( i=posTabX ; i<posTabXend;i++){
+				for( j=posTabY;j<posTabYend;j++){
+					if( i < 0 || j < 0 ) continue;
+					if( i >= this._tabGrid.length || j >= this._tabGrid[i].length) continue;
+					for( m = 0 ; m < this._tabGrid[i][j].length ;m++){
+						if( this._tabGrid[i][j][m] != this){
+							here = true;
+							for( l = 0 ; l < tabCollision.length ; l++){
+								if( this._tabGrid[i][j][m] == tabCollision[l][3] ){
+									here = false;
+									//break ???
+								}
+							}
+							if( here ){
+								counterContact++;
+								var distance = this.squareDistance(this._tabGrid[i][j][m]._px,this._tabGrid[i][j][m]._py,npx,npy);
+								if( distance < (this._tabGrid[i][j][m]._radius + radius)*(this._tabGrid[i][j][m]._radius + radius) ){
+									return this._tabGrid[i][j][m];
+								}
+							}
+						}
+					}
+				}
+			}
+			return undefined;
 		}
 		squareDistance($c1Px,$c1Py,$c2Px,$c2Py){
 			return (($c1Px-$c2Px)*($c1Px-$c2Px))+(($c1Py-$c2Py)*($c1Py-$c2Py));

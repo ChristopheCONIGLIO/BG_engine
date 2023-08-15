@@ -11,8 +11,8 @@ class exp3 extends BG_script{
         //
         // affichage text
         this.text = undefined;
-        this.text = new BG_text(bg,true,false,this.p_layer,this.decX+20,this.decY+20,18,"#FFFFFF");
-        this.text.setText("Expérience 1: ");
+        this.text = new BG_text(bg,true,false,this.p_layer+3,this.decX+20,this.decY+20,18,"#FFFFFF");
+        this.text.setText("Experience 3: ");
 
         // timer
         this.time = 0;

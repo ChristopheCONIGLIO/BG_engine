@@ -7,12 +7,27 @@ class BG_script{
 	constructor(bg) {
 		this.p_bg = bg;
 		this.p_bg.addScript(this);
+		this.p_alive = true;
 	}
 	destructor(){
 	}
 
 	enterFrame(){
         //execute some code
+	}
+	remove(){
+		this.p_bg.deleteScript(this);
+		this.p_alive = false;
+	}
+
+
+
+
+
+	
+	//info alive
+	getAlive(){
+		return this.p_alive;
 	}
 
 }
