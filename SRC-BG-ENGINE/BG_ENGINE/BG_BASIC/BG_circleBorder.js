@@ -77,17 +77,24 @@ class BG_circleBorder extends BG_coreObjectBasic{
 	getPosY(){
 		return this.p_pY;
 	}
-
-
-
-
-
-
-
-
-
-
-
+	setFond(value){
+		this.p_fond = value;
+	}
+	getFond(){
+		return this.p_fond;
+	}
+	setColorBorder(value){
+		this.p_colorBorder = value;
+	}
+	getColorBorder(){
+		return this.p_colorBorder;
+	}
+	setBorder(value){
+		this.p_border = value;	
+	}
+	getBorder(){
+		return this.p_border;
+	}
 
 
 
@@ -251,31 +258,22 @@ class BG_circleBorder extends BG_coreObjectBasic{
 		local function
 
 	*/
-	setFond(value){
-		this.p_fond = value;
-	}
-	setColorBorder(value){
-		this.p_colorBorder = value;
-	}
-	setBorder(value){
-		this.p_border = value;
-		
-	}
+	
 	drawCircle(x, y, size ,color,border) {
 		this.p_ctx.globalAlpha = this.alpha;
 		this.p_ctx.beginPath();
 		this.p_ctx.arc(x+size/2, y+size/2, size/2, 0, 2*Math.PI, 0);
-		this.p_ctx.lineWidth = border;
+		if( border > 0) this.p_ctx.lineWidth = border;
 		
 
 		if( this.p_fond){
 			this.p_ctx.fillStyle = color;
 			this.p_ctx.fill(); 
 			this.p_ctx.strokeStyle = this.p_colorBorder;
-			this.p_ctx.stroke();
+			if( border > 0) this.p_ctx.stroke();
 		}else{
 			this.p_ctx.strokeStyle = this.p_colorBorder;
-			this.p_ctx.stroke();
+			if( border > 0) this.p_ctx.stroke();
 		}
 
 		this.p_ctx.globalAlpha = 1;

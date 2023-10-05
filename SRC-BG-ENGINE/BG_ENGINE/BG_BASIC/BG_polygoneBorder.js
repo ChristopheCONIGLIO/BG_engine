@@ -55,6 +55,24 @@ class BG_polygoneBorder extends BG_coreObjectBasic{
 	getArrayPoint(){
 		return this.p_arrayPoint;
 	}
+	setFond(value){
+		this.p_fond = value;
+	}
+	getFond(){
+		return this.p_fond;
+	}
+	setColorBorder(value){
+		this.p_colorBorder = value;
+	}
+	getColorBorder(){
+		return this.p_colorBorder;
+	}
+	setBorder(value){
+		this.p_border = value;	
+	}
+	getBorder(){
+		return this.p_border;
+	}
 
 
 	/*
@@ -96,15 +114,8 @@ class BG_polygoneBorder extends BG_coreObjectBasic{
 		local function
 
 	*/
-	setFond(value){
-		this.p_fond = value;
-	}
-	setColorBorder(value){
-		this.p_colorBorder = value;
-	}
-	setBorder(value){
-		this.p_border = value;
-	}
+	
+
 	drawPoly(decX,decY,zoom,border) {
 		
 			var x = decX+this.p_pX*zoom;
@@ -164,7 +175,7 @@ class BG_polygoneBorder extends BG_coreObjectBasic{
 				if( ptsOsave )this.p_ctx.lineTo(ptsOsave[0],ptsOsave[1]);
 				if( pts1save )this.p_ctx.lineTo(pts1save[0],pts1save[1]); // ? how to better optimize ???
 			}
-			this.p_ctx.lineWidth = border;
+			if( border > 0)this.p_ctx.lineWidth = border;
 			this.p_ctx.strokeStyle = this.p_colorBorder;
 
 			if( this.p_fond){
@@ -172,7 +183,7 @@ class BG_polygoneBorder extends BG_coreObjectBasic{
 				this.p_ctx.fill(); 
 			}
 
-			this.p_ctx.stroke();
+			if( border > 0) this.p_ctx.stroke();
 			this.p_ctx.globalAlpha = 1;
 			
 			if( this.rotation != 0){

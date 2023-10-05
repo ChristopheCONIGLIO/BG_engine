@@ -4,18 +4,23 @@
 */
 
 class BG_rectBorder extends BG_coreObjectBasic{
-	constructor(bg,onBoard,fixed,layer,pX,pY,sX,sY,color,border,fillcolor) {
+	constructor(bg,onBoard,fixed,layer,pX,pY,sX,sY,color,border,colorBorder,fond) {
+		super(bg,onBoard,fixed,layer,pX,pY,sX,sY,color);
+		this.p_border = border;
+		this.p_colorBorder = colorBorder;
+		this.p_fond		=  fond;
 		
-		if( fillcolor != undefined){
-			super(bg,onBoard,fixed,layer,pX,pY,sX,sY,color);
+
+		//if( fillcolor != undefined){
+			/*super(bg,onBoard,fixed,layer,pX,pY,sX,sY,color);
 			this.p_border = border;
-			this.p_fillcolor = fillcolor;
-		}
-		else{
+			this.p_fillcolor = fillcolor;*/
+		//}
+		/*else{
 			super(bg,onBoard,fixed,layer,pX,pY,sX,sY,color);
 			this.p_border = border;
 			this.p_fillcolor = undefined;
-		}
+		}*/
 		this.p_bg.addObject(this,this.p_layer);
 	}
 	
@@ -56,6 +61,25 @@ class BG_rectBorder extends BG_coreObjectBasic{
 	getDimY(){
 		return this.p_sY;
 	}
+	setFond(value){
+		this.p_fond = value;
+	}
+	getFond(){
+		return this.p_fond;
+	}
+	setColorBorder(value){
+		this.p_colorBorder = value;
+	}
+	getColorBorder(){
+		return this.p_colorBorder;
+	}
+	setBorder(value){
+		this.p_border = value;	
+	}
+	getBorder(){
+		return this.p_border;
+	}
+	
 
 	/* 
 
@@ -100,15 +124,16 @@ class BG_rectBorder extends BG_coreObjectBasic{
 		this.p_ctx.globalAlpha = this.alpha;
 		this.p_ctx.beginPath();
 		this.p_ctx.rect(x,y ,width,height);
-		if( this.p_fillcolor){
-			
-			this.p_ctx.fillStyle = this.p_fillcolor;
+		
+		if( this.p_fond == true ){
+			this.p_ctx.fillStyle = color;
 			this.p_ctx.fill(); 
 		}
 		this.p_ctx.rect(x,y ,width,height);
-		this.p_ctx.strokeStyle = color;
-		this.p_ctx.lineWidth = border;
-		this.p_ctx.stroke();
+		
+		this.p_ctx.strokeStyle = this.p_colorBorder;
+		if( border > 0)this.p_ctx.lineWidth = border;
+		if( border > 0)this.p_ctx.stroke();
 		
 		this.p_ctx.globalAlpha = 1;
 					

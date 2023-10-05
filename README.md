@@ -1,4 +1,4 @@
-v1.500
+v1.501
 
 Projet
 ------
@@ -65,6 +65,12 @@ Les caractéristiques du moteur 2D sont les suivantes :
 
 Change log
 ----------
+    05/10/2023 -- v1.501 Correction mineures
+    -------------------
+    05/10/2023 -- Ajout "getteurs" arguments des objets avec bordure
+    05/10/2023 -- Nettoyage des projets en exemples
+    05/10/2023 -- Correction et ajout de l'option "fond" sur l'objet rectangle avec bordure
+    
     06/08/2023 -- v1.500 Modifications majeures touchant tout le moteur (compatibles avec version <1.5)
     --------------------
     06/08/2023 -- Le zoom est focalisé sur la position souris
