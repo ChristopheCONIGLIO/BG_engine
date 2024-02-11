@@ -1,4 +1,4 @@
-v1.501
+v1.600
 
 Projet
 ------
@@ -65,6 +65,10 @@ Les caractéristiques du moteur 2D sont les suivantes :
 
 Change log
 ----------
+    11/02/2023 -- v1.600 Ajout d'un texte sur plusieurs ligne
+    -------------------
+    11/02/2023 -- Ajout d'un texte sur plusieurs ligne BG_textWidthConstraint.js
+    
     05/10/2023 -- v1.501 Correction mineures
     -------------------
     05/10/2023 -- Ajout "getteurs" arguments des objets avec bordure
@@ -228,6 +232,7 @@ Idées d'amélioration
     -- Ne gere pas plus de deux doigts pour le mobile
     -- Ajouter des limites de déplacement max sur la partie drag and drop et zoom
     -- Limite texte à revoir car ne fonctionne pas sur les grands format
+    -- Le texte BG_textWidthConstraint.js ne gere pas bien la rotation
     -- L'optimisation du rendu des tracés ne prend pas totalement en compte les modifications de dimensions à cause de la rotation (l'implémentation actuelle favorise l'optimisation à l'exactitude)
     -- Améliorer la fonction getMouseOver pour les objets polygones avec bordure
     -- Amléiorer les forme avec bordures pour pas voir la délimitation en alpha 
