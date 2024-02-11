@@ -65,7 +65,7 @@ Les caractéristiques du moteur 2D sont les suivantes :
 
 Change log
 ----------
-    11/02/2023 -- v1.600 Ajout d'un texte sur plusieurs ligne
+    11/02/2023 -- v1.600 Ajout d'un texte sur plusieurs lignes
     -------------------
     11/02/2023 -- Ajout d'un texte sur plusieurs ligne BG_textWidthConstraint.js
     
