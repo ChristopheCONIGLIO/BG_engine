@@ -1,4 +1,4 @@
-v1.600
+v1.601
 
 Projet
 ------
@@ -65,9 +65,15 @@ Les caractéristiques du moteur 2D sont les suivantes :
 
 Change log
 ----------
-    11/02/2023 -- v1.600 Ajout d'un texte sur plusieurs lignes
+    23/10/2024 -- v1.601 FIX sur la gestion du tactile et autres
     -------------------
-    11/02/2023 -- Ajout d'un texte sur plusieurs ligne BG_textWidthConstraint.js
+    23/10/2024 -- L'anulation du tactile ne marchait pas cause oubli cela est corrigé
+    23/10/2024 -- Choix de partir sur getBoundingClientRect dans la taille de la fenttre du rendu
+    23/10/2024 -- Amélioration du tactile sur iOS
+
+    11/02/2024 -- v1.600 Ajout d'un texte sur plusieurs lignes
+    -------------------
+    11/02/2024 -- Ajout d'un texte sur plusieurs ligne BG_textWidthConstraint.js
     
     05/10/2023 -- v1.501 Correction mineures
     -------------------
@@ -229,6 +235,8 @@ Idées d'amélioration
 --------------------
    
     -- Ajouter un système de masque sur les objets
+    -- ce moteur surcharge la plupart des info souris/tactile mais ne porpose pas d'event 
+    -- bug sur le zoom tactile sur navigateur ios
     -- Ne gere pas plus de deux doigts pour le mobile
     -- Ajouter des limites de déplacement max sur la partie drag and drop et zoom
     -- Limite texte à revoir car ne fonctionne pas sur les grands format
@@ -236,5 +244,6 @@ Idées d'amélioration
     -- L'optimisation du rendu des tracés ne prend pas totalement en compte les modifications de dimensions à cause de la rotation (l'implémentation actuelle favorise l'optimisation à l'exactitude)
     -- Améliorer la fonction getMouseOver pour les objets polygones avec bordure
     -- Amléiorer les forme avec bordures pour pas voir la délimitation en alpha 
-     -- **Doc à créer**
+    -- **Doc à créer**
+    -- un optimisation sèvère sur la supression des objets est à mettre en place en effet on parcourt les layers alors qu'on pourrait le savoir avant
 

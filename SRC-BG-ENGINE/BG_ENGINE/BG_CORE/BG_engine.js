@@ -18,9 +18,9 @@ class BG_engine{
 		this.bg_g_context = this.g_canvasDoc.getContext("2d");
 		this.bg_g_context.canvas.width  = this.g_canvasDoc.clientWidth;
 		this.bg_g_context.canvas.height = this.g_canvasDoc.clientHeight;
-		
-		this.bg_g_width = this.g_canvasDoc.width;
-		this.bg_g_height = this.g_canvasDoc.height;
+		let rect = this.g_canvasDoc.getBoundingClientRect();
+		this.bg_g_width = rect.width;
+		this.bg_g_height = rect.height;
 		this.bg_g_nbLayer = nbLayer;
 		this.bg_g_listObj = new Array(this.bg_g_nbLayer);
 		for(var k = 0 ; k < this.bg_g_nbLayer ; k++){

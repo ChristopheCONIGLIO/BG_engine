@@ -29,8 +29,16 @@ class BG_eventTouch {
 			event.preventDefault();
 			if (event.targetTouches.length == 1) {
 				let rect = me.g_canvasDoc.getBoundingClientRect();
-				let mX = event.changedTouches[0].pageX-rect.x;
-				let mY = event.changedTouches[0].pageY-rect.y;
+				let mX;
+				let mY;
+				if( rect.x == undefined){
+					mX = event.changedTouches[0].pageX-rect.left;
+					mY = event.changedTouches[0].pageY-rect.top;
+				}
+				else{
+					mX = event.changedTouches[0].pageX-rect.x;
+					mY = event.changedTouches[0].pageY-rect.y;
+				}
 				me.g_bg.mouseX = mX;
 				me.g_bg.mouseY = mY;
 				me.g_bg.bg_g_stat.setMouseXScreen	(mX);
@@ -39,9 +47,11 @@ class BG_eventTouch {
 				let decYs = (-me.g_bg.decY+me.g_bg.bg_g_height/2) * (1-me.g_bg.zoomLevel);
 				me.g_bg.bg_g_stat.setMouseXBoard	((mX-(me.g_bg.decX+decXs))/me.g_bg.zoomLevel);
 				me.g_bg.bg_g_stat.setMouseYBoard	((mY-(me.g_bg.decY+decYs))/me.g_bg.zoomLevel);
-				if( me.g_bg.mouseDownX != -1){//init ?
-					me.g_bg.decX = (-me.g_bg.mouseDownX+ event.changedTouches[0].pageX )/me.g_bg.zoomLevel;
-					me.g_bg.decY = (-me.g_bg.mouseDownY+ event.changedTouches[0].pageY )/me.g_bg.zoomLevel;
+				if( me.g_bg.bg_g_manualControl == true){
+					if( me.g_bg.mouseDownX != -1){//init ?
+						me.g_bg.decX = (-me.g_bg.mouseDownX+ event.changedTouches[0].pageX )/me.g_bg.zoomLevel;
+						me.g_bg.decY = (-me.g_bg.mouseDownY+ event.changedTouches[0].pageY )/me.g_bg.zoomLevel;
+					}
 				}
 			}
 
@@ -50,7 +60,7 @@ class BG_eventTouch {
                 me.updatePositionTouch(event.changedTouches[1].pageX,event.changedTouches[1].pageY);
             }
 
-			if (event.targetTouches.length == 2 && me.g_touchInitialised == true) {
+			if (me.g_bg.bg_g_manualControl == true && event.targetTouches.length == 2 && me.g_touchInitialised == true) {
 				var currentDistance = me.rootSquareDistance(
                     me.touch1X,
                     me.touch1Y,
@@ -147,12 +157,23 @@ class BG_eventTouch {
 			if (event.targetTouches.length == 1) {
 				me.g_bg.mouseDownX = (-me.g_bg.decX*me.g_bg.zoomLevel+ event.changedTouches[0].pageX );
 				me.g_bg.mouseDownY = (-me.g_bg.decY*me.g_bg.zoomLevel+ event.changedTouches[0].pageY );
-				me.touch1X = event.changedTouches[0].pageX;
-				me.touch1Y = event.changedTouches[0].pageY;
+				let touchX = event.changedTouches[0].pageX || 0; 
+				let touchY = event.changedTouches[0].pageY || 0;
+				me.touch1X = touchX;
+				me.touch1Y = touchY;
 
 				let rect = me.g_canvasDoc.getBoundingClientRect();
-				let mX = event.changedTouches[0].pageX-rect.x;
-				let mY = event.changedTouches[0].pageY-rect.y;
+				let mX;
+				let mY;
+				if( rect.x == undefined){
+					mX = event.changedTouches[0].pageX-rect.left;
+					mY = event.changedTouches[0].pageY-rect.top;
+				}
+				else{
+					mX = event.changedTouches[0].pageX-rect.x;
+					mY = event.changedTouches[0].pageY-rect.y;
+				}
+				
 				me.g_bg.mouseX = mX;
 				me.g_bg.mouseY = mY;
 				me.g_bg.bg_g_stat.setMouseXScreen	(mX);
