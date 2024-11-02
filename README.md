@@ -1,4 +1,4 @@
-v1.601
+v1.602
 
 Projet
 ------
@@ -65,6 +65,11 @@ Les caractéristiques du moteur 2D sont les suivantes :
 
 Change log
 ----------
+    02/11/2024 -- v1.602 FIX rendu image
+    -------------------
+    02/11/2024 -- Le rendu d'image affiche un rentangle gris avec un alpah tant que l'image n'est pas chargé
+    02/11/2024 -- Ajout d'un setteur dans le rendu d'image pour savoir si l'image est chargée
+
     23/10/2024 -- v1.601 FIX sur la gestion du tactile et autres
     -------------------
     23/10/2024 -- L'anulation du tactile ne marchait pas cause oubli cela est corrigé
@@ -221,15 +226,13 @@ Change log
     15/02/2022 -- Ajout de la transparence sur les objets avec la fonction setAlpha
     15/02/2022 -- Ajout des paramètre elementHTML, nombre de couche et nombre de FPS dans l'appel principal du moteur
    
-    2015 - 2022 - v1.000
+    Année 2015  - v1.000
     -------------------
-    2015       -- Originel HTML5 2d engine - Christophe CONIGLIO
+    2015       -- Premeire version du BG engine moteur en HTML5 proposant une caméra de type cartographie par Christophe CONIGLIO
     2015       -- Expérimentation premeirs débuts sur les capacités du HTML5
-    2015       -- Expérimentation premeurs débuts de la balise canvas permetant de faire du rendu 2D
-
-    2013       - v0.000 Creation du moteur physique 2d dans Flash qui sera intégré ici plus tard
-    -------------------     
-    2013       -- Originel flash code 2d pcircle physic engine - Christophe CONIGLIO 
+    2015       -- Expérimentation premeirs débuts de la balise canvas permetant de faire du rendu 2D
+    2013       -- [Moteur Physique] Creation du moteur physique 2d dans Flash qui sera intégré ici plus tard
+    2013       -- [Moteur Physique] Originel flash code 2d pcircle physic engine par Christophe CONIGLIO 
 
 Idées d'amélioration
 --------------------

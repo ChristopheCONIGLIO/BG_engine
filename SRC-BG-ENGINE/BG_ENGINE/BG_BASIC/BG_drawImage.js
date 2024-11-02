@@ -36,9 +36,12 @@ class BG_drawImage extends BG_coreObjectBasic{
 		return this.localURL;
 	}
 	setImageURL(url){
-		if( this.localURL == url) return;
+		if( this.localURL == url) return; //micro optimisation for abuser of this function
 		this.localURL = url;
 		this.img.src = url;
+	}
+	setStatutLoadImage(){
+		return this.img.complete;
 	}
 	setPos(pX,pY){
 		this.p_pX = pX;
@@ -115,7 +118,14 @@ class BG_drawImage extends BG_coreObjectBasic{
 		}
 
 		this.p_ctx.globalAlpha = this.alpha;
-		this.p_ctx.drawImage(this.img, x,y,width,height);
+
+		if( this.img.complete) {
+			this.p_ctx.drawImage(this.img, x,y,width,height);
+		}
+		else{
+			this.p_ctx.fillStyle = 'rgba(200, 200, 200, 0.5)'; 
+			this.p_ctx.fillRect(x, y, width, height); 
+		}
 		this.stat.setRenderEngineObject( this.stat.getRenderEngineObject() + 1 );
 		this.p_ctx.globalAlpha = 1;
 		
