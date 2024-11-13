@@ -1,4 +1,4 @@
-v1.602
+v1.603
 
 Projet
 ------
@@ -65,6 +65,10 @@ Les caractéristiques du moteur 2D sont les suivantes :
 
 Change log
 ----------
+    13/11/2024 -- v1.603 FIX tactitle ios
+    -------------------
+    13/11/2024 -- la gestion tactile est completement opérationnel sur tous les supports android et ios , testé sur iphone,ipad et téléphone android
+
     02/11/2024 -- v1.602 FIX rendu image
     -------------------
     02/11/2024 -- Le rendu d'image affiche un rentangle gris avec un alpah tant que l'image n'est pas chargé
@@ -239,9 +243,6 @@ Idées d'amélioration
    
     -- Ajouter un système de masque sur les objets
     -- ce moteur surcharge la plupart des info souris/tactile mais ne porpose pas d'event 
-    -- bug sur le zoom tactile sur navigateur ios
-    -- Ne gere pas plus de deux doigts pour le mobile
-    -- Ajouter des limites de déplacement max sur la partie drag and drop et zoom
     -- Limite texte à revoir car ne fonctionne pas sur les grands format
     -- Le texte BG_textWidthConstraint.js ne gere pas bien la rotation
     -- L'optimisation du rendu des tracés ne prend pas totalement en compte les modifications de dimensions à cause de la rotation (l'implémentation actuelle favorise l'optimisation à l'exactitude)

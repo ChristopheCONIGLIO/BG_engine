@@ -67,7 +67,27 @@ class BG_eventTouch {
                     me.touch2X,
                     me.touch2Y
                 );
+
+				//exeperimental
+				var mXBa = me.g_bg.bg_g_stat.convertPointScreenToBoardX((me.touch1X+me.touch2X)/2);
+				var mYBa = me.g_bg.bg_g_stat.convertPointScreenToBoardY((me.touch1Y+me.touch2Y)/2);
                 me.g_bg.zoomLevel = me.g_touchInitialZoom*currentDistance/me.g_touchDistanceSecondPoint;
+				let mX = (me.touch1X+me.touch2X)/2;
+				let mY = (me.touch1Y+me.touch2Y)/2;
+				let decXs = (-me.g_bg.decX+me.g_bg.bg_g_width/2) * (1-me.g_bg.zoomLevel);
+				let decYs = (-me.g_bg.decY+me.g_bg.bg_g_height/2) * (1-me.g_bg.zoomLevel);
+				var mXBb = (mX-(me.g_bg.decX+decXs))/me.g_bg.zoomLevel;
+				var mYBb = (mY-(me.g_bg.decY+decYs))/me.g_bg.zoomLevel;
+				me.g_bg.decX -= mXBa-mXBb;
+				me.g_bg.decY -= mYBa-mYBb;
+				//mX = me.g_bg.mouseX;
+				//mY = me.g_bg.mouseY;
+				decXs = (-me.g_bg.decX+me.g_bg.bg_g_width/2) * (1-me.g_bg.zoomLevel);
+				decYs = (-me.g_bg.decY+me.g_bg.bg_g_height/2) * (1-me.g_bg.zoomLevel);
+				me.g_bg.bg_g_stat.setMouseXBoard	((mX-(me.g_bg.decX+decXs))/me.g_bg.zoomLevel);
+				me.g_bg.bg_g_stat.setMouseYBoard	((mY-(me.g_bg.decY+decYs))/me.g_bg.zoomLevel);
+				
+			
 			}
 
 		}, false);
@@ -145,6 +165,13 @@ class BG_eventTouch {
 				me.g_bg.mouseDownY = (-me.g_bg.decY*me.g_bg.zoomLevel+ me.touch1Y );
 			}
             me.g_touchInitialised = false;
+			if (event.targetTouches.length === 0) {
+				me.touch1X = -1;
+				me.touch1Y = -1;
+				me.touch2X = -1;
+				me.touch2Y = -1;
+				me.g_touchInitialised = false;
+			}
 		}, false);
 
         /* ------------------------------
@@ -189,15 +216,10 @@ class BG_eventTouch {
 			}
 			if( event.targetTouches.length >= 2 && me.g_touchInitialised == false){
 				me.disactivatedClic = 1;
-				if( me.touch1X == -1){
-					me.touch1X = event.changedTouches[0].pageX;
-					me.touch1Y = event.changedTouches[0].pageY;
-				}
-				else{
-					me.touch2X = event.changedTouches[0].pageX;
-					me.touch2Y = event.changedTouches[0].pageY;
-				}
-
+				me.touch1X = event.targetTouches[0].pageX;
+				me.touch1Y = event.targetTouches[0].pageY;
+				me.touch2X = event.targetTouches[1].pageX;
+				me.touch2Y = event.targetTouches[1].pageY;
 				me.g_touchInitialised = true;
 				me.g_touchInitialZoom = me.g_bg.zoomLevel;
 				me.g_touchDistanceSecondPoint = me.rootSquareDistance(
@@ -208,6 +230,23 @@ class BG_eventTouch {
 										);
                 
 			}
+			/*if (event.targetTouches.length >= 2) {
+				me.disactivatedClic = 1;
+		
+				me.touch1X = event.targetTouches[0].pageX;
+				me.touch1Y = event.targetTouches[0].pageY;
+				me.touch2X = event.targetTouches[1].pageX;
+				me.touch2Y = event.targetTouches[1].pageY;
+		
+				me.g_touchInitialised = true;
+				me.g_touchInitialZoom = me.g_bg.zoomLevel;
+				me.g_touchDistanceSecondPoint = me.rootSquareDistance(
+					me.touch1X,
+					me.touch1Y,
+					me.touch2X,
+					me.touch2Y
+				);
+			}*/
 		}, false);
 
 	}
