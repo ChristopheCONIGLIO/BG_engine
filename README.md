@@ -65,14 +65,15 @@ Les caractéristiques du moteur 2D sont les suivantes :
 
 Change log
 ----------
-    13/11/2024 -- v1.603 FIX tactitle ios
-    -------------------
-    13/11/2024 -- la gestion tactile est completement opérationnel sur tous les supports android et ios , testé sur iphone,ipad et téléphone android
 
-    02/11/2024 -- v1.602 FIX rendu image
+    13/11/2024 — v1.603 : Correction du tactile sur iOS
     -------------------
-    02/11/2024 -- Le rendu d'image affiche un rentangle gris avec un alpah tant que l'image n'est pas chargé
-    02/11/2024 -- Ajout d'un setteur dans le rendu d'image pour savoir si l'image est chargée
+    13/11/2024 -- La gestion tactile est maintenant complètement opérationnelle sur tous les supports Android et iOS, testée sur iPhone, iPad et téléphones Android.
+
+    02/11/2024 — v1.602 : Correction du rendu d'image
+    -------------------
+    13/11/2024 -- Le rendu d'image affiche un rectangle gris avec une transparence tant que l'image n'est pas chargée.
+    13/11/2024 -- Ajout d'un setter dans le rendu d'image pour indiquer si l'image est chargée.
 
     23/10/2024 -- v1.601 FIX sur la gestion du tactile et autres
     -------------------
