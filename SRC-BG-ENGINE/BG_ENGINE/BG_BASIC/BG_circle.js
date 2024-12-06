@@ -254,8 +254,8 @@ class BG_circle extends BG_coreObjectBasic{
 
 
 	remove(){
-		if( this.p_physicEnable = true) this.setPhysicDisable();
-		this.p_bg.deleteObject(this);
+		super.remove();
+		if( this.p_physicEnable == true) this.setPhysicDisable();
 	}
 	
 

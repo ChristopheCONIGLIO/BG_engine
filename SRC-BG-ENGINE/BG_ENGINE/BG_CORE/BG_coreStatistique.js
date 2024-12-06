@@ -23,8 +23,56 @@ class BG_coreStatistique {
 		this.bg_g_mouseYBoard = 0;				// position souris sur la board (y)
 		this.bg_g_mouseClick = 0;				//permet de savoir si un click et présent 
 		this.bg_g_mouseDown = 0;				//permet de savoir si le bouton est enfoncé ou pas 
+	
+		//limit camera
+		this.bg_g_limitCameraZoomMin = 20;	//limit camera zoom Min
+		this.bg_g_limitCameraZoomMax = 0.1;	//limit camera zoom Max
+		this.bg_g_limitCameraPosXMin = -0;		//limit camera position X
+		this.bg_g_limitCameraPosXMax = 1000;		//limit camera position Y
+		this.bg_g_limitCameraPosYMin = -1000;		//limit camera position X
+		this.bg_g_limitCameraPosYMax = 1000;		//limit camera position Y
+	
 	}
 	
+	//fonction limitCamera
+	setLimitCameraZoomMin(val){
+		this.bg_g_limitCameraZoomMin = val;
+	}
+	setLimitCameraZoomMax(val){
+		this.bg_g_limitCameraZoomMax = val;
+	}
+	setLimitCameraPosXMin(val){
+		this.bg_g_limitCameraPosXMin = val;
+	}
+	setLimitCameraPosXMax(val){
+		this.bg_g_limitCameraPosXMax = val;
+	}
+	setLimitCameraPosYMin(val){
+		this.bg_g_limitCameraPosYMin = val;
+	}
+	setLimitCameraPosYMax(val){
+		this.bg_g_limitCameraPosYMax = val;
+	}
+	
+	getLimitCameraZoomMin(val){
+		return this.bg_g_limitCameraZoomMin;
+	}
+	getLimitCameraZoomMax(val){
+		return this.bg_g_limitCameraZoomMax;
+	}
+	getLimitCameraPosXMin(val){
+		return this.bg_g_limitCameraPosXMin;
+	}
+	getLimitCameraPosXMax(val){
+		return this.bg_g_limitCameraPosXMax;
+	}
+	getLimitCameraPosYMin(val){
+		return this.bg_g_limitCameraPosYMin;
+	}
+	getLimitCameraPosYMax(val){
+		return this.bg_g_limitCameraPosYMax;
+	}
+
 	
 	//fonctions attaquant directement les bonne class depuis BG_engine alias g_bg
 

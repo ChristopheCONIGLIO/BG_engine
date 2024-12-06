@@ -33,7 +33,21 @@
         //
         //
         //
-        
+        // Redéfinir les méthodes console pour afficher une alerte
+/*['log', 'warn', 'error'].forEach(function(method) {
+    const original = console[method];
+    console[method] = function(...args) {
+        alert(`[Console ${method.toUpperCase()}] ${args.join(' ')}`);
+        original.apply(console, args); // Appel de la méthode console d'origine
+    };
+});
+
+// Capturer les erreurs non interceptées
+window.onerror = function(message, source, lineno, colno, error) {
+    alert(`[Unhandled Error] ${message} at ${source}:${lineno}:${colno}`);
+    return true; // Empêcher la console par défaut
+};*/
+
 
        
         //
@@ -60,14 +74,16 @@
        
         //
         // ajout d'un texte classique
-        var textOB1    = new BG_text(bg_engine,true,false,10,0,0,25,"#884444");
+        /*var textOB1    = new BG_text(bg_engine,true,false,10,0,0,25,"#884444");
         textOB1.setText("ceci est un texte sur une ligne, ceci est un texte sur une ligne, ceci est un texte sur une ligne, ceci est un texte sur une ligne");
-        
+        */
 
-        var textOB2c    = new BG_textWidthConstraint(bg_engine,true,false,10,0,100,25,500,"#8844FF");
-        textOB2c.setText("ceci est un texte sur une ligne, ceci est un texte sur une ligne, ceci est un texte sur une ligne, ceci est un texte sur une ligne, ceci est un texte sur une ligne, ceci est un texte sur une ligne, ceci est un texte sur une ligne, ceci est un texte sur une ligne, ceci est un texte sur une ligne, ceci est un texte sur une ligne, ceci est un texte sur une ligne, ceci est un texte sur une ligne, ceci est un texte sur une ligne, ceci est un texte sur une ligne, ceci est un texte sur une ligne, ceci est un texte sur une ligne, ceci est un texte sur une ligne, ceci est un texte sur une ligne, ceci est un texte sur une ligne, ceci est un texte sur une ligne, ceci est un texte sur une ligne, ceci est un texte sur une ligne, ceci est un texte sur une ligne, ceci est un texte sur une ligne");
-        //textOB2c.setRotation(30);
         
+        var textOB2c    = new BG_textWidthConstraint(bg_engine,true,false,10,0,100,25,500,"#8844FF");
+        textOB2c.setFont("Helvetica");
+        textOB2c.setText("e, ceci | est123\n123 un texte sur une ligne ceci est\n un texte sur une \nligne, ceci est un texte sur une ligne, ceci est un texte sur une ligne, ceci est un texte sur une ligne, ceci est un texte sur une ligne, ceci est un texte sur une ligne, ceci est un texte sur une ligne, ceci est un texte sur une ligne, ceci est un texte sur une ligne, ceci est un texte sur une ligne, ceci est un texte sur une ligne, ceci est un texte sur une ligne, ceci est un texte sur une ligne, ceci est un texte sur une ligne, ceci est un texte sur une ligne, ceci est un texte sur une ligne, ceci est un texte sur une ligne, ceci est un texte sur une ligne, ceci est un texte sur une ligne");
+        //textOB2c.setRotation(30);
+        /*
         var textOB3c    = new BG_textWidthConstraint(bg_engine,true,false,10,500,100,25,500,"#229955");
         textOB3c.setText("ceci est un texte sur une ligne, ceci est un texte sur une ligne, ceci est un texte sur une ligne, ceci est un texte sur une ligne, ceci est un texte sur une ligne, ceci est un texte sur une ligne, ceci est un texte sur une ligne, ceci est un texte sur une ligne, ceci est un texte sur une ligne, ceci est un texte sur une ligne, ceci est un texte sur une ligne, ceci est un texte sur une ligne");
         textOB3c.setRotation(30);
@@ -79,7 +95,7 @@
         var textOB11cs    = new BG_textWidthConstraint(bg_engine,false,false,10,0,300,25,250,"#8844FF");
         textOB11cs.setText("ceci est un texte sur une ligne, ceci est un texte sur une ligne");
         textOB11cs.setRotation(30);
-        
+        */
 
     </script>
 </html>

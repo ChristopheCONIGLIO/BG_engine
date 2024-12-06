@@ -40,8 +40,16 @@ class BG_drawImage extends BG_coreObjectBasic{
 		this.localURL = url;
 		this.img.src = url;
 	}
-	setStatutLoadImage(){
+	getStatutLoadImage(){
 		return this.img.complete;
+	}
+	getNaturalWidth(){
+		if(this.img.complete != true) return -1
+		return this.img.naturalWidth;
+	}
+	getNaturalHeight(){
+		if(this.img.complete != true) return -1
+		return this.img.naturalHeight;
 	}
 	setPos(pX,pY){
 		this.p_pX = pX;
@@ -75,6 +83,7 @@ class BG_drawImage extends BG_coreObjectBasic{
 	getDimY(){
 		return this.p_sY;
 	}
+	
 
 
 	/*

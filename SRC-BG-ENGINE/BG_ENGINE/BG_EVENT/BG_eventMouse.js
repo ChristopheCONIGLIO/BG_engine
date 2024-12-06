@@ -27,14 +27,14 @@ class BG_eventMouse {
 		this.g_canvasDoc.addEventListener("mouseout",function(event){
 			me.g_bg.mouseDownX = -1;
 			me.g_bg.bg_g_stat.setMouseDown(0);
-			me.g_bg.mouseX = -1000;
-			me.g_bg.mouseY = -1000;
+			/*me.g_bg.mouseX = -1000;
+			me.g_bg.mouseY = -1000;*/
 		});
 		this.g_canvasDoc.addEventListener("mouseleave",function(event){
 			me.g_bg.mouseDownX = -1;
 			me.g_bg.bg_g_stat.setMouseDown(0);
-			me.g_bg.mouseX = -1000;
-			me.g_bg.mouseY = -1000;
+			/*me.g_bg.mouseX = -1000;
+			me.g_bg.mouseY = -1000;*/
 		});
 		this.g_canvasDoc.addEventListener("click",function(event){
 			var dis = me.rootSquareDistance(me.m1x,
@@ -56,6 +56,19 @@ class BG_eventMouse {
 			let mY = event.pageY-rect.y;
 			me.g_bg.mouseX = mX;
 			me.g_bg.mouseY = mY;
+			
+			/*
+			let mScX = me.g_bg.bg_g_stat.convertPointScreenToBoardX(me.g_bg.mouseX)
+			
+			if( mScX < me.g_bg.bg_g_stat.getLimitCameraPosXMin()) {
+				me.g_bg.mouseX = me.g_bg.bg_g_stat.convertPointBoardToScreenX(me.g_bg.mouseX);
+			}*/
+
+			/*if( me.g_bg.mouseX < me.g_bg.bg_g_stat.getLimitCameraPosXMin()) me.g_bg.mouseX = me.g_bg.bg_g_stat.getLimitCameraPosXMin();
+			if( me.g_bg.mouseX > me.g_bg.bg_g_stat.getLimitCameraPosXMax()) me.g_bg.mouseX = me.g_bg.bg_g_stat.getLimitCameraPosXMax();
+			if( me.g_bg.mouseY < me.g_bg.bg_g_stat.getLimitCameraPosYMin()) me.g_bg.mouseY = me.g_bg.bg_g_stat.getLimitCameraPosYMin();
+			if( me.g_bg.mouseY > me.g_bg.bg_g_stat.getLimitCameraPosYMax()) me.g_bg.mouseY = me.g_bg.bg_g_stat.getLimitCameraPosYMax();
+*/
 			me.g_bg.bg_g_stat.setMouseXScreen	(mX);
 			me.g_bg.bg_g_stat.setMouseYScreen	(mY);
 			let decXs = (-me.g_bg.decX+me.g_bg.bg_g_width/2) * (1-me.g_bg.zoomLevel);

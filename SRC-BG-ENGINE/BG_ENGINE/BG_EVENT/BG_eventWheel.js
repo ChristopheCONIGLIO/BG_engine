@@ -24,6 +24,11 @@ class BG_eventWheel {
 					me.g_bg.zoomLevel = me.g_bg.zoomLevel*1.08; 
 				}
 				if( me.g_bg.zoomLevel< 0 )	me.g_bg.zoomLevel = 0;
+				//limit
+				if( me.g_bg.zoomLevel > me.g_bg.bg_g_stat.getLimitCameraZoomMin()) me.g_bg.zoomLevel = me.g_bg.bg_g_stat.getLimitCameraZoomMin();
+				if( me.g_bg.zoomLevel < me.g_bg.bg_g_stat.getLimitCameraZoomMax()) me.g_bg.zoomLevel = me.g_bg.bg_g_stat.getLimitCameraZoomMax();
+
+				//
 
 				let mX = me.g_bg.mouseX;
 				let mY = me.g_bg.mouseY;

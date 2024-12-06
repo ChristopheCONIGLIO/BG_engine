@@ -43,6 +43,7 @@ class BG_coreObjectBasic {
 	}
 	
 	destructor(){
+		// TODO pas clair retondant avec remove
 		// appeler quand l'objet est détruit
 		// (permet de supprimer d'autre objet graphique compris dans l'objet lui meme)
 	}
@@ -114,10 +115,11 @@ class BG_coreObjectBasic {
 	}
 
 	//rotation
-	setRotation(arg){
-		this.rotation = arg;
-		if( arg < 0) this.rotation = 0;
-		if( arg > 360) this.rotation = 0;
+	setRotation(arg) {
+		this.rotation = arg % 360; 
+		if (this.rotation < 0) {
+			this.rotation += 360;
+		}
 	}
 	getRotation(){
 		return this.rotation;

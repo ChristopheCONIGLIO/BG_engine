@@ -72,6 +72,8 @@ class BG_eventTouch {
 				var mXBa = me.g_bg.bg_g_stat.convertPointScreenToBoardX((me.touch1X+me.touch2X)/2);
 				var mYBa = me.g_bg.bg_g_stat.convertPointScreenToBoardY((me.touch1Y+me.touch2Y)/2);
                 me.g_bg.zoomLevel = me.g_touchInitialZoom*currentDistance/me.g_touchDistanceSecondPoint;
+				if( me.g_bg.zoomLevel > me.g_bg.bg_g_stat.getLimitCameraZoomMin()) me.g_bg.zoomLevel = me.g_bg.bg_g_stat.getLimitCameraZoomMin();
+				if( me.g_bg.zoomLevel < me.g_bg.bg_g_stat.getLimitCameraZoomMax()) me.g_bg.zoomLevel = me.g_bg.bg_g_stat.getLimitCameraZoomMax();
 				let mX = (me.touch1X+me.touch2X)/2;
 				let mY = (me.touch1Y+me.touch2Y)/2;
 				let decXs = (-me.g_bg.decX+me.g_bg.bg_g_width/2) * (1-me.g_bg.zoomLevel);

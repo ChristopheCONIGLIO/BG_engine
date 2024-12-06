@@ -17,6 +17,7 @@ class BG_textWidthConstraint extends BG_coreObjectBasic{
 		this.widthConstraint = widthConstraint;
 		this.font = "Arial";
 		this.text = "";
+		this.arrayLines = new Array();
 		this.bold = false;
 
 	}
@@ -65,6 +66,8 @@ class BG_textWidthConstraint extends BG_coreObjectBasic{
 
 	setText(text){
 		this.text = text;
+		var info = this.getLocalInfo();
+		this.prepareLines(info[4],info[5]);
 	}
 	getText(text){
 		return this.text;
@@ -124,14 +127,14 @@ class BG_textWidthConstraint extends BG_coreObjectBasic{
 			let widthConstraint = info[5];
 			
 			//determine if form must be draw
-			/*if( px-pSX > this.stat.getScreenWidth())	return;
+			if( px-pSX > this.stat.getScreenWidth())	return;
 			if( py-this.p_size-pSY > this.stat.getScreenHeight())	return;
 			if( px + pSX < 0)		return;
-			if( py-this.p_size + pSY < 0)		return;
+			if( py-this.p_size + pSY < -(size*this.p_size))		return;
 			if( this.p_bg.debugContour == true) this.drawLimitContour(px,py-this.p_size,pSX,pSY);
-			*/ // commentaire :  A revoir car problèle sur gros texte
+			
 			// draw the form
-			this.drawText(px,py,pSX,pSY,size,widthConstraint);	
+			this.drawText(px,py,size,widthConstraint);	
 			this.stat.setRenderEngineObject( this.stat.getRenderEngineObject() + 1 );
 		}
 	}
@@ -140,51 +143,83 @@ class BG_textWidthConstraint extends BG_coreObjectBasic{
 	/* 
 		locales functions 
 	*/
-	macroTraceCssText(zoom){
-		if( this.bold == true)	return "bold "+(zoom*this.p_size) +"px "+this.font;
-		else					return (zoom*this.p_size) +"px "+this.font;
-	}
 	
-
-	
-	drawText(x, y, width, height,zoom,widthConstraint) {
-		
-		//
-		// TODO
-		// a rotation ne marche pas à cause de x et y, semble assea compelxe à résoudre
-		//
-		// La detection de contour est pas parfaite aussi il y a un petit décalage sur la hauteur
-		//
-		if( this.rotation != 0){
-			this.p_ctx.translate(x+width/2,y-height/2);
-			this.p_ctx.rotate(this.rotation * Math.PI / 180);
-			this.p_ctx.translate(-x-width/2,-y+height/2);
-		}
-
-		this.p_ctx.globalAlpha = this.alpha;
-		this.p_ctx.font = this.macroTraceCssText(zoom);
-		this.p_ctx.fillStyle = this.p_color;
-	
+	/*
+	prepareLines(zoom,widthConstraint){
+		this.arrayLines = new Array();
 		const words = this.text.split(' ');
 		let line = '';
-		let lineNumber = 1;
-	
+		let lineNumber = 1; 
 		for (let i = 0; i < words.length; i++) {
 			const testLine = line + words[i] + ' ';
 			const metrics = this.p_ctx.measureText(testLine);
 			const testWidth = metrics.width;
-	
 			if (testWidth > widthConstraint && i > 0) {
-				this.p_ctx.fillText(line, x, y + (lineNumber - 1) * metrics.actualBoundingBoxAscent*1.4);
+				this.arrayLines.push(line);
 				line = words[i] + ' ';
 				lineNumber++;
 			} else {
-				line = testLine;
+				line = testLine; // Continue à accumuler la ligne
 			}
 		}
+		if (line) this.arrayLines.push(line);
+	}*/
+	prepareLines(zoom, widthConstraint) {
+		this.arrayLines = new Array();
+		const words = this.text.split(' ');
+		let line = '';
+		let lineNumber = 1; 
 	
-		this.p_ctx.fillText(line, x, y + (lineNumber - 1) * this.p_ctx.measureText(line).actualBoundingBoxAscent*1.4);
-		
+		// Séparation du texte en fonction des retours à la ligne explicites
+		const lines = this.text.split('\n');  // Divise le texte par les sauts de ligne explicites
+	
+		for (let j = 0; j < lines.length; j++) {
+			const lineText = lines[j];
+			const lineWords = lineText.split(' ');  // Sépare chaque ligne en mots
+	
+			for (let i = 0; i < lineWords.length; i++) {
+				const testLine = line + lineWords[i] + ' ';
+				const metrics = this.p_ctx.measureText(testLine);
+				const testWidth = metrics.width;
+	
+				// Si la largeur dépasse la contrainte et il y a déjà des mots dans la ligne
+				if (testWidth > widthConstraint && i > 0) {
+					this.arrayLines.push(line); // Ajouter la ligne à l'array
+					line = lineWords[i] + ' '; // Démarrer une nouvelle ligne avec le mot actuel
+					lineNumber++;
+				} else {
+					line = testLine; // Continue à accumuler les mots dans la ligne
+				}
+			}
+	
+			// Si après avoir traité tous les mots dans la ligne, il reste du texte, ajouter cette ligne
+			if (line) {
+				this.arrayLines.push(line);
+				line = ''; // Réinitialiser pour la prochaine ligne
+			}
+		}
+	}
+	
+	
+	macroTraceCssText(zoom){
+		if( this.bold == true)	return "bold "+((zoom*this.p_size)) +"px "+this.font;
+		else					return ((zoom*this.p_size)) +"px "+this.font;
+	}
+	
+	drawText(x, y ,zoom,widthConstraint) {
+		let lineHeight = zoom*this.p_size * 1.3; 
+		let textHeight = lineHeight*this.arrayLines.length;
+		if( this.rotation != 0){
+			this.p_ctx.translate(x+widthConstraint/2,y+textHeight/2);
+			this.p_ctx.rotate(this.rotation * Math.PI / 180);
+			this.p_ctx.translate(-x-widthConstraint/2,-y-textHeight/2);
+		}
+		this.p_ctx.globalAlpha = this.alpha;
+		this.p_ctx.font = this.macroTraceCssText(zoom);
+		this.p_ctx.fillStyle = this.p_color;
+		for (let i = 0; i < this.arrayLines.length; i++) {
+			this.p_ctx.fillText(this.arrayLines[i], x, y + (i) * lineHeight);
+		}
 		this.stat.setRenderEngineObject(this.stat.getRenderEngineObject() + 1);
 		this.p_ctx.globalAlpha = 1;
 	
@@ -192,10 +227,7 @@ class BG_textWidthConstraint extends BG_coreObjectBasic{
 			this.p_ctx.setTransform(1, 0, 0, 1, 0, 0);
 		}
 	}
-	
-	
-	
-	
+
 
 	getLocalInfo(){
 		let decX = this.p_bg.decXwithZoom;
@@ -232,22 +264,25 @@ class BG_textWidthConstraint extends BG_coreObjectBasic{
 			size = 1.0;
 			widthConstraint = this.widthConstraint;
 		}
-
-		return [px,py,pSX,pSY,size,widthConstraint];
+		let lineHeight = zoom*this.p_size * 1.3; 
+		let textHeight = lineHeight*this.arrayLines.length;
+		
+		return [px,py,widthConstraint,textHeight,size,widthConstraint];
 	}
 
 	
 
 	getInfoPoints(){
-
 		var info = this.getLocalInfo();
 		let px  = info[0];
 		let py  = info[1];
 		let pSX = info[2];
 		let pSY = info[3];
+		let size = info[4];
+		
 
 		//local corection ?		
-		py = py - pSY;
+		py -= size*this.p_size;
 		//with this adjustment the 4 poitns are very correct Good !!!
 
 		let array4points = new Array([0,0],[0,0],[0,0],[0,0]); //limit position
@@ -259,9 +294,9 @@ class BG_textWidthConstraint extends BG_coreObjectBasic{
 		array4points[1][0] =  cx - pSX/2;
 		array4points[1][1] =  cy + pSY/2;
 		array4points[3][0] =  cx + pSX/2;
-		array4points[3][1] =  cy - pSY/2 + 2*pSY;
+		array4points[3][1] =  cy - pSY/2;
 		array4points[2][0] =  cx - pSX/2;
-		array4points[2][1] =  cy - pSY/2 + 2*pSY;
+		array4points[2][1] =  cy - pSY/2;
 		var tab = this.tools_rotatePointFromCenter (array4points[0][0],array4points[0][1], cx,cy, this.rotation);
 		array4points[0][0] = tab[0];
 		array4points[0][1] = tab[1];
@@ -274,9 +309,6 @@ class BG_textWidthConstraint extends BG_coreObjectBasic{
 		tab = this.tools_rotatePointFromCenter (array4points[3][0],array4points[3][1], cx,cy, this.rotation);
 		array4points[3][0] = tab[0];
 		array4points[3][1] = tab[1];
-
-		
-
 		return array4points;
 	}
 
@@ -284,7 +316,7 @@ class BG_textWidthConstraint extends BG_coreObjectBasic{
 	getMouseOver(){
 		var array4points = this.getInfoPoints();
 		
-		//this.drawExactContour(array4points);
+		this.drawExactContour(array4points);
 		this.mouseOver = this.tools_pointInsidePolygone(
 				array4points,
 				this.p_bg.mouseX,

@@ -1,4 +1,4 @@
-v1.603
+v1.700
 
 Projet
 ------
@@ -66,9 +66,12 @@ Les caractéristiques du moteur 2D sont les suivantes :
 Change log
 ----------
 
-    13/11/2024 — v1.603 : Correction du tactile sur iOS
+    13/11/2024 — v1.700 : multiple évolution + Correction du tactile sur iOS
     -------------------
     13/11/2024 -- La gestion tactile est maintenant complètement opérationnelle sur tous les supports Android et iOS, testée sur iPhone, iPad et téléphones Android.
+    13/11/2024 -- Ajoute la récupération de la taille noturel d'une image
+    13/11/2024 -- Amélioration de la forme texte sur plusieurs lignes
+    13/11/2024 -- Ajout de limites pour la caméra (uniquement le zoom)
 
     02/11/2024 — v1.602 : Correction du rendu d'image
     -------------------
@@ -251,4 +254,5 @@ Idées d'amélioration
     -- Amléiorer les forme avec bordures pour pas voir la délimitation en alpha 
     -- **Doc à créer**
     -- un optimisation sèvère sur la supression des objets est à mettre en place en effet on parcourt les layers alors qu'on pourrait le savoir avant
+    -- ajouter les limites de navigation sur x et y
 
