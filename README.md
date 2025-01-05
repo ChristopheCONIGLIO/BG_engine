@@ -2,7 +2,7 @@ v1.700
 
 Projet
 ------
-BackGround engine (nommé [B]ack[G]ground_engine - BG_engine).
+BackGround engine (nommé [B]ack[G]round_engine - BG_engine).
 
 <v1 en 2015 au début du HTML5 et de la balise canvas>
 
