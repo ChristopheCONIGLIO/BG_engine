@@ -1,4 +1,4 @@
-v1.700
+v1.710
 
 Projet
 ------
@@ -65,6 +65,9 @@ Les caractéristiques du moteur 2D sont les suivantes :
 
 Change log
 ----------
+    23/04/2025 - v1.710 : ajout du cache dans la gestion des images
+    -------------------
+    23/04/2025 - La classe BG_drawImage gère maintenant le cache des images
 
     13/11/2024 — v1.700 : multiple évolution + Correction du tactile sur iOS
     -------------------
