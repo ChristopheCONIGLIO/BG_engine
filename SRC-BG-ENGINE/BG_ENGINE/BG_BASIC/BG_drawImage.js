@@ -2,19 +2,32 @@
 	=BG_engine=
 	Author Christophe CONIGLIO Mars/2022
 */
+function BG_imageManager() {}
+BG_imageManager.cache = {};
+BG_imageManager.getImage = function(url) {
+    if (!BG_imageManager.cache[url]) {
+        var img = new Image();
+        img.src = url;
+        BG_imageManager.cache[url] = img;
+    }
+    return BG_imageManager.cache[url];
+};
+
 
 class BG_drawImage extends BG_coreObjectBasic{
 	constructor(bg,onBoard,fixed,layer,pX,pY,sX,sY,urlImage) {
 		
 		if( urlImage == undefined){
 			super(bg,onBoard,false,fixed,layer,pX,pY,sX,0);
-			this.img = document.createElement("img");
-			this.img.src = sY;
+			//this.img = document.createElement("img");
+			this.img = BG_imageManager.getImage(sY);
+			//this.img.src = sY;
 		}
 		else{
 			super(bg,onBoard,fixed,layer,pX,pY,sX,sY,0);
-			this.img = document.createElement("img");
-			this.img.src = urlImage;
+			//this.img = document.createElement("img");
+			this.img = BG_imageManager.getImage(urlImage);
+			//this.img.src = urlImage;
 		}
 		this.localURL = urlImage;
 		this.p_bg.addObject(this,this.p_layer);
@@ -38,7 +51,8 @@ class BG_drawImage extends BG_coreObjectBasic{
 	setImageURL(url){
 		if( this.localURL == url) return; //micro optimisation for abuser of this function
 		this.localURL = url;
-		this.img.src = url;
+		//this.img.src = url;
+		this.img = BG_imageManager.getImage(url);
 	}
 	getStatutLoadImage(){
 		return this.img.complete;
